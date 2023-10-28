@@ -2,7 +2,6 @@ package entities;
 /**
  * Clase que describe producto
  */
-public class Producto 
-{
+public class Producto {
     
 }
