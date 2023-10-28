@@ -7,7 +7,7 @@ package entities;
  * @param <T> the type of element stored in the node
  */
 public class ListNode<T> extends Node<T> {
-    private Integer next;
+    public ListNode<T> next;
 
     /**
      * Constructs a new ListNode object with the specified element.
