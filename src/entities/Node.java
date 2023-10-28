@@ -19,4 +19,28 @@ public class Node<AnyType> {
         this.left = left;
         this.right = right;
     }
+
+    public void setHeigth(Integer heigth) {
+        this.heigth = heigth;
+    }
+
+    public Integer getHeigth() {
+        return heigth;
+    }
+
+    public void setLeft(Node<AnyType> left) {
+        this.left = left;
+    }
+
+    public Node<AnyType> getLeft() {
+        return left;
+    }
+
+    public void setRight(Node<AnyType> right) {
+        this.right = right;
+    }
+
+    public Node<AnyType> getRight() {
+        return right;
+    }
 }
