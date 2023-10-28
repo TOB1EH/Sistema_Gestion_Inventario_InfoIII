@@ -7,9 +7,9 @@ package entities;
  * @param <T> the type of element stored in the node
  */
 public class TreeNode<T> extends Node<T> {
-    private Integer height;
-    private Node<T> left;
-    private Node<T> right;
+    Integer height;
+    Node<T> left;
+    Node<T> right;
 
     /**
      * Constructs a TreeNode object with the specified element.
