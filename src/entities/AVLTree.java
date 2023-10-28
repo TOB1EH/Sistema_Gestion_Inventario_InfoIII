@@ -1,17 +1,17 @@
-import javax.swing.tree.TreeNode;
-
+package entities;
+ 
 public class AVLTree<T> {
-    Node<T> root;
+    TreeNode<T> root;
 
     public AVLTree() {
         this.root = null;
     }
 
-    public AVLTree(Node<T> root) {
+    public AVLTree(TreeNode<T> root) {
         this.root = root;
     }
 
-    public Node<T> getRoot() {
+    public TreeNode<T> getRoot() {
         return this.root;
     }
 
@@ -20,16 +20,16 @@ public class AVLTree<T> {
      * @param root of the avl tree.
      * @return height of avl tree, 0 if there's no root.
      */
-    public int getHeight(Node<T> root) {
+    public int getHeight(TreeNode<T> root) {
         return (root != null) ? root.getHeight() : 0;
     }
 
     /**
-     * Returns balance factor of a node in an avl tree.
+     * Returns balance factor of a TreeNode in an avl tree.
      * @param root of the avl tree.
      * @return factor balance of avl tree, 0 if there's no root.
      */
-    public int getBalance(Node<T> root) {
+    public int getBalance(TreeNode<T> root) {
         return (root != null) ? (getHeight(root.getleft()) - getHeight(root.getright())) : 0;
     }
 
@@ -37,7 +37,7 @@ public class AVLTree<T> {
      * Updates the heigth of the avl tree.
      * @param root of the avl tree to update the heigth.
      */
-    public void updateHeigth(Node<T> root) {
+    public void updateHeigth(TreeNode<T> root) {
         root.setHeight(1 + Math.max(getHeight(root.getleft()), getHeight(root.getright())));
     }
 
@@ -51,13 +51,13 @@ public class AVLTree<T> {
 
     /**
      * Creates a new tree, using three parameters
-     * @param leftBranch leftNode
-     * @param value of the root-node
-     * @param rightBranch rightNode
-     * @return tree node created
+     * @param leftBranch leftTreeNode
+     * @param value of the root-TreeNode
+     * @param rightBranch rightTreeNode
+     * @return tree TreeNode created
      */
-    public Node<T> newTree(Node<T> leftBranch, T value, Node<T> rightBranch) {
-        return new Node<>(value, leftBranch, rightBranch);
+    public TreeNode<T> newTree(TreeNode<T> leftBranch, T value, TreeNode<T> rightBranch) {
+        return new TreeNode<>(value, leftBranch, rightBranch);
     }
 
     /** (IND)
@@ -65,25 +65,25 @@ public class AVLTree<T> {
      * visita el nodo raiz (N), en tercer y ultimo lugar recorre el subarbol derecho en orden (D).
      * @param root of the binary tree
      */
-    public void inOrder(Node<T> root) {
+    public void inOrder(TreeNode<T> root) {
         //Caso base: que el subarbol este vacio (root == null)
         if(root != null) {
             inOrder(root.getleft());
-            root.printValueNode();
+            root.printValueTreeNode();
             inOrder(root.getright());
         }
     }
 
     /**
-     * Calculates and returns the total number of nodes of a binary tree
+     * Calculates and returns the total number of TreeNodes of a binary tree
      * @param root of the binary tree
-     * @return total number of nodes
+     * @return total number of TreeNodes
      */
-    public int getNumNodes(Node<T> root) {
+    public int getNumTreeNodes(TreeNode<T> root) {
         if(root == null) {
             return 0;
         } else {
-            return 1 + getNumNodes(root.getleft()) + getNumNodes(root.getright());
+            return 1 + getNumTreeNodes(root.getleft()) + getNumTreeNodes(root.getright());
         }
     }
 
@@ -92,7 +92,7 @@ public class AVLTree<T> {
      * @param root of the tree
      * @return amount of levels of the tree (depth)
      */
-    public int depth(Node<T> root) {
+    public int depth(TreeNode<T> root) {
         int leftMax = 0; 
         int rightMax = 0;
         
@@ -111,7 +111,7 @@ public class AVLTree<T> {
 
     /* Metodo optimizado de depth. Ver el depth primero antes que este. 
     Luego, una vez entendido depth, dejar este nuevo depth escrito y borrar el de arriba.
-    public int depth(TreeNode<U> root) {
+    public int depth(TreeTreeNode<U> root) {
         if(root == null) {
             return 0;
         } 
@@ -122,10 +122,10 @@ public class AVLTree<T> {
     } 
     */
 
-    /** Prints all leaves nodes (nodos hoja) of the tree.
-     * @param root of the tree who have the leaves nodes to be printed
+    /** Prints all leaves TreeNodes (nodos hoja) of the tree.
+     * @param root of the tree who have the leaves TreeNodes to be printed
      */
-    public void printLeaves(Node<T> root) {
+    public void printLeaves(TreeNode<T> root) {
         if(root == null) {
             return;
         }
@@ -146,9 +146,9 @@ public class AVLTree<T> {
      * @param root of avl tree.
      * @return new root of avl tree.
      */
-    Node<T> rightRotate(Node<T> root) {
-        Node<T> x = root.left;
-        Node<T> t2 = x.right;
+    TreeNode<T> rightRotate(TreeNode<T> root) {
+        TreeNode<T> x = root.left;
+        TreeNode<T> t2 = x.right;
 
         x.setRight(root);
         root.setLeft(t2);
@@ -164,9 +164,9 @@ public class AVLTree<T> {
      * @param root of avl tree.
      * @return new root of avl tree.
      */
-    Node<T> leftRotate(Node<T> root) {
-        Node<T> y = root.right;
-        Node<T> t2 = y.left;
+    TreeNode<T> leftRotate(TreeNode<T> root) {
+        TreeNode<T> y = root.right;
+        TreeNode<T> t2 = y.left;
 
         y.setLeft(root);
         root.setRight(t2);
@@ -178,50 +178,50 @@ public class AVLTree<T> {
     }
 
     /* //Lo estoy completando yo, no tocar
-    Node<T> insert(Node<T> node, int data) {
-        if (node == null) {
-            return new Node(data);
+    TreeNode<T> insert(TreeNode<T> TreeNode, int data) {
+        if (TreeNode == null) {
+            return new TreeNode(data);
         }
 
-        if (data < node.data) {
-            node.left = insert(node.left, data);
-        } else if (data > node.data) {
-            node.right = insert(node.right, data);
+        if (data < TreeNode.data) {
+            TreeNode.left = insert(TreeNode.left, data);
+        } else if (data > TreeNode.data) {
+            TreeNode.right = insert(TreeNode.right, data);
         } else {
             // No permitir duplicados
-            return node;
+            return TreeNode;
         }
 
         // Actualizar la altura del nodo actual
-        node.height = 1 + max(height(node.left), height(node.right));
+        TreeNode.height = 1 + max(height(TreeNode.left), height(TreeNode.right));
 
         // Obtener el factor de equilibrio del nodo para verificar el equilibrio
-        int balance = getBalance(node);
+        int balance = getBalance(TreeNode);
 
         // Casos de desequilibrio y rotaciones
         // Caso izquierda izquierda
-        if (balance > 1 && data < node.left.data) {
-            return rightRotate(node);
+        if (balance > 1 && data < TreeNode.left.data) {
+            return rightRotate(TreeNode);
         }
 
         // Caso derecha derecha
-        if (balance < -1 && data > node.right.data) {
-            return leftRotate(node);
+        if (balance < -1 && data > TreeNode.right.data) {
+            return leftRotate(TreeNode);
         }
 
         // Caso izquierda derecha
-        if (balance > 1 && data > node.left.data) {
-            node.left = leftRotate(node.left);
-            return rightRotate(node);
+        if (balance > 1 && data > TreeNode.left.data) {
+            TreeNode.left = leftRotate(TreeNode.left);
+            return rightRotate(TreeNode);
         }
 
         // Caso derecha izquierda
-        if (balance < -1 && data < node.right.data) {
-            node.right = rightRotate(node.right);
-            return leftRotate(node);
+        if (balance < -1 && data < TreeNode.right.data) {
+            TreeNode.right = rightRotate(TreeNode.right);
+            return leftRotate(TreeNode);
         }
 
-        return node;
+        return TreeNode;
     }
 
     // Lo estoy completando yo, no tocar
@@ -229,15 +229,15 @@ public class AVLTree<T> {
         root = insert(root, data);
     } */
 
-    public Node<T> delete(Node<T> root, int data) {
+    public TreeNode<T> delete(TreeNode<T> root, int data) {
         //To Do
     }
 
-    public Node<T> leftRigthRotate(Node<T> z) {
+    public TreeNode<T> leftRigthRotate(TreeNode<T> z) {
         //To do rotacion doble izquierda
     }
 
-    public Node<T> rightLeftRotate(Node<T> z) {
+    public TreeNode<T> rightLeftRotate(TreeNode<T> z) {
         //To do rotacion doble derecha
     }
 }
