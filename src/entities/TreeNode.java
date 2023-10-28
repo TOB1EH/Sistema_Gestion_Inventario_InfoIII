@@ -7,6 +7,7 @@ package entities;
  * @param <T> the type of element stored in the node
  */
 public class TreeNode<T> extends Node<T> {
+    T element;
     Integer height;
     Node<T> left;
     Node<T> right;
@@ -90,5 +91,9 @@ public class TreeNode<T> extends Node<T> {
      */
     public Node<T> getRight() {
         return right;
+    }
+
+    public void printElementNode() {
+        System.out.println(this.element + " ");
     }
 }

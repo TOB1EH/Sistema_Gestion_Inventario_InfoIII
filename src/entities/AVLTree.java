@@ -42,14 +42,6 @@ public class AVLTree<T> {
     }
 
     /**
-     * Checks if tree is empty
-     * @return true if empty, false otherwise
-     */
-    public boolean isEmpty() {
-        return this.root == null;
-    }
-
-    /**
      * Creates a new tree, using three parameters
      * @param leftBranch leftTreeNode
      * @param element of the root-TreeNode
@@ -69,75 +61,8 @@ public class AVLTree<T> {
         //Caso base: que el subarbol este vacio (root == null)
         if(root != null) {
             inOrder(root.getLeft());
-            root.printelementTreeNode();
+            root.printElementNode();
             inOrder(root.getRight());
-        }
-    }
-
-    /**
-     * Calculates and returns the total number of TreeNodes of a binary tree
-     * @param root of the binary tree
-     * @return total number of TreeNodes
-     */
-    public int getNumTreeNodes(TreeNode<T> root) {
-        if(root == null) {
-            return 0;
-        } else {
-            return 1 + getNumTreeNodes(root.getLeft()) + getNumTreeNodes(root.getRight());
-        }
-    }
-
-    /**Calculates the depth (profundidad o cantidad de niveles) of the tree.
-     * This is the rustic method (coded by me). The following similar methods were extracted from the internet.
-     * @param root of the tree
-     * @return amount of levels of the tree (depth)
-     */
-    public int depth(TreeNode<T> root) {
-        int leftMax = 0; 
-        int rightMax = 0;
-        
-        if(root == null) {
-            return 0;
-        } 
-        if(root.left != null) {
-            leftMax = depth(root.left);
-        }
-        if(root.right != null) {
-            rightMax = depth(root.right);
-        } 
-
-        return Math.max(leftMax, rightMax) + 1;
-    }
-
-    /* Metodo optimizado de depth. Ver el depth primero antes que este. 
-    Luego, una vez entendido depth, dejar este nuevo depth escrito y borrar el de arriba.
-    public int depth(TreeTreeNode<U> root) {
-        if(root == null) {
-            return 0;
-        } 
-        int leftDepth = depth(root.left);
-        int rightDepth = depth(root.right);
-
-        return Math.max(leftDepth, rightDepth) + 1;
-    } 
-    */
-
-    /** Prints all leaves TreeNodes (nodos hoja) of the tree.
-     * @param root of the tree who have the leaves TreeNodes to be printed
-     */
-    public void printLeaves(TreeNode<T> root) {
-        if(root == null) {
-            return;
-        }
-        if(root.left == null && root.right == null) {
-            System.out.print(root.element + ", ");
-            return;
-        }
-        if(root.left != null) {
-            printLeaves(root.left);
-        } 
-        if(root.right != null) {
-            printLeaves(root.right);
         }
     }
 
