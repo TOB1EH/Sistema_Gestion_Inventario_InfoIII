@@ -20,7 +20,7 @@ public class AVLTree<T> {
      * @param root of the avl tree.
      * @return height of avl tree, 0 if there's no root.
      */
-    public int getHeight(TreeNode<T> root) {
+    private int getHeight(TreeNode<T> root) {
         return (root != null) ? root.getHeight() : 0;
     }
 
@@ -29,7 +29,7 @@ public class AVLTree<T> {
      * @param root of the avl tree.
      * @return factor balance of avl tree, 0 if there's no root.
      */
-    public int getBalance(TreeNode<T> root) {
+    private int getBalance(TreeNode<T> root) {
         return (root != null) ? (getHeight(root.getLeft()) - getHeight(root.getRight())) : 0;
     }
 
@@ -37,7 +37,7 @@ public class AVLTree<T> {
      * Updates the heigth of the avl tree.
      * @param root of the avl tree to update the heigth.
      */
-    public void updateHeigth(TreeNode<T> root) {
+    private void updateHeigth(TreeNode<T> root) {
         root.setHeight(1 + Math.max(getHeight(root.getLeft()), getHeight(root.getRight())));
     }
 
@@ -48,7 +48,7 @@ public class AVLTree<T> {
      * @param rightBranch rightTreeNode
      * @return tree TreeNode created
      */
-    public TreeNode<T> newTree(TreeNode<T> leftBranch, T element, TreeNode<T> rightBranch) {
+    private TreeNode<T> newTree(TreeNode<T> leftBranch, T element, TreeNode<T> rightBranch) {
         return new TreeNode<>(element, leftBranch, rightBranch);
     }
 
@@ -57,7 +57,7 @@ public class AVLTree<T> {
      * visita el nodo raiz (N), en tercer y ultimo lugar recorre el subarbol derecho en orden (D).
      * @param root of the binary tree
      */
-    public void inOrder(TreeNode<T> root) {
+    private void inOrder(TreeNode<T> root) {
         //Caso base: que el subarbol este vacio (root == null)
         if(root != null) {
             inOrder(root.getLeft());
@@ -71,7 +71,7 @@ public class AVLTree<T> {
      * @param root of avl tree.
      * @return new root of avl tree.
      */
-    TreeNode<T> rightRotate(TreeNode<T> root) {
+    private TreeNode<T> rightRotate(TreeNode<T> root) {
         TreeNode<T> x = root.left;
         TreeNode<T> t2 = x.right;
 
@@ -89,7 +89,7 @@ public class AVLTree<T> {
      * @param root of avl tree.
      * @return new root of avl tree.
      */
-    TreeNode<T> leftRotate(TreeNode<T> root) {
+    private TreeNode<T> leftRotate(TreeNode<T> root) {
         TreeNode<T> y = root.right;
         TreeNode<T> t2 = y.left;
 
@@ -156,13 +156,16 @@ public class AVLTree<T> {
 
     public TreeNode<T> delete(TreeNode<T> root, int data) {
         //To Do
+        return null;
     }
 
-    public TreeNode<T> leftRigthRotate(TreeNode<T> z) {
+    private TreeNode<T> leftRigthRotate(TreeNode<T> z) {
         //To do rotacion doble izquierda
+        return null;
     }
 
-    public TreeNode<T> rightLeftRotate(TreeNode<T> z) {
+    private TreeNode<T> rightLeftRotate(TreeNode<T> z) {
         //To do rotacion doble derecha
+        return null;
     }
 }
