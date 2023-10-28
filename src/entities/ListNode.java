@@ -4,9 +4,9 @@ package entities;
  * Represents a node in a linked list.
  * The ListNode class is a subclass of the Node class. It contains a reference to the next node in the list.
  *
- * @param <AnyType> the type of element stored in the node
+ * @param <T> the type of element stored in the node
  */
-public class ListNode<AnyType> extends Node<AnyType> {
+public class ListNode<T> extends Node<T> {
     private Integer next;
 
     /**
@@ -14,7 +14,7 @@ public class ListNode<AnyType> extends Node<AnyType> {
      *
      * @param element the element to be stored in the node
      */
-    public ListNode(AnyType element) {
+    public ListNode(T element) {
         super(element);
         this.next = null;
     }
