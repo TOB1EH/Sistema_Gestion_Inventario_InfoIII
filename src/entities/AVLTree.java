@@ -30,7 +30,7 @@ public class AVLTree<T> {
      * @return factor balance of avl tree, 0 if there's no root.
      */
     public int getBalance(TreeNode<T> root) {
-        return (root != null) ? (getHeight(root.getleft()) - getHeight(root.getright())) : 0;
+        return (root != null) ? (getHeight(root.getLeft()) - getHeight(root.getRight())) : 0;
     }
 
     /**
@@ -38,7 +38,7 @@ public class AVLTree<T> {
      * @param root of the avl tree to update the heigth.
      */
     public void updateHeigth(TreeNode<T> root) {
-        root.setHeight(1 + Math.max(getHeight(root.getleft()), getHeight(root.getright())));
+        root.setHeight(1 + Math.max(getHeight(root.getLeft()), getHeight(root.getRight())));
     }
 
     /**
@@ -52,12 +52,12 @@ public class AVLTree<T> {
     /**
      * Creates a new tree, using three parameters
      * @param leftBranch leftTreeNode
-     * @param value of the root-TreeNode
+     * @param element of the root-TreeNode
      * @param rightBranch rightTreeNode
      * @return tree TreeNode created
      */
-    public TreeNode<T> newTree(TreeNode<T> leftBranch, T value, TreeNode<T> rightBranch) {
-        return new TreeNode<>(value, leftBranch, rightBranch);
+    public TreeNode<T> newTree(TreeNode<T> leftBranch, T element, TreeNode<T> rightBranch) {
+        return new TreeNode<>(element, leftBranch, rightBranch);
     }
 
     /** (IND)
@@ -68,9 +68,9 @@ public class AVLTree<T> {
     public void inOrder(TreeNode<T> root) {
         //Caso base: que el subarbol este vacio (root == null)
         if(root != null) {
-            inOrder(root.getleft());
-            root.printValueTreeNode();
-            inOrder(root.getright());
+            inOrder(root.getLeft());
+            root.printelementTreeNode();
+            inOrder(root.getRight());
         }
     }
 
@@ -83,7 +83,7 @@ public class AVLTree<T> {
         if(root == null) {
             return 0;
         } else {
-            return 1 + getNumTreeNodes(root.getleft()) + getNumTreeNodes(root.getright());
+            return 1 + getNumTreeNodes(root.getLeft()) + getNumTreeNodes(root.getRight());
         }
     }
 
@@ -130,7 +130,7 @@ public class AVLTree<T> {
             return;
         }
         if(root.left == null && root.right == null) {
-            System.out.print(root.value + ", ");
+            System.out.print(root.element + ", ");
             return;
         }
         if(root.left != null) {
