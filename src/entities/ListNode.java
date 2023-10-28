@@ -8,6 +8,7 @@ package entities;
  */
 public class ListNode<T> extends Node<T> {
     private Integer next;
+    private long dateid;//date in unix timestamp
 
     /**
      * Constructs a new ListNode object with the specified element.
@@ -17,5 +18,6 @@ public class ListNode<T> extends Node<T> {
     public ListNode(T element) {
         super(element);
         this.next = null;
+        this.dateid = System.currentTimeMillis()/1000;
     }
 }
