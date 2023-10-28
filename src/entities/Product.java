@@ -1,53 +1,46 @@
 package entities;
 /**
- * Clase que describe Product
+ * Class that describes Product
  */
 public class Product{
-
-    private String nombre;
+    private String name;
     private int stock;
-
     /**
-     * Inicializa Product
-     * @param nombre del Product
-     * @param stock del Product
+     * Initializes Product
+     * @param name of the Product
+     * @param stock of the Product
      */
-    public Product(String nombre,int stock)
+    public Product(String name,int stock)
     {
-        this.nombre = nombre;
+        this.name = name;
         this.stock = stock;
     }
-
     /**
-     * Obtiene nombre de producto
-     * @return nombre del producto
+     * Gets the product name
+     * @return name of the product
      */
-    public String getNombre() {
-        return nombre;
+    public String getName() {
+        return name;
     }
-
     /**
-     * Fija nombre del producto
-     * @param nombre
+     * Sets the product name
+     * @param name
      */
-    public void setNombre(String nombre) {
-        this.nombre = nombre;
+    public void setName(String name) {
+        this.name = name;
     }
-
     /**
-     * Obtiene el valor de Stock del producto
-     * @return Stock del producto
+     * Gets the stock value of the product
+     * @return stock of the product
      */
     public int getStock() {
         return stock;
     }
-
     /**
-     * Fija el stock del producto
+     * Sets the stock of the product
      * @param stock
      */
     public void setStock(int stock) {
         this.stock = stock;
     }
-    
 }
