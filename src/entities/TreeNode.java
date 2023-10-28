@@ -9,8 +9,8 @@ package entities;
 public class TreeNode<T> extends Node<T> {
     T element;
     Integer height;
-    Node<T> left;
-    Node<T> right;
+    TreeNode<T> left;
+    TreeNode<T> right;
 
     /**
      * Constructs a TreeNode object with the specified element.
@@ -62,7 +62,7 @@ public class TreeNode<T> extends Node<T> {
      *
      * @param left the left child to be set
      */
-    public void setLeft(Node<T> left) {
+    public void setLeft(TreeNode<T> left) {
         this.left = left;
     }
 
@@ -71,7 +71,7 @@ public class TreeNode<T> extends Node<T> {
      *
      * @return the left child of the node
      */
-    public Node<T> getLeft() {
+    public TreeNode<T> getLeft() {
         return left;
     }
 
@@ -80,7 +80,7 @@ public class TreeNode<T> extends Node<T> {
      *
      * @param right the right child to be set
      */
-    public void setRight(Node<T> right) {
+    public void setRight(TreeNode<T> right) {
         this.right = right;
     }
 
@@ -89,10 +89,13 @@ public class TreeNode<T> extends Node<T> {
      *
      * @return the right child of the node
      */
-    public Node<T> getRight() {
+    public TreeNode<T> getRight() {
         return right;
     }
 
+    /**
+     * Prints the element of the TreeNode object.
+     */
     public void printElementNode() {
         System.out.println(this.element + " ");
     }
