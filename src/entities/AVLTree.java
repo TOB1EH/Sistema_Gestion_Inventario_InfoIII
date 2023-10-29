@@ -1,6 +1,6 @@
 package entities;
  
-public class AVLTree<T extends Comparable> {
+public class AVLTree<T extends Comparable<T>> {
      TreeNode<T> root;
 
     public AVLTree() {
