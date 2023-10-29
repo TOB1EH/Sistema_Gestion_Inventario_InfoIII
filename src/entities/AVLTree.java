@@ -102,57 +102,56 @@ public class AVLTree<T> {
         return y;
     }
 
-    /* //Lo estoy completando yo, no tocar
-    TreeNode<T> insert(TreeNode<T> TreeNode, int data) {
-        if (TreeNode == null) {
-            return new TreeNode(data);
+    /**
+     * Inserts a new node to the avl tree.
+     * @param root of avl tree.
+     * @param element to be inserted.
+     * @return root of the new avl tree
+     */
+    TreeNode<T> insert(TreeNode<T> root, T element) {
+        if (root == null) {
+            return new TreeNode<>(element);
         }
 
-        if (data < TreeNode.data) {
-            TreeNode.left = insert(TreeNode.left, data);
-        } else if (data > TreeNode.data) {
-            TreeNode.right = insert(TreeNode.right, data);
+        if (element.compareTo(root.element) < 0) {
+            root.left = insert(root.left, element);
+        } else if (element.compareTo(root.element) > 0) {
+            root.right = insert(root.right, element);
         } else {
-            // No permitir duplicados
-            return TreeNode;
+            return root;
         }
 
-        // Actualizar la altura del nodo actual
-        TreeNode.height = 1 + max(height(TreeNode.left), height(TreeNode.right));
+        // Updates heigth of actual node
+        updateHeigth(root);
 
-        // Obtener el factor de equilibrio del nodo para verificar el equilibrio
-        int balance = getBalance(TreeNode);
+        // Get the balance factor of the node to check the balance
+        int balance = getBalance(root);
 
-        // Casos de desequilibrio y rotaciones
-        // Caso izquierda izquierda
-        if (balance > 1 && data < TreeNode.left.data) {
-            return rightRotate(TreeNode);
+        // Cases of imbalance and rotations
+        // Left left case
+        if (balance > 1 && element.compareTo(root.left.element) < 0) {
+            return rightRotate(root);
         }
 
-        // Caso derecha derecha
-        if (balance < -1 && data > TreeNode.right.data) {
-            return leftRotate(TreeNode);
+        // Right right case
+        if (balance < -1 && element.compareTo(root.right.element) > 0) {
+            return leftRotate(root);
         }
 
-        // Caso izquierda derecha
-        if (balance > 1 && data > TreeNode.left.data) {
-            TreeNode.left = leftRotate(TreeNode.left);
-            return rightRotate(TreeNode);
+        // Left right case (double rotation)
+        if (balance > 1 && element.compareTo(root.left.element) > 0) {
+            root.left = leftRotate(root.left);
+            return rightRotate(root);
         }
 
-        // Caso derecha izquierda
-        if (balance < -1 && data < TreeNode.right.data) {
-            TreeNode.right = rightRotate(TreeNode.right);
-            return leftRotate(TreeNode);
+        // Right left case (double rotation)
+        if (balance < -1 && element.compareTo(root.right.element) < 0) {
+            root.right = rightRotate(root.right);
+            return leftRotate(root);
         }
 
-        return TreeNode;
+        return root;
     }
-
-    // Lo estoy completando yo, no tocar
-    public void insert(int data) {
-        root = insert(root, data);
-    } */
 
     public TreeNode<T> delete(TreeNode<T> root, int data) {
         //To Do
@@ -167,5 +166,37 @@ public class AVLTree<T> {
     private TreeNode<T> rightLeftRotate(TreeNode<T> z) {
         //To do rotacion doble derecha
         return null;
+    }
+
+    //Codigo para Tobi
+    /**
+    * Finds the smallest item in a subtree
+    * @param root of the tree
+    * @return minimun node of the tree
+    */
+    public TreeNode<U> findMin(TreeNode<U> root) {
+        if(root != null) {
+            while(root.leftNode != null) {
+                root = root.leftNode;
+            }
+        }
+        return root;
+    }
+
+    /**
+     * Removes minimum item from a subtree
+     * @param root the node that roots the tree
+     * @return the new root
+     * @throws ItemNotFoundException if root is empty
+     */
+    public TreeNode<U> removeMin(TreeNode<U> root) throws ItemNotFoundException {
+        if(root == null) {
+            throw new ItemNotFoundException();
+        } else if(root.leftNode != null) {
+            root.leftNode = removeMin(root.leftNode);
+            return root;
+        } else {
+            return root.rightNode;
+        }
     }
 }
