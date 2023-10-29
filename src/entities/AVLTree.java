@@ -54,7 +54,7 @@ public class AVLTree<T extends Comparable<T>> {
 
     /** (IND)
      * Recorre el arbol de manera inOrder, primero recorre el subarbol izquierdo en orden (I) , luego
-     * visita el nodo raiz (N), en tercer y ultimo lugar recorre el subarbol derecho en orden (D).
+     * visita el nodo root (N), en tercer y ultimo lugar recorre el subarbol derecho en orden (D).
      * @param root of the binary tree
      */
     private void inOrder(TreeNode<T> root) {
@@ -160,7 +160,18 @@ public class AVLTree<T extends Comparable<T>> {
     public void insert(int data) {
         root = insert(root, data);
     } */
+
+
+    /**
+     * Deletes a node with a specific element from the AVL tree and maintains the balance of the tree.
+     *
+     * @param root The root node of the AVL tree.
+     * @param element The element to be deleted from the tree.
+     * @return The updated root node of the AVL tree after the deletion.
+     * @throws Exception If the root node is null.
+     */
     public TreeNode<T> delete(TreeNode<T> root, T element) throws Exception {
+        // Realizar una eliminación normal de un árbol binario de búsqueda
         if (root == null) {
             throw new Exception();
         }
@@ -168,27 +179,62 @@ public class AVLTree<T extends Comparable<T>> {
             root.left = delete(root.left, element);
         } else if (element.compareTo(root.element) > 0) {
             root.right = delete(root.right, element);
-        } else if ((root.left == null) || (root.right == null)) {
-            TreeNode<T> temp = null;
-            if (temp == root.left) {
-                temp = root.right;
+        } else {
+             // Nodo con un solo hijo o sin hijos
+            if ((root.left == null) || (root.right == null)) {
+                TreeNode<T> temp = null;
+                if (temp == root.left) {
+                    temp = root.right;
+                } else {
+                    temp = root.left;
+                }
+                // Caso sin hijos
+                if (temp == null) {
+                    temp = root;
+                    root = null;
+                } else { // Caso un hijo
+                    root = temp;
+                }
             } else {
-                temp = root.left;
-            }
-            if (temp == null) {
-                temp = root;
-                root = null;
-            } else {
-                root = temp;
+                // Nodo con dos hijos: obtener el sucesor inorden (mínimo valor en el subárbol derecho)
+                TreeNode<T> temp = findMin(root.right);
+
+                  // Copiar el valor del sucesor inorden al nodo actual
+                root.element = temp.element;
+
+                // Eliminar el sucesor inorden
+                root.right = delete(root.right, element);
             }
         }
-
+         // Actualizar la altura del nodo actual
         updateHeigth(root);
 
+        // Obtener el factor de equilibrio del nodo actual
+        root.height = getBalance(root);
 
+        // Realizar las rotaciones según el factor de equilibrio
+        // Caso izquierda-izquierda
+        if (root.height > 1 && getBalance(root.left) >= 0)
+            return leftRigthRotate(root);
 
+        // Caso izquierda-derecha
+        if (root.height > 1 && getBalance(root.left) < 0) {
+            root.left = rightLeftRotate(root.left);
+            return leftRigthRotate(root);
+        }
 
-        return null;
+        // Caso derecha-derecha
+        if (root.height < -1 && getBalance(root.right) <= 0)
+            return rightLeftRotate(root);
+
+        // Caso derecha-izquierda
+        if (root.height < -1 && getBalance(root.right) > 0) {
+            root.right = leftRigthRotate(root.right);
+            return rightLeftRotate(root);
+        }
+
+        // Devolver el nodo sin cambios
+        return root;
     }
 
     private TreeNode<T> leftRigthRotate(TreeNode<T> z) {
