@@ -270,4 +270,36 @@ public class AVLTree<T extends Comparable<T>> {
 
         return y;
     }
+  
+    //Codigo para Tobi
+    /**
+    * Finds the smallest item in a subtree
+    * @param root of the tree
+    * @return minimun node of the tree
+    */
+    public TreeNode<T> findMin(TreeNode<T> root) {
+        if(root != null) {
+            while(root.left != null) {
+                root = root.left;
+            }
+        }
+        return root;
+    }
+
+    /**
+     * Removes minimum item from a subtree
+     * @param root the node that roots the tree
+     * @return the new root
+     * @throws ItemNotFoundException if root is empty
+     */
+    public TreeNode<T> removeMin(TreeNode<T> root) throws ItemNotFoundException {
+        if(root == null) {
+            throw new ItemNotFoundException();
+        } else if(root.left != null) {
+            root.left = removeMin(root.left);
+            return root;
+        } else {
+            return root.right;
+        }
+    }
 }
