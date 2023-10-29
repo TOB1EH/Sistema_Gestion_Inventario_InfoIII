@@ -1,6 +1,6 @@
 package entities;
  
-public class AVLTree<T> {
+public class AVLTree<T extends Comparable> {
      TreeNode<T> root;
 
     public AVLTree() {
@@ -199,10 +199,10 @@ public class AVLTree<T> {
     * @param root of the tree
     * @return minimun node of the tree
     */
-    public TreeNode<U> findMin(TreeNode<U> root) {
+    public TreeNode<T> findMin(TreeNode<T> root) {
         if(root != null) {
-            while(root.leftNode != null) {
-                root = root.leftNode;
+            while(root.left != null) {
+                root = root.left;
             }
         }
         return root;
@@ -214,14 +214,14 @@ public class AVLTree<T> {
      * @return the new root
      * @throws ItemNotFoundException if root is empty
      */
-    public TreeNode<U> removeMin(TreeNode<U> root) throws ItemNotFoundException {
+    public TreeNode<T> removeMin(TreeNode<T> root) throws ItemNotFoundException {
         if(root == null) {
             throw new ItemNotFoundException();
-        } else if(root.leftNode != null) {
-            root.leftNode = removeMin(root.leftNode);
+        } else if(root.left != null) {
+            root.left = removeMin(root.left);
             return root;
         } else {
-            return root.rightNode;
+            return root.right;
         }
     }
 }
