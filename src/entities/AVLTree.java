@@ -160,13 +160,31 @@ public class AVLTree<T extends Comparable<T>> {
     public void insert(int data) {
         root = insert(root, data);
     } */
-    public TreeNode<T> delete(TreeNode<T> root, T data) throws Exception {
+    public TreeNode<T> delete(TreeNode<T> root, T element) throws Exception {
         if (root == null) {
             throw new Exception();
         }
-        if () {
-            
+        if (element.compareTo(root.element) < 0) {
+            root.left = delete(root.left, element);
+        } else if (element.compareTo(root.element) > 0) {
+            root.right = delete(root.right, element);
+        } else if ((root.left == null) || (root.right == null)) {
+            TreeNode<T> temp = null;
+            if (temp == root.left) {
+                temp = root.right;
+            } else {
+                temp = root.left;
+            }
+            if (temp == null) {
+                temp = root;
+                root = null;
+            } else {
+                root = temp;
+            }
         }
+
+        updateHeigth(root);
+
 
 
 
