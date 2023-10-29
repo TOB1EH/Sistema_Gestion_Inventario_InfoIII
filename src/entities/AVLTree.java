@@ -1,7 +1,7 @@
 package entities;
  
 public class AVLTree<T> {
-    TreeNode<T> root;
+     TreeNode<T> root;
 
     public AVLTree() {
         this.root = null;
@@ -95,10 +95,8 @@ public class AVLTree<T> {
 
         y.setLeft(root);
         root.setRight(t2);
-
-        root.height = Math.max(getHeight(root.left), getHeight(root.right)) + 1;
-        y.height = Math.max(getHeight(y.left), getHeight(y.right)) + 1;
-
+        updateHeigth(root);
+        updateHeigth(y);
         return y;
     }
 
@@ -165,13 +163,39 @@ public class AVLTree<T> {
         return null;
     }
 
-    private TreeNode<T> leftRigthRotate(TreeNode<T> z) {
-        //To do rotacion doble izquierda
-        return null;
+    private TreeNode<T> leftRightRotate(TreeNode<T> z) {
+        TreeNode<T> t2 = z.left;
+        TreeNode<T> y = t2.right;
+
+
+        t2.setRight(y.getLeft());
+        y.setLeft(t2);
+
+        z.setLeft(y.getRight());
+        y.setRight(z);
+
+        updateHeigth(z);
+        updateHeigth(t2);
+        updateHeigth(y);
+
+        return y;
     }
 
     private TreeNode<T> rightLeftRotate(TreeNode<T> z) {
-        //To do rotacion doble derecha
-        return null;
+       TreeNode<T> t2 = z.right;
+        TreeNode<T> y = t2.left;
+
+
+        t2.setLeft(y.getRight());
+        y.setRight(t2);
+
+        z.setRight(y.getLeft());
+        y.setLeft(z);
+
+        updateHeigth(z);
+        updateHeigth(t2);
+        updateHeigth(y);
+
+        return y;
     }
 }
