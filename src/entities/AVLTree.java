@@ -67,7 +67,7 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /** 
-     * Rotates to the rigth one time the avl tree.
+     * Rotates to the Right one time the avl tree.
      * @param root of avl tree.
      * @return new root of avl tree.
      */
@@ -213,12 +213,12 @@ public class AVLTree<T extends Comparable<T>> {
         // Realizar las rotaciones según el factor de equilibrio
         // Caso izquierda-izquierda
         if (root.height > 1 && getBalance(root.left) >= 0)
-            return leftRigthRotate(root);
+            return leftRightRotate(root);
 
         // Caso izquierda-derecha
         if (root.height > 1 && getBalance(root.left) < 0) {
             root.left = rightLeftRotate(root.left);
-            return leftRigthRotate(root);
+            return leftRightRotate(root);
         }
 
         // Caso derecha-derecha
@@ -227,7 +227,7 @@ public class AVLTree<T extends Comparable<T>> {
 
         // Caso derecha-izquierda
         if (root.height < -1 && getBalance(root.right) > 0) {
-            root.right = leftRigthRotate(root.right);
+            root.right = leftRightRotate(root.right);
             return rightLeftRotate(root);
         }
 
