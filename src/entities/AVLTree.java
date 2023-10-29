@@ -1,6 +1,6 @@
 package entities;
  
-public class AVLTree<T> {
+public class AVLTree<T extends Comparable<T>> {
     TreeNode<T> root;
 
     public AVLTree() {
@@ -160,8 +160,16 @@ public class AVLTree<T> {
     public void insert(int data) {
         root = insert(root, data);
     } */
-    public TreeNode<T> delete(TreeNode<T> root, int data) {
-        //To Do
+    public TreeNode<T> delete(TreeNode<T> root, T data) throws Exception {
+        if (root == null) {
+            throw new Exception();
+        }
+        if () {
+            
+        }
+
+
+
         return null;
     }
 
