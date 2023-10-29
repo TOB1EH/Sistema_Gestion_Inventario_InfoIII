@@ -1,8 +1,8 @@
 package entities;
- 
-public class AVLTree<T extends Comparable<T>> {
-     TreeNode<T> root;
 
+public class AVLTree<T extends Comparable<T>> {
+    TreeNode<T> root;
+    
     public AVLTree() {
         this.root = null;
     }
@@ -54,7 +54,7 @@ public class AVLTree<T extends Comparable<T>> {
 
     /** (IND)
      * Recorre el arbol de manera inOrder, primero recorre el subarbol izquierdo en orden (I) , luego
-     * visita el nodo raiz (N), en tercer y ultimo lugar recorre el subarbol derecho en orden (D).
+     * visita el nodo root (N), en tercer y ultimo lugar recorre el subarbol derecho en orden (D).
      * @param root of the binary tree
      */
     private void inOrder(TreeNode<T> root) {
@@ -101,60 +101,138 @@ public class AVLTree<T extends Comparable<T>> {
     }
 
     /**
-     * Inserts a new node to the avl tree.
-     * @param root of avl tree.
-     * @param element to be inserted.
-     * @return root of the new avl tree
+     * TO-DO insercion de elemento al 
+     * @param TreeNode
+     * @return
      */
-    TreeNode<T> insert(TreeNode<T> root, T element) {
-        if (root == null) {
-            return new TreeNode<>(element);
-
+    public TreeNode<T> insert(TreeNode<T> TreeNode) {
+        return null;
+    }
+    /* //Lo estoy completando yo, no tocar
+        if (TreeNode == null) {
+            return new TreeNode(data);
         }
 
-        if (element.compareTo(root.element) < 0) {
-            root.left = insert(root.left, element);
-        } else if (element.compareTo(root.element) > 0) {
-            root.right = insert(root.right, element);
+        if (data < TreeNode.data) {
+            TreeNode.left = insert(TreeNode.left, data);
+        } else if (data > TreeNode.data) {
+            TreeNode.right = insert(TreeNode.right, data);
         } else {
-            return root;
+            // No permitir duplicados
+            return TreeNode;
         }
 
-        // Updates heigth of actual node
-        updateHeigth(root);
+        // Actualizar la altura del nodo actual
+        TreeNode.height = 1 + max(height(TreeNode.left), height(TreeNode.right));
 
-        // Get the balance factor of the node to check the balance
-        int balance = getBalance(root);
+        // Obtener el factor de equilibrio del nodo para verificar el equilibrio
+        int balance = getBalance(TreeNode);
 
-        // Cases of imbalance and rotations
-        // Left left case
-        if (balance > 1 && element.compareTo(root.left.element) < 0) {
-            return rightRotate(root);
+        // Casos de desequilibrio y rotaciones
+        // Caso izquierda izquierda
+        if (balance > 1 && data < TreeNode.left.data) {
+            return rightRotate(TreeNode);
         }
 
-        // Right right case
-        if (balance < -1 && element.compareTo(root.right.element) > 0) {
-            return leftRotate(root);
+        // Caso derecha derecha
+        if (balance < -1 && data > TreeNode.right.data) {
+            return leftRotate(TreeNode);
         }
 
-        // Left right case (double rotation)
-        if (balance > 1 && element.compareTo(root.left.element) > 0) {
-            root.left = leftRotate(root.left);
-            return rightRotate(root);
+        // Caso izquierda derecha
+        if (balance > 1 && data > TreeNode.left.data) {
+            TreeNode.left = leftRotate(TreeNode.left);
+            return rightRotate(TreeNode);
         }
 
-        // Right left case (double rotation)
-        if (balance < -1 && element.compareTo(root.right.element) < 0) {
-            root.right = rightRotate(root.right);
-            return leftRotate(root);
+        // Caso derecha izquierda
+        if (balance < -1 && data < TreeNode.right.data) {
+            TreeNode.right = rightRotate(TreeNode.right);
+            return leftRotate(TreeNode);
         }
 
-        return root;
+        return TreeNode;
     }
 
-    public TreeNode<T> delete(TreeNode<T> root, int data) {
-        //To Do
-        return null;
+    // Lo estoy completando yo, no tocar
+    public void insert(int data) {
+        root = insert(root, data);
+    } */
+
+
+    /**
+     * Deletes a node with a specific element from the AVL tree and maintains the balance of the tree.
+     *
+     * @param root The root node of the AVL tree.
+     * @param element The element to be deleted from the tree.
+     * @return The updated root node of the AVL tree after the deletion.
+     * @throws Exception If the root node is null.
+     */
+    public TreeNode<T> delete(TreeNode<T> root, T element) throws Exception {
+        // Realizar una eliminación normal de un árbol binario de búsqueda
+        if (root == null) {
+            throw new Exception();
+        }
+        if (element.compareTo(root.element) < 0) {
+            root.left = delete(root.left, element);
+        } else if (element.compareTo(root.element) > 0) {
+            root.right = delete(root.right, element);
+        } else {
+             // Nodo con un solo hijo o sin hijos
+            if ((root.left == null) || (root.right == null)) {
+                TreeNode<T> temp = null;
+                if (temp == root.left) {
+                    temp = root.right;
+                } else {
+                    temp = root.left;
+                }
+                // Caso sin hijos
+                if (temp == null) {
+                    temp = root;
+                    root = null;
+                } else { // Caso un hijo
+                    root = temp;
+                }
+            } else {
+                // Nodo con dos hijos: obtener el sucesor inorden (mínimo valor en el subárbol derecho)
+                TreeNode<T> temp = findMin(root.right);
+
+                  // Copiar el valor del sucesor inorden al nodo actual
+                root.element = temp.element;
+
+                // Eliminar el sucesor inorden
+                root.right = delete(root.right, element);
+            }
+        }
+         // Actualizar la altura del nodo actual
+        updateHeigth(root);
+
+        // Obtener el factor de equilibrio del nodo actual
+        root.height = getBalance(root);
+
+        // Realizar las rotaciones según el factor de equilibrio
+        // Caso izquierda-izquierda
+        if (root.height > 1 && getBalance(root.left) >= 0)
+            return leftRigthRotate(root);
+
+        // Caso izquierda-derecha
+        if (root.height > 1 && getBalance(root.left) < 0) {
+            root.left = rightLeftRotate(root.left);
+            return leftRigthRotate(root);
+        }
+
+        // Caso derecha-derecha
+        if (root.height < -1 && getBalance(root.right) <= 0)
+            return rightLeftRotate(root);
+
+        // Caso derecha-izquierda
+        if (root.height < -1 && getBalance(root.right) > 0) {
+            root.right = leftRigthRotate(root.right);
+            return rightLeftRotate(root);
+        }
+
+        // Devolver el nodo sin cambios
+        return root;
     }
 
     private TreeNode<T> leftRightRotate(TreeNode<T> z) {
@@ -192,7 +270,7 @@ public class AVLTree<T extends Comparable<T>> {
 
         return y;
     }
-
+  
     //Codigo para Tobi
     /**
     * Finds the smallest item in a subtree
