@@ -7,7 +7,7 @@ package entities;
  * @param <T> the type of element stored in the node
  */
 public class ListNode<T> extends Node<T> {
-    public Integer next;
+    public ListNode<T> next;
     private long dateid;//date in unix timestamp
 
     /**
