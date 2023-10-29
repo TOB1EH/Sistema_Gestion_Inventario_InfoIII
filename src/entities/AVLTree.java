@@ -111,6 +111,7 @@ public class AVLTree<T> {
     TreeNode<T> insert(TreeNode<T> root, T element) {
         if (root == null) {
             return new TreeNode<>(element);
+
         }
 
         if (element.compareTo(root.element) < 0) {
