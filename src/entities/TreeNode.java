@@ -1,102 +1,28 @@
 package entities;
 
 /**
- * Represents a node in a binary tree.
- * Extends the Node class and contains information about the node's element, height, left child, and right child.
- *
- * @param <T> the type of element stored in the node
+ * La clase TreeNodeGPT representa un nodo en un árbol.
  */
-public class TreeNode<T> extends Node<T> {
-    T element;
-    Integer height;
-    TreeNode<T> left;
-    TreeNode<T> right;
-
+public class TreeNode extends Node{
+    
+    // La altura del nodo en el árbol
+    public int height;
+    
+    // Referencia al nodo hijo izquierdo
+    public TreeNode left;
+    
+    // Referencia al nodo hijo derecho
+    public TreeNode right;
+    
     /**
-     * Constructs a TreeNode object with the specified element.
-     * Initializes the height
-     * Initializes the left child, and right child to null.
-     *
-     * @param element the element to be stored in the node
+     * Constructor de la clase TreeNodeGPT.
+     * @param d La clave del nodo.
      */
-    public TreeNode(T element) {
-        super(element);
-        this.height = 1;
-        this.left = null;
-        this.right = null;
-    }
-
-    /**
-     * Constructs a TreeNode object with the specified element, left child, and right child.
-     *
-     * @param element the element to be stored in the node
-     * @param left    the left child of the node
-     * @param right   the right child of the node
-     */
-    public TreeNode(T element, TreeNode<T> left, TreeNode<T> right) {
-        super(element);
-        this.left = left;
-        this.right = right;
-    }
-
-    /**
-     * Sets the height of the TreeNode object.
-     *
-     * @param height the height to be set
-     */
-    public void setHeight(Integer height) {
-        this.height = height;
-    }
-
-    /**
-     * Returns the height of the TreeNode object.
-     *
-     * @return the height of the node
-     */
-    public Integer getHeight() {
-        return height;
-    }
-
-    /**
-     * Sets the left child of the TreeNode object.
-     *
-     * @param left the left child to be set
-     */
-    public void setLeft(TreeNode<T> left) {
-        this.left = left;
-    }
-
-    /**
-     * Returns the left child of the TreeNode object.
-     *
-     * @return the left child of the node
-     */
-    public TreeNode<T> getLeft() {
-        return left;
-    }
-
-    /**
-     * Sets the right child of the TreeNode object.
-     *
-     * @param right the right child to be set
-     */
-    public void setRight(TreeNode<T> right) {
-        this.right = right;
-    }
-
-    /**
-     * Returns the right child of the TreeNode object.
-     *
-     * @return the right child of the node
-     */
-    public TreeNode<T> getRight() {
-        return right;
-    }
-
-    /**
-     * Prints the element of the TreeNode object.
-     */
-    public void printElementNode() {
-        System.out.println(this.element + " ");
+    public TreeNode(String d) {
+        // Inicializar la clave del nodo con el valor proporcionado
+        super(d);
+        
+        // Establecer la altura del nodo en 1
+        height = 1;
     }
 }
