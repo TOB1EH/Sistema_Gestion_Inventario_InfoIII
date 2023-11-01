@@ -1,305 +1,226 @@
 package entities;
 
-public class AVLTree<T extends Comparable<T>> {
-    TreeNode<T> root;
-    
-    public AVLTree() {
-        this.root = null;
+/**
+ * The `AVLTree` class is an implementation of an AVL tree, which is a self-balancing binary search tree.
+ * It provides methods for inserting and deleting nodes, as well as traversing the tree in pre-order.
+ */
+public class AVLTree {
+
+    private TreeNode root;
+
+    /**
+     * Returns the root node of the AVL tree.
+     * @return The root node of the AVL tree.
+     */
+    public TreeNode getRoot() {
+        return root;
     }
 
-    public AVLTree(TreeNode<T> root) {
+    /**
+     * Sets the root node of the AVL tree.
+     * @param root The root node to be set.
+     */
+    public void setRoot(TreeNode root) {
         this.root = root;
     }
 
-    public TreeNode<T> getRoot() {
-        return this.root;
+    /**
+     * Returns the height of a given node.
+     * @param node The node to calculate the height for.
+     * @return The height of the node.
+     */
+    private int height(TreeNode node) {
+        return node == null ? 0 : node.height;
     }
 
     /**
-     * Returns the height of the avl tree.
-     * @param root of the avl tree.
-     * @return height of avl tree, 0 if there's no root.
+     * Returns the maximum of two integers.
+     * @param a The first integer.
+     * @param b The second integer.
+     * @return The maximum of the two integers.
      */
-    private int getHeight(TreeNode<T> root) {
-        return (root != null) ? root.getHeight() : 0;
+    private int max(int a, int b) {
+        return Math.max(a, b);
     }
 
     /**
-     * Returns balance factor of a TreeNode in an avl tree.
-     * @param root of the avl tree.
-     * @return factor balance of avl tree, 0 if there's no root.
+     * Performs a right rotation on a given node.
+     * @param y The node to perform the right rotation on.
+     * @return The new root node after the rotation.
      */
-    private int getBalance(TreeNode<T> root) {
-        return (root != null) ? (getHeight(root.getLeft()) - getHeight(root.getRight())) : 0;
-    }
-
-    /**
-     * Updates the heigth of the avl tree.
-     * @param root of the avl tree to update the heigth.
-     */
-    private void updateHeigth(TreeNode<T> root) {
-        root.setHeight(1 + Math.max(getHeight(root.getLeft()), getHeight(root.getRight())));
-    }
-
-    /**
-     * Creates a new tree, using three parameters
-     * @param leftBranch leftTreeNode
-     * @param element of the root-TreeNode
-     * @param rightBranch rightTreeNode
-     * @return tree TreeNode created
-     */
-    private TreeNode<T> newTree(TreeNode<T> leftBranch, T element, TreeNode<T> rightBranch) {
-        return new TreeNode<>(element, leftBranch, rightBranch);
-    }
-
-    /** (IND)
-     * Recorre el arbol de manera inOrder, primero recorre el subarbol izquierdo en orden (I) , luego
-     * visita el nodo root (N), en tercer y ultimo lugar recorre el subarbol derecho en orden (D).
-     * @param root of the binary tree
-     */
-    private void inOrder(TreeNode<T> root) {
-        //Caso base: que el subarbol este vacio (root == null)
-        if(root != null) {
-            inOrder(root.getLeft());
-            root.printElementNode();
-            inOrder(root.getRight());
-        }
-    }
-
-    /** 
-     * Rotates to the Right one time the avl tree.
-     * @param root of avl tree.
-     * @return new root of avl tree.
-     */
-    private TreeNode<T> rightRotate(TreeNode<T> root) {
-        TreeNode<T> x = root.left;
-        TreeNode<T> t2 = x.right;
-
-        x.setRight(root);
-        root.setLeft(t2);
-
-        root.height = Math.max(getHeight(root.left), getHeight(root.right)) + 1;
-        x.height = Math.max(getHeight(x.left), getHeight(x.right)) + 1;
-
+    private TreeNode rightRotate(TreeNode y) {
+        TreeNode x = y.left;
+        TreeNode T2 = x.right;
+        x.right = y;
+        y.left = T2;
+        y.height = max(height(y.left), height(y.right)) + 1;
+        x.height = max(height(x.left), height(x.right)) + 1;
         return x;
     }
 
     /**
-     * Rotates to the left one time the avl tree.
-     * @param root of avl tree.
-     * @return new root of avl tree.
+     * Performs a left rotation on a given node.
+     * @param x The node to perform the left rotation on.
+     * @return The new root node after the rotation.
      */
-    private TreeNode<T> leftRotate(TreeNode<T> root) {
-        TreeNode<T> y = root.right;
-        TreeNode<T> t2 = y.left;
-
-        y.setLeft(root);
-        root.setRight(t2);
-        updateHeigth(root);
-        updateHeigth(y);
+    private TreeNode leftRotate(TreeNode x) {
+        TreeNode y = x.right;
+        TreeNode T2 = y.left;
+        y.left = x;
+        x.right = T2;
+        x.height = max(height(x.left), height(x.right)) + 1;
+        y.height = max(height(y.left), height(y.right)) + 1;
         return y;
     }
 
     /**
-     * TO-DO insercion de elemento al 
-     * @param TreeNode
-     * @return
+     * Returns the balance factor of a given node.
+     * @param N The node to calculate the balance factor for.
+     * @return The balance factor of the node.
      */
-    public TreeNode<T> insert(TreeNode<T> TreeNode) {
-        return null;
+    private int getBalance(TreeNode N) {
+        return N == null ? 0 : height(N.left) - height(N.right);
     }
-    /* //Lo estoy completando yo, no tocar
-        if (TreeNode == null) {
-            return new TreeNode(data);
-        }
-
-        if (data < TreeNode.data) {
-            TreeNode.left = insert(TreeNode.left, data);
-        } else if (data > TreeNode.data) {
-            TreeNode.right = insert(TreeNode.right, data);
-        } else {
-            // No permitir duplicados
-            return TreeNode;
-        }
-
-        // Actualizar la altura del nodo actual
-        TreeNode.height = 1 + max(height(TreeNode.left), height(TreeNode.right));
-
-        // Obtener el factor de equilibrio del nodo para verificar el equilibrio
-        int balance = getBalance(TreeNode);
-
-        // Casos de desequilibrio y rotaciones
-        // Caso izquierda izquierda
-        if (balance > 1 && data < TreeNode.left.data) {
-            return rightRotate(TreeNode);
-        }
-
-        // Caso derecha derecha
-        if (balance < -1 && data > TreeNode.right.data) {
-            return leftRotate(TreeNode);
-        }
-
-        // Caso izquierda derecha
-        if (balance > 1 && data > TreeNode.left.data) {
-            TreeNode.left = leftRotate(TreeNode.left);
-            return rightRotate(TreeNode);
-        }
-
-        // Caso derecha izquierda
-        if (balance < -1 && data < TreeNode.right.data) {
-            TreeNode.right = rightRotate(TreeNode.right);
-            return leftRotate(TreeNode);
-        }
-
-        return TreeNode;
-    }
-
-    // Lo estoy completando yo, no tocar
-    public void insert(int data) {
-        root = insert(root, data);
-    } */
-
 
     /**
-     * Deletes a node with a specific element from the AVL tree and maintains the balance of the tree.
-     *
-     * @param root The root node of the AVL tree.
-     * @param element The element to be deleted from the tree.
-     * @return The updated root node of the AVL tree after the deletion.
-     * @throws Exception If the root node is null.
+     * Inserts a new node with the given /ment into the AVL tree.
+     * @param node The root node of the AVL tree.
+     * @param element The element of the new node to be inserted.
+     * @return The new root node of the AVL tree.
      */
-    public TreeNode<T> delete(TreeNode<T> root, T element) throws Exception {
-        // Realizar una eliminación normal de un árbol binario de búsqueda
-        if (root == null) {
-            throw new Exception();
+    public TreeNode insert(TreeNode node, String element) {
+        if (node == null) {
+            return new TreeNode(element);
         }
-        if (element.compareTo(root.element) < 0) {
-            root.left = delete(root.left, element);
-        } else if (element.compareTo(root.element) > 0) {
-            root.right = delete(root.right, element);
+
+        int cmp = element.compareTo(node.element);
+        if (cmp < 0) {
+            node.left = insert(node.left, element);
+        } else if (cmp > 0) {
+            node.right = insert(node.right, element);
         } else {
-             // Nodo con un solo hijo o sin hijos
-            if ((root.left == null) || (root.right == null)) {
-                TreeNode<T> temp = null;
+            return node;
+        }
+
+        node.height = max(height(node.left), height(node.right)) + 1;
+        int balance = getBalance(node);
+
+        if (balance > 1 && element.compareTo(node.left.element) < 0) {
+            return rightRotate(node);
+        }
+
+        if (balance < -1 && element.compareTo(node.right.element) > 0) {
+            return leftRotate(node);
+        }
+
+        if (balance > 1 && element.compareTo(node.left.element) > 0) {
+            node.left = leftRotate(node.left);
+            return rightRotate(node);
+        }
+
+        if (balance < -1 && element.compareTo(node.right.element) < 0) {
+            node.right = rightRotate(node.right);
+            return leftRotate(node);
+        }
+
+        return node;
+    }
+
+    /**
+     * Returns the node with the minimum element value in a given subtree.
+     * @param node The root node of the subtree.
+     * @return The node with the minimum element value.
+     */
+    private TreeNode minValueNode(TreeNode node) {
+        TreeNode current = node;
+        while (current.left != null) {
+            current = current.left;
+        }
+        return current;
+    }
+
+    /**
+     * Deletes a node with the given element from the AVL tree.
+     * @param root The root node of the AVL tree.
+     * @param element The element of the node to be deleted.
+     * @return The new root node of the AVL tree.
+     */
+    public TreeNode deleteNode(TreeNode root, String element) {
+        if (root == null) {
+            return root;
+        }
+
+        int cmp = element.compareTo(root.element);
+        if (cmp < 0) {
+            root.left = deleteNode(root.left, element);
+        } else if (cmp > 0) {
+            root.right = deleteNode(root.right, element);
+        } else {
+            if (root.left == null || root.right == null) {
+                TreeNode temp = null;
                 if (temp == root.left) {
                     temp = root.right;
                 } else {
                     temp = root.left;
                 }
-                // Caso sin hijos
                 if (temp == null) {
                     temp = root;
                     root = null;
-                } else { // Caso un hijo
+                } else {
                     root = temp;
                 }
             } else {
-                // Nodo con dos hijos: obtener el sucesor inorden (mínimo valor en el subárbol derecho)
-                TreeNode<T> temp = findMin(root.right);
-
-                  // Copiar el valor del sucesor inorden al nodo actual
+                TreeNode temp = minValueNode(root.right);
                 root.element = temp.element;
-
-                // Eliminar el sucesor inorden
-                root.right = delete(root.right, element);
+                root.right = deleteNode(root.right, temp.element);
             }
         }
-         // Actualizar la altura del nodo actual
-        updateHeigth(root);
 
-        // Obtener el factor de equilibrio del nodo actual
-        root.height = getBalance(root);
-
-        // Realizar las rotaciones según el factor de equilibrio
-        // Caso izquierda-izquierda
-        if (root.height > 1 && getBalance(root.left) >= 0)
-            return leftRightRotate(root);
-
-        // Caso izquierda-derecha
-        if (root.height > 1 && getBalance(root.left) < 0) {
-            root.left = rightLeftRotate(root.left);
-            return leftRightRotate(root);
-        }
-
-        // Caso derecha-derecha
-        if (root.height < -1 && getBalance(root.right) <= 0)
-            return rightLeftRotate(root);
-
-        // Caso derecha-izquierda
-        if (root.height < -1 && getBalance(root.right) > 0) {
-            root.right = leftRightRotate(root.right);
-            return rightLeftRotate(root);
-        }
-
-        // Devolver el nodo sin cambios
-        return root;
-    }
-
-    private TreeNode<T> leftRightRotate(TreeNode<T> z) {
-        TreeNode<T> t2 = z.left;
-        TreeNode<T> y = t2.right;
-
-
-        t2.setRight(y.getLeft());
-        y.setLeft(t2);
-
-        z.setLeft(y.getRight());
-        y.setRight(z);
-
-        updateHeigth(z);
-        updateHeigth(t2);
-        updateHeigth(y);
-
-        return y;
-    }
-
-    private TreeNode<T> rightLeftRotate(TreeNode<T> z) {
-       TreeNode<T> t2 = z.right;
-        TreeNode<T> y = t2.left;
-
-
-        t2.setLeft(y.getRight());
-        y.setRight(t2);
-
-        z.setRight(y.getLeft());
-        y.setLeft(z);
-
-        updateHeigth(z);
-        updateHeigth(t2);
-        updateHeigth(y);
-
-        return y;
-    }
-  
-    //Codigo para Tobi
-    /**
-    * Finds the smallest item in a subtree
-    * @param root of the tree
-    * @return minimun node of the tree
-    */
-    public TreeNode<T> findMin(TreeNode<T> root) {
-        if(root != null) {
-            while(root.left != null) {
-                root = root.left;
-            }
-        }
-        return root;
-    }
-
-    /**
-     * Removes minimum item from a subtree
-     * @param root the node that roots the tree
-     * @return the new root
-     * @throws ItemNotFoundException if root is empty
-     */
-    public TreeNode<T> removeMin(TreeNode<T> root) throws ItemNotFoundException {
-        if(root == null) {
-            throw new ItemNotFoundException();
-        } else if(root.left != null) {
-            root.left = removeMin(root.left);
+        if (root == null) {
             return root;
-        } else {
-            return root.right;
+        }
+
+        root.height = max(height(root.left), height(root.right)) + 1;
+        int balance = getBalance(root);
+
+        if (balance > 1 && getBalance(root.left) >= 0) {
+            return rightRotate(root);
+        }
+
+        if (balance < -1 && getBalance(root.right) <= 0) {
+            return leftRotate(root);
+        }
+
+        if (balance > 1 && getBalance(root.left) < 0) {
+            root.left = leftRotate(root.left);
+            return rightRotate(root);
+        }
+
+        if (balance < -1 && getBalance(root.right) > 0) {
+            root.right = rightRotate(root.right);
+            return leftRotate(root);
+        }
+
+        return root;
+    }
+
+    /**
+     * Traverses the AVL tree in pre-order and prints the elements of the nodes.
+     * @param node The root node of the AVL tree.
+     */
+    public void preOrder(TreeNode node) {
+        if (node != null) {
+            System.out.print(node.element + " ");
+            preOrder(node.left);
+            preOrder(node.right);
+        }
+    }
+
+    public void inOrder(TreeNode node) {
+        if (node != null) {
+            inOrder(node.left);
+            System.out.print(node.element + " ");
+            inOrder(node.right);
         }
     }
 }
