@@ -6,7 +6,8 @@ package entities;
  */
 public class AVLTree {
 
-    private TreeNode root;
+    public TreeNode root;
+    // private TreeNode root;
 
     /**
      * Returns the root node of the AVL tree.
