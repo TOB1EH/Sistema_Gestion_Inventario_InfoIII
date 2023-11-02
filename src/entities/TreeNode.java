@@ -1,28 +1,23 @@
-package entities;
-
-/**
- * La clase TreeNodeGPT representa un nodo en un árbol.
- */
-public class TreeNode extends Node{
-    
-    // La altura del nodo en el árbol
-    public int height;
-    
-    // Referencia al nodo hijo izquierdo
-    public TreeNode left;
-    
-    // Referencia al nodo hijo derecho
-    public TreeNode right;
-    
-    /**
-     * Constructor de la clase TreeNodeGPT.
-     * @param d La clave del nodo.
-     */
-    public TreeNode(String d) {
-        // Inicializar la clave del nodo con el valor proporcionado
-        super(d);
-        
-        // Establecer la altura del nodo en 1
-        height = 1;
-    }
-}
+package entities; 
+/** 
+ * The TreeNode class represents a node in a tree. 
+ */ 
+public class TreeNode extends Node { 
+    // The height of the node in the tree 
+    public int height; 
+    // Reference to the left child node 
+    public TreeNode left; 
+    // Reference to the right child node 
+    public TreeNode right; 
+    /** 
+     * Constructor of the TreeNode class. 
+     * @param d The key of the node. 
+     */ 
+    public TreeNode(String d) { 
+        // Initialize the key of the node with the provided value 
+        super(d); 
+        // Set the height of the node to 1 
+        height = 1; 
+    } 
+} 
+ 
