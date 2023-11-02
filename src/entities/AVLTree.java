@@ -1,5 +1,7 @@
 package entities;
 
+import exceptions.ProductNotFoundException;
+
 /**
  * The `AVLTree` class is an implementation of an AVL tree, which is a self-balancing binary search tree.
  * It provides methods for inserting and deleting nodes, as well as traversing the tree in pre-order.
@@ -146,9 +148,9 @@ public class AVLTree {
      * @param element The element of the node to be deleted.
      * @return The new root node of the AVL tree.
      */
-    public TreeNode deleteNode(TreeNode root, String element) {
+    public TreeNode deleteNode(TreeNode root, String element) throws ProductNotFoundException {
         if (root == null) {
-            return root;
+            throw new ProductNotFoundException(element);
         }
 
         int cmp = element.compareTo(root.element);
@@ -177,8 +179,8 @@ public class AVLTree {
             }
         }
 
-        if (root == null) {
-            return root;
+        if(root == null) {
+            throw new ProductNotFoundException(element);
         }
 
         root.height = max(height(root.left), height(root.right)) + 1;
@@ -203,6 +205,26 @@ public class AVLTree {
         }
 
         return root;
+    }
+
+    /**
+     * Searchs a product in the inventory, then, if the product was found, shows information about it, otherwise, shows a message error.
+     * @param root of the avl tree.
+     * @param name of the product to be found.
+     */
+    void searchAndDisplay(TreeNode root, String name) throws ProductNotFoundException {
+        if (root == null) {
+            throw new ProductNotFoundException(name);
+        }
+
+        int cmp = name.compareTo(root.name);
+        if (cmp == 0) {
+            System.out.println("Product's name: " + root.name + ", Stock: " + root.stock);
+        } else if (cmp < 0) {
+            searchAndDisplay(root.left, name);
+        } else {
+            searchAndDisplay(root.right, name);
+        }
     }
 
     /**
