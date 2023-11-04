@@ -24,10 +24,10 @@ public class TreeNode extends Node {
     /**
      * Constructor of the TreeNode class.
      * Initializes the key of the node with the provided value and sets the height of the node to 1.
-     * @param element The key of the node.
+     * @param product The key of the node.
      */
-    public TreeNode(String element) {
-        super(element);
+    public TreeNode(Product product) {
+        super(product);
         this.height = 1;
     }
 }
