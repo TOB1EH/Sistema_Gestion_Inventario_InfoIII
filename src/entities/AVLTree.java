@@ -221,11 +221,7 @@ public class AVLTree {
 
         int cmp = name.compareTo(root.element);
         if (cmp == 0) {
-<<<<<<< HEAD
-            System.out.println("Product's name: " + root.element + ", Stock: " ); // root.stock
-=======
             return "Product's name: " + root.element + ", Stock: "; // + stock
->>>>>>> 998797f60446d46a0ac686a487dae4ffcdee75ab
         } else if (cmp < 0) {
             return search(root.left, name);
         } else {
