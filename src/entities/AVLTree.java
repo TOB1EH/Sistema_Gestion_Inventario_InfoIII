@@ -44,9 +44,9 @@ public class AVLTree {
      */
     private TreeNode rightRotate(TreeNode y) {
         TreeNode x = y.left;
-        TreeNode T2 = x.right;
+        TreeNode t2 = x.right;
         x.right = y;
-        y.left = T2;
+        y.left = t2;
         y.height = max(height(y.left), height(y.right)) + 1;
         x.height = max(height(x.left), height(x.right)) + 1;
         return x;
@@ -59,9 +59,9 @@ public class AVLTree {
      */
     private TreeNode leftRotate(TreeNode x) {
         TreeNode y = x.right;
-        TreeNode T2 = y.left;
+        TreeNode t2 = y.left;
         y.left = x;
-        x.right = T2;
+        x.right = t2;
         x.height = max(height(x.left), height(x.right)) + 1;
         y.height = max(height(y.left), height(y.right)) + 1;
         return y;
@@ -72,8 +72,8 @@ public class AVLTree {
      * @param N The node to calculate the balance factor for.
      * @return The balance factor of the node.
      */
-    private int getBalance(TreeNode N) {
-        return N == null ? 0 : height(N.left) - height(N.right);
+    private int getBalance(TreeNode n) {
+        return n == null ? 0 : height(N.left) - height(N.right);
     }
 
     public void insertProduct(Product product) {
@@ -237,6 +237,7 @@ public class AVLTree {
      * @param node The root node of the AVL tree.
      * @return A string representation of the traversal.
      */
+    /*
     public String preOrder(TreeNode node) {
         StringBuilder sb = new StringBuilder();
         if (node != null) {
@@ -245,7 +246,8 @@ public class AVLTree {
             sb.append(preOrder(node.right));
         }
         return sb.toString();
-    } // Eliminar si no se usa
+    }
+    */
 
     /**
      * Traverses the AVL tree in in-order and returns a string representation of the products of the nodes.
@@ -262,5 +264,4 @@ public class AVLTree {
         return sb.toString();
     }
 
-    /*     Devolver una representación de cadena del recorrido en lugar de usar `System.out.print` hace que el código sea más modular porque separa la lógica transversal de la lógica de impresión. También hace que el código sea más fácil de probar porque la salida se puede comparar con los valores esperados. */
 }
