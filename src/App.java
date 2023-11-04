@@ -17,9 +17,10 @@ public class App {
                 System.out.println("Inventario de productos completo:");
                 break;
             default:
-                System.out.println("Gracias por utilizar el sistema de gestion de inventario.");
+                System.out.println("Valor ingresado invalido");
                 break;
         }
+        System.out.println("Gracias por utilizar el sistema de gestion de inventario.");
 }
 
     private static int menu() {
@@ -46,8 +47,9 @@ public class App {
         System.out.println("Si desea buscar un producto, ingrese el numero 3");
         System.out.println("Si desea mostrar el inventario completo de productos, ingrese el numero 4");
         System.out.println("Si desea salir, ingrese el numero 5");
-
-        return scanner.nextInt();
+        int op =scanner.nextInt();
+        scanner.close();
+        return op;
     }
     
 }
