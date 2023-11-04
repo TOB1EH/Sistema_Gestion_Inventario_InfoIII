@@ -96,14 +96,13 @@ public class AVLTree {
             return new TreeNode(element);
         }
 
-        // int cmp = element.compareTo(node.element);
         if (element.compareTo(node.element) < 0) {
             node.left = insert(node.left, element);
-        } else {
+        } else if (element.compareTo(node.element) > 0){
             node.right = insert(node.right, element);
+        } else {
+            return root;
         }
-
-        /*         Verificar `cmp < 0` y `cmp > 0` dos veces en el método `insert` es redundante y se puede evitar. Al usar una cláusula "else" para la segunda verificación, podemos eliminar la necesidad de la segunda comparación, haciendo que el código sea un poco más eficiente. */
 
         node.height = max(height(node.left), height(node.right)) + 1;
         int balance = getBalance(node);
@@ -148,10 +147,9 @@ public class AVLTree {
      * @param element The element of the node to be deleted.
      * @return The new root node of the AVL tree.
      */
-    public TreeNode deleteNode(TreeNode root, String element) throws ProductNotFoundException {
+    public TreeNode deleteNode(TreeNode root, String element) {
         if (root == null) {
-            // return root;
-            throw new ProductNotFoundException(element);
+            return root;
         }
 
         int cmp = element.compareTo(root.element);
@@ -181,8 +179,7 @@ public class AVLTree {
         }
 
         if(root == null) {
-            //return root;
-            throw new ProductNotFoundException(element);
+            return root;
         }
 
         root.height = max(height(root.left), height(root.right)) + 1;
