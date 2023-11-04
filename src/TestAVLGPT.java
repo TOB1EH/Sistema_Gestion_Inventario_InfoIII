@@ -1,9 +1,10 @@
 import entities.AVLTree;
+import exceptions.ProductNotFoundException;
 /**
  * TestAVLGPT
  */
 public class TestAVLGPT {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ProductNotFoundException {
         AVLTree tree = new AVLTree();
         tree.root = tree.insert(tree.root, "manzana");
         tree.root = tree.insert(tree.root, "plátano");

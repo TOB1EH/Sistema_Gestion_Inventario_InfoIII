@@ -217,9 +217,9 @@ public class AVLTree {
             throw new ProductNotFoundException(name);
         }
 
-        int cmp = name.compareTo(root.name);
+        int cmp = name.compareTo(root.element);
         if (cmp == 0) {
-            System.out.println("Product's name: " + root.name + ", Stock: " + root.stock);
+            System.out.println("Product's name: " + root.element + ", Stock: " ); // root.stock
         } else if (cmp < 0) {
             searchAndDisplay(root.left, name);
         } else {
