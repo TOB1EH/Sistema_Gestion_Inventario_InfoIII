@@ -7,28 +7,28 @@ import exceptions.ProductNotFoundException;
 public class TestAVLGPT {
     public static void main(String[] args) throws ProductNotFoundException {
         AVLTree tree = new AVLTree();
-        
+
         Product manzana = new Product("Manzana", 10);
-        tree.root = tree.insert(tree.root, manzana);
-        
+        tree.insertProduct(manzana);
+
         Product platano = new Product("Platano", 15);
-        tree.root = tree.insert(tree.root, platano);
-        
+        tree.insertProduct(platano);
+
         Product naranja = new Product("Naranja", 10);
-        tree.root = tree.insert(tree.root, naranja);
-        
+        tree.insertProduct(naranja);
+
         Product mango = new Product("Mango", 10);
-        tree.root = tree.insert(tree.root, mango);
+        tree.insertProduct(mango);
 
         Product pera = new Product("Pera", 10);
-        tree.root = tree.insert(tree.root, pera);
+        tree.insertProduct(pera);
 
         Product uva = new Product("Uva", 10);
-        tree.root = tree.insert(tree.root, uva);
+        tree.insertProduct(uva);
 
-        System.out.println("Recorrido en inorden del árbol construido: "+tree.inOrder(tree.root));
+        System.out.println("Recorrido en inorden del árbol construido: "+tree.inOrder(tree.getRoot()));
         String keyToDelete = "Naranja";
-        tree.root = tree.deleteNode(tree.root, keyToDelete);
-        System.out.println("\n\nÁrbol después de eliminar " + keyToDelete + ": "+tree.inOrder(tree.root));
+        tree.deleteProduct(keyToDelete);
+        System.out.println("\n\nÁrbol después de eliminar " + keyToDelete + ": "+tree.inOrder(tree.getRoot()));
     }
 }
