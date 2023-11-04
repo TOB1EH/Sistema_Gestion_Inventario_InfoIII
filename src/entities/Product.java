@@ -15,5 +15,11 @@ public class Product{
         this.element = element;
         this.stock = stock;
     }
+
+    @Override
+    public String toString()
+    {
+        return "Producto: "+ this.element "\n"+ "Stock:" + this.stock +"\n";
+    }
     
 }
