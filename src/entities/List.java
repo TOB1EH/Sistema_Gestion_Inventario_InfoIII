@@ -16,19 +16,19 @@ public class List {
     }
 
     /**
-     * Inserts a new node with the given element at the end of the list.
+     * Inserts a new node with the given product at the end of the list.
      * If the list is empty, the new node becomes the front of the list.
      *
-     * @param element the element to be inserted
-     * @throws NullPointerException if the element is null
+     * @param product the product to be inserted
+     * @throws NullPointerException if the product is null
      */
-    public void insertNode(String element) {
-        if (element == null) {
-            throw new NullPointerException("The element is null");
+    public void insertNode(Product product) {
+        if (product == null) {
+            throw new NullPointerException("The product is null");
         }
 
         // Insert the node
-        ListNode newNode = new ListNode(element);
+        ListNode newNode = new ListNode(product);
 
         if (front == null) {
             front = newNode;
@@ -42,24 +42,24 @@ public class List {
     }
 
     /**
-     * Removes the node with the given element from the list.
-     * If the element is not found, the list remains unchanged.
+     * Removes the node with the given product from the list.
+     * If the product is not found, the list remains unchanged.
      *
-     * @param element the element to be removed
+     * @param key the product to be removed
      */
-    public void removeNode(String element) {
+    public void removeNode(String key) {
         if (front == null) {
             return;
         }
 
-        if (front.element.equals(element)) {
+        if (front.product.element.equals(key)) {
             front = front.next;
             return;
         }
 
         ListNode currentNode = front;
         while (currentNode.next != null) {
-            if (currentNode.next.element.equals(element)) {
+            if (currentNode.next.product.element.equals(key)) {
                 currentNode.next = currentNode.next.next;
                 return;
             }

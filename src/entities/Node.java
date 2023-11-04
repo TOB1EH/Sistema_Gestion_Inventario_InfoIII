@@ -4,14 +4,14 @@ package entities;
  * Represents a generic node
  */
 public class Node{
-    public String element;
+    public Product product;
 
     /**
-     * Constructs a new node with the specified element.
+     * Constructs a new node with the specified product.
      *
-     * @param element the element to be stored in the node
+     * @param product the product to be stored in the node
      */
-    public Node(String element) {
-        this.element = element;
+    public Node(Product product) {
+        this.product = product;
     }
 }

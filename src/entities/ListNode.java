@@ -9,12 +9,12 @@ public class ListNode extends Node{
     public ListNode next;
 
     /**
-     * Constructs a new ListNode object with the specified element.
+     * Constructs a new ListNode object with the specified product.
      *
-     * @param element the element to be stored in the node
+     * @param product the product to be stored in the node
      */
-    public ListNode(String element) {
-        super(element);
+    public ListNode(Product product) {
+        super(product);
         this.next = null;
     }
 }

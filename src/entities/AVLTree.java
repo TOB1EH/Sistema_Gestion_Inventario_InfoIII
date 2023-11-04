@@ -88,18 +88,18 @@ public class AVLTree {
     /**
      * Inserts a new node with the given /ment into the AVL tree.
      * @param node The root node of the AVL tree.
-     * @param element The element of the new node to be inserted.
+     * @param product The product of the new node to be inserted.
      * @return The new root node of the AVL tree.
      */
-    public TreeNode insert(TreeNode node, String element) {
+    public TreeNode insert(TreeNode node, Product product) {
         if (node == null) {
-            return new TreeNode(element);
+            return new TreeNode(product);
         }
 
-        if (element.compareTo(node.element) < 0) {
-            node.left = insert(node.left, element);
-        } else if (element.compareTo(node.element) > 0){
-            node.right = insert(node.right, element);
+        if (product.element.compareTo(node.product.element) < 0) {
+            node.left = insert(node.left, product);
+        } else if (product.element.compareTo(node.product.element) > 0){
+            node.right = insert(node.right, product);
         } else {
             return node;
         }
@@ -107,20 +107,20 @@ public class AVLTree {
         node.height = max(height(node.left), height(node.right)) + 1;
         int balance = getBalance(node);
 
-        if (balance > 1 && element.compareTo(node.left.element) < 0) {
+        if (balance > 1 && product.element.compareTo(node.left.product.element) < 0) {
             return rightRotate(node);
         }
 
-        if (balance < -1 && element.compareTo(node.right.element) > 0) {
+        if (balance < -1 && product.element.compareTo(node.right.product.element) > 0) {
             return leftRotate(node);
         }
 
-        if (balance > 1 && element.compareTo(node.left.element) > 0) {
+        if (balance > 1 && product.element.compareTo(node.left.product.element) > 0) {
             node.left = leftRotate(node.left);
             return rightRotate(node);
         }
 
-        if (balance < -1 && element.compareTo(node.right.element) < 0) {
+        if (balance < -1 && product.element.compareTo(node.right.product.element) < 0) {
             node.right = rightRotate(node.right);
             return leftRotate(node);
         }
@@ -129,9 +129,9 @@ public class AVLTree {
     }
 
     /**
-     * Returns the node with the minimum element value in a given subtree.
+     * Returns the node with the minimum product value in a given subtree.
      * @param node The root node of the subtree.
-     * @return The node with the minimum element value.
+     * @return The node with the minimum product value.
      */
     private TreeNode minValueNode(TreeNode node) {
         TreeNode current = node;
@@ -142,21 +142,21 @@ public class AVLTree {
     }
 
     /**
-     * Deletes a node with the given element from the AVL tree.
+     * Deletes a node with the given product from the AVL tree.
      * @param root The root node of the AVL tree.
-     * @param element The element of the node to be deleted.
+     * @param product The product of the node to be deleted.
      * @return The new root node of the AVL tree.
      */
-    public TreeNode deleteNode(TreeNode root, String element) {
+    public TreeNode deleteNode(TreeNode root, String key) {
         if (root == null) {
             return root;
         }
 
-        int cmp = element.compareTo(root.element);
+        int cmp = key.compareTo(root.product.element);
         if (cmp < 0) {
-            root.left = deleteNode(root.left, element);
+            root.left = deleteNode(root.left, key);
         } else if (cmp > 0) {
-            root.right = deleteNode(root.right, element);
+            root.right = deleteNode(root.right, key);
         } else {
             if (root.left == null || root.right == null) {
                 TreeNode temp = null;
@@ -173,8 +173,8 @@ public class AVLTree {
                 }
             } else {
                 TreeNode temp = minValueNode(root.right);
-                root.element = temp.element;
-                root.right = deleteNode(root.right, temp.element);
+                root.product = temp.product;
+                root.right = deleteNode(root.right, temp.product.element);
             }
         }
 
@@ -219,9 +219,9 @@ public class AVLTree {
             throw new ProductNotFoundException(name);
         }
 
-        int cmp = name.compareTo(root.element);
+        int cmp = name.compareTo(root.product.element);
         if (cmp == 0) {
-            return "Product's name: " + root.element + ", Stock: "; // + stock
+            return "Product's name: " + root.product + ", Stock: "; // + stock
         } else if (cmp < 0) {
             return search(root.left, name);
         } else {
@@ -230,14 +230,14 @@ public class AVLTree {
     }
 
     /**
-     * Traverses the AVL tree in pre-order and returns a string representation of the elements of the nodes.
+     * Traverses the AVL tree in pre-order and returns a string representation of the products of the nodes.
      * @param node The root node of the AVL tree.
      * @return A string representation of the traversal.
      */
     public String preOrder(TreeNode node) {
         StringBuilder sb = new StringBuilder();
         if (node != null) {
-            sb.append(node.element).append(" ");
+            sb.append(node.product.element).append(" ");
             sb.append(preOrder(node.left));
             sb.append(preOrder(node.right));
         }
@@ -245,7 +245,7 @@ public class AVLTree {
     }
 
     /**
-     * Traverses the AVL tree in in-order and returns a string representation of the elements of the nodes.
+     * Traverses the AVL tree in in-order and returns a string representation of the products of the nodes.
      * @param node The root node of the AVL tree.
      * @return A string representation of the traversal.
      */
@@ -253,7 +253,7 @@ public class AVLTree {
         StringBuilder sb = new StringBuilder();
         if (node != null) {
             sb.append(inOrder(node.left));
-            sb.append(node.element).append(" ");
+            sb.append(node.product.element).append(" ");
             sb.append(inOrder(node.right));
         }
         return sb.toString();
