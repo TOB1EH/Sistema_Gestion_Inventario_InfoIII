@@ -8,8 +8,7 @@ import exceptions.ProductNotFoundException;
  */
 public class AVLTree {
 
-    public TreeNode root;
-    //private TreeNode root;
+    private TreeNode root;
 
     /**
      * Returns the root node of the AVL tree.
@@ -17,14 +16,6 @@ public class AVLTree {
      */
     public TreeNode getRoot() {
         return root;
-    }
-
-    /**
-     * Sets the root node of the AVL tree.
-     * @param root The root node to be set.
-     */
-    public void setRoot(TreeNode root) {
-        this.root = root;
     }
 
     /**
@@ -85,13 +76,17 @@ public class AVLTree {
         return N == null ? 0 : height(N.left) - height(N.right);
     }
 
+    public void insertProduct(Product product) {
+        this.root = insert(root, product);
+    }
+
     /**
      * Inserts a new node with the given /ment into the AVL tree.
      * @param node The root node of the AVL tree.
      * @param product The product of the new node to be inserted.
      * @return The new root node of the AVL tree.
      */
-    public TreeNode insert(TreeNode node, Product product) {
+    private TreeNode insert(TreeNode node, Product product) {
         if (node == null) {
             return new TreeNode(product);
         }
@@ -141,13 +136,17 @@ public class AVLTree {
         return current;
     }
 
+    public void deleteProduct(String key) {
+        this.root = deleteNode(root, key);
+    }
+
     /**
      * Deletes a node with the given product from the AVL tree.
      * @param root The root node of the AVL tree.
      * @param product The product of the node to be deleted.
      * @return The new root node of the AVL tree.
      */
-    public TreeNode deleteNode(TreeNode root, String key) {
+    private TreeNode deleteNode(TreeNode root, String key) {
         if (root == null) {
             return root;
         }
@@ -206,6 +205,10 @@ public class AVLTree {
         return root;
     }
 
+    public String searchProduct(String name) throws ProductNotFoundException {
+        return search(root, name);
+    }
+
     /**
      * Searches a product in the inventory and returns the information about it as a string.
      * If the product is not found, it throws a ProductNotFoundException.
@@ -214,14 +217,14 @@ public class AVLTree {
      * @return The information about the product as a string.
      * @throws ProductNotFoundException If the product is not found.
      */
-    public String search(TreeNode root, String name) throws ProductNotFoundException {
+    private String search(TreeNode root, String name) throws ProductNotFoundException {
         if (root == null) {
             throw new ProductNotFoundException(name);
         }
 
         int cmp = name.compareTo(root.product.element);
         if (cmp == 0) {
-            return "Product's name: " + root.product + ", Stock: "; // + stock
+            return "Product's name: " + root.product.element + ", Stock: " + root.product.stock; // + stock
         } else if (cmp < 0) {
             return search(root.left, name);
         } else {
@@ -242,7 +245,7 @@ public class AVLTree {
             sb.append(preOrder(node.right));
         }
         return sb.toString();
-    }
+    } // Eliminar si no se usa
 
     /**
      * Traverses the AVL tree in in-order and returns a string representation of the products of the nodes.
