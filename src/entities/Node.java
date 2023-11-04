@@ -2,18 +2,15 @@ package entities;
 
 /**
  * Represents a generic node
- *
- * @param <T> the type of data stored in the node
  */
-public class Node<T> {
-    private T element;
-
+public class Node{
+    public String element;
     /**
      * Constructs a new node with the specified element.
      *
      * @param element the element to be stored in the node
      */
-    public Node(T element) {
+    public Node(String element) {
         this.element = element;
     }
 }
