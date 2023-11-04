@@ -101,7 +101,7 @@ public class AVLTree {
         } else if (element.compareTo(node.element) > 0){
             node.right = insert(node.right, element);
         } else {
-            return root;
+            return node;
         }
 
         node.height = max(height(node.left), height(node.right)) + 1;
