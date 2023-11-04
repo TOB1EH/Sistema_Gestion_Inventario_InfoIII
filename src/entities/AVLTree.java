@@ -73,7 +73,7 @@ public class AVLTree {
      * @return The balance factor of the node.
      */
     private int getBalance(TreeNode n) {
-        return n == null ? 0 : height(N.left) - height(N.right);
+        return n == null ? 0 : height(n.left) - height(n.right);
     }
 
     public void insertProduct(Product product) {
