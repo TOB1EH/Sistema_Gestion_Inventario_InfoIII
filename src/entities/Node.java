@@ -5,6 +5,7 @@ package entities;
  */
 public class Node{
     public String element;
+
     /**
      * Constructs a new node with the specified element.
      *
