@@ -1,9 +1,10 @@
 import entities.AVLTree;
+import exceptions.ProductNotFoundException;
 /**
  * TestAVLGPT
  */
 public class TestAVLGPT {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws ProductNotFoundException {
         AVLTree tree = new AVLTree();
         tree.root = tree.insert(tree.root, "manzana");
         tree.root = tree.insert(tree.root, "plátano");
@@ -11,11 +12,9 @@ public class TestAVLGPT {
         tree.root = tree.insert(tree.root, "mango");
         tree.root = tree.insert(tree.root, "pera");
         tree.root = tree.insert(tree.root, "uva");
-        System.out.println("Recorrido en inorden del árbol construido: ");
-        tree.inOrder(tree.root);
+        System.out.println("Recorrido en inorden del árbol construido: "+tree.inOrder(tree.root));
         String keyToDelete = "naranja";
         tree.root = tree.deleteNode(tree.root, keyToDelete);
-        System.out.println("\n\nÁrbol después de eliminar " + keyToDelete + ":");
-        tree.inOrder(tree.root);
+        System.out.println("\n\nÁrbol después de eliminar " + keyToDelete + ": "+tree.inOrder(tree.root));
     }
 }

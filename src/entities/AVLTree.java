@@ -9,7 +9,7 @@ import exceptions.ProductNotFoundException;
 public class AVLTree {
 
     public TreeNode root;
-    // private TreeNode root;
+    //private TreeNode root;
 
     /**
      * Returns the root node of the AVL tree.
@@ -96,10 +96,9 @@ public class AVLTree {
             return new TreeNode(element);
         }
 
-        int cmp = element.compareTo(node.element);
-        if (cmp < 0) {
+        if (element.compareTo(node.element) < 0) {
             node.left = insert(node.left, element);
-        } else if (cmp > 0) {
+        } else if (element.compareTo(node.element) > 0){
             node.right = insert(node.right, element);
         } else {
             return node;
@@ -148,9 +147,9 @@ public class AVLTree {
      * @param element The element of the node to be deleted.
      * @return The new root node of the AVL tree.
      */
-    public TreeNode deleteNode(TreeNode root, String element) throws ProductNotFoundException {
+    public TreeNode deleteNode(TreeNode root, String element) {
         if (root == null) {
-            throw new ProductNotFoundException(element);
+            return root;
         }
 
         int cmp = element.compareTo(root.element);
@@ -180,7 +179,7 @@ public class AVLTree {
         }
 
         if(root == null) {
-            throw new ProductNotFoundException(element);
+            return root;
         }
 
         root.height = max(height(root.left), height(root.right)) + 1;
@@ -208,42 +207,57 @@ public class AVLTree {
     }
 
     /**
-     * Searchs a product in the inventory, then, if the product was found, shows information about it, otherwise, shows a message error.
-     * @param root of the avl tree.
-     * @param name of the product to be found.
+     * Searches a product in the inventory and returns the information about it as a string.
+     * If the product is not found, it throws a ProductNotFoundException.
+     * @param root The root node of the AVL tree.
+     * @param name The name of the product to be found.
+     * @return The information about the product as a string.
+     * @throws ProductNotFoundException If the product is not found.
      */
-    void searchAndDisplay(TreeNode root, String name) throws ProductNotFoundException {
+    public String search(TreeNode root, String name) throws ProductNotFoundException {
         if (root == null) {
             throw new ProductNotFoundException(name);
         }
 
-        int cmp = name.compareTo(root.name);
+        int cmp = name.compareTo(root.element);
         if (cmp == 0) {
-            System.out.println("Product's name: " + root.name + ", Stock: " + root.stock);
+            return "Product's name: " + root.element + ", Stock: "; // + stock
         } else if (cmp < 0) {
-            searchAndDisplay(root.left, name);
+            return search(root.left, name);
         } else {
-            searchAndDisplay(root.right, name);
+            return search(root.right, name);
         }
     }
 
     /**
-     * Traverses the AVL tree in pre-order and prints the elements of the nodes.
+     * Traverses the AVL tree in pre-order and returns a string representation of the elements of the nodes.
      * @param node The root node of the AVL tree.
+     * @return A string representation of the traversal.
      */
-    public void preOrder(TreeNode node) {
+    public String preOrder(TreeNode node) {
+        StringBuilder sb = new StringBuilder();
         if (node != null) {
-            System.out.print(node.element + " ");
-            preOrder(node.left);
-            preOrder(node.right);
+            sb.append(node.element).append(" ");
+            sb.append(preOrder(node.left));
+            sb.append(preOrder(node.right));
         }
+        return sb.toString();
     }
 
-    public void inOrder(TreeNode node) {
+    /**
+     * Traverses the AVL tree in in-order and returns a string representation of the elements of the nodes.
+     * @param node The root node of the AVL tree.
+     * @return A string representation of the traversal.
+     */
+    public String inOrder(TreeNode node) {
+        StringBuilder sb = new StringBuilder();
         if (node != null) {
-            inOrder(node.left);
-            System.out.print(node.element + " ");
-            inOrder(node.right);
+            sb.append(inOrder(node.left));
+            sb.append(node.element).append(" ");
+            sb.append(inOrder(node.right));
         }
+        return sb.toString();
     }
+
+    /*     Devolver una representación de cadena del recorrido en lugar de usar `System.out.print` hace que el código sea más modular porque separa la lógica transversal de la lógica de impresión. También hace que el código sea más fácil de probar porque la salida se puede comparar con los valores esperados. */
 }
