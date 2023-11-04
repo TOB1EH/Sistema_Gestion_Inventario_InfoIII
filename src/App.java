@@ -1,8 +1,12 @@
 import java.util.Scanner;
 
+import entities.AVLTree;
+import entities.List;
+
 public class App {
     public static void main(String[] args) throws Exception {
-        
+        AVLTree productTree = new AVLTree();
+        List productHistory = new List();
         switch(menu()) {
             case 1:
                 System.out.println("Ingrese el nombre del producto que desea agregar.");        
