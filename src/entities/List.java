@@ -117,4 +117,17 @@ public class List {
     public boolean isEmpty() {
         return this.front == null;
     }
+
+    @Override
+    public String toString()
+    {
+      String cad="";
+      ListNode temp = this.front;
+      while (temp != null) 
+      {
+        cad += temp.product.toString();
+        temp=temp.next;
+      } 
+      return cad;
+    }
 }

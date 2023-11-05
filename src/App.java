@@ -1,44 +1,48 @@
-import java.nio.file.ProviderNotFoundException;
 import java.util.Scanner;
 import entities.AVLTree;
 import entities.List;
 import entities.Product;
+import exceptions.ProductNotFoundException;
 
 public class App {
     private static Scanner scanner = new Scanner(System.in);
     public static void main(String[] args) {
         AVLTree productTree = new AVLTree();
         List productHistory = new List();
-        Scanner scanner = new Scanner(System.in);
-
-        switch(menu()) {
-            case 1:
-                addProduct(productTree, productHistory);
-                break;
-            case 2:
-                removeProduct(productTree, productHistory);
-                break;
-            case 3:
-                System.out.println("Ingrese el nombre del producto que desea buscar.");
-                findingProduct(inputProduct(), productTree, productHistory);
-                break;
-            case 4:
-                System.out.println("Inventario de productos completo:");
-                ListNode currentNode = productHistory.getFront();
-                while (currentNode != null) {
-                    System.out.println(currentNode.product);
-                    currentNode = currentNode.next;
-                }
-                break;
-            default:
-                System.out.println("Valor ingresado invalido");
-                break;
-        }
+        menuIntro();
+        int op;
+        do{
+            op=menu();
+            switch(op) {
+                case 1:
+                    addProduct(productTree, productHistory);
+                    break;
+                case 2:
+                    removeProduct(productTree, productHistory);
+                    break;
+                case 3:
+                    System.out.println("Ingrese el nombre del producto que desea buscar.");
+                    findingProduct(inputProduct(), productTree, productHistory);
+                    break;
+                case 4:
+                    System.out.println("Inventario de productos completo:");
+                    System.out.println(productHistory);
+                    break;
+                case 5:
+                    break;
+                default:
+                    System.out.println("Valor ingresado invalido");
+                    break;
+            }
+            
+            
+        }while(op != 5);
         System.out.println("Gracias por utilizar el sistema de gestion de inventario.");
+        scanner.close();
 }
 
-    private static int menu() {
-
+    private static void menuIntro()
+    {
         System.out.println("\n" + //
                 "──────────────────────────────────────────\n" + //
                 "─██████████████─██████████████─██████████─\n" + //
@@ -54,7 +58,11 @@ public class App {
                 "─██████████████─██████████████─██████████─\n" + //
                 "──────────────────────────────────────────");
 
-        System.out.println("Bienvenido al sistema de gestion de inventario.\n Por favor, ingrese una opcion segun desee.");
+        System.out.println("Bienvenido al sistema de gestion de inventario.\n");
+        
+    }
+    private static int menu() {
+        System.out.println(" Por favor, ingrese una opcion segun desee:");
         System.out.println("Si desea agregar un producto, ingrese el numero 1.");
         System.out.println("Si desea eliminar un producto del inventario, ingrese el numero 2");
         System.out.println("Si desea buscar un producto, ingrese el numero 3");
@@ -97,60 +105,63 @@ public class App {
      * @return product inserted by keyboard.
      */
     private static String inputProduct() {
-        Scanner scanner = new Scanner(System.in);
-
-        String productToFind = scanner.nextLine().toLowerCase().replace(" ", "_");
+        String productToFind = scanner.nextLine().toLowerCase().replaceAll("\\s+", "_");
 
         while(productToFind.isEmpty()) {
-            System.out.println("Vuelva a ingresar la cadena");
-            productToFind = scanner.nextLine().toLowerCase().replace(" ", "_");
+            System.out.println("Debes ingresar un nombre de producto!");
+            productToFind = scanner.nextLine().toLowerCase().replaceAll("\\s+", "_");
         }
         return productToFind;
-      
-public static void addProduct( AVLTree productTree, List productList)
-{
-    String productName="";
-    do{
-        System.out.println("Ingrese el nombre del producto que desea agregar:");
-        productName = scanner.nextLine();
-        if(productName.equals(""))
-            System.out.println("Debes ingresar un nombre de producto!");
-    }while(productName.equals(""));
-    Product product = findingProduct(productName.toLowerCase().replaceAll("\\s+", "_"), productTree, productList);
-    
-    if(product != null)
-    {
-        System.out.println("Encontrado: \n" + product);
-        incrementStock(product);
     }
-    else
-    {
-        String op="";
-            do
-            {
-                System.out.println("El producto: " + productName + 
-                " no se encuentra registrado en el sistema\n Deseea añadirlo?(s/n)\n");
-                op = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
-                switch (op)
-                {
-                    case "s":
-                        product = new Product(productName.toLowerCase().replaceAll("\\s+", "_"), 0);
-                        incrementStock(product);
-                        //insertar en arbol y lista
-                        productTree.insertProduct(product);
-                        productList.insertNode(product);
-                        System.out.println("Producto añadido con exito!");
-                        break;
-                    case "n":
-                        break;
-                    default:
-                        System.out.println("Invalido");
-                        break;
-                }
-            }while(!op.equals("n") && !op.equals("s"));
-    }
-}
 
+/**
+ * Add stock to an existing product or add the product if it is not in the system.
+ * @param productTree
+ * @param productList
+ */
+    public static void addProduct( AVLTree productTree, List productList)
+    {
+        System.out.println("Ingresa el nombre del producto a añadir:\n");
+        String productName=inputProduct();
+        Product product = findingProduct(productName, productTree, productList);
+        
+        if(product != null)
+        {
+            System.out.println("Encontrado: \n" + product);
+            incrementStock(product);
+        }
+        else
+        {
+            String op="";
+                do
+                {
+                    System.out.println("El producto: " + productName + 
+                    " no se encuentra registrado en el sistema\n Deseea añadirlo?(s/n)\n");
+                    op = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
+                    switch (op)
+                    {
+                        case "s":
+                            product = new Product(productName.toLowerCase().replaceAll("\\s+", "_"), 0);
+                            incrementStock(product);
+                            //insertar en arbol y lista
+                            productTree.insertProduct(product);
+                            productList.insertNode(product);
+                            System.out.println("Producto añadido con exito!");
+                            break;
+                        case "n":
+                            break;
+                        default:
+                            System.out.println("Invalido");
+                            break;
+                    }
+                }while(!op.equals("n") && !op.equals("s"));
+        }
+    }
+
+    /**
+     * Increments stock
+     * @param product
+     */
     public static void incrementStock(Product product)
     {
         int stock =0;
@@ -164,12 +175,12 @@ public static void addProduct( AVLTree productTree, List productList)
             catch(NumberFormatException nfe)
             {
                 System.out.println("Debes ingresar un valor numerico");
-
+            }
             if(stock == 0)
                 System.out.println("Debes ingresar un valor superior a 0");
         } while(stock <= 0);
         product.stock += stock;
-    }
+}
 
     private static void removeProduct(AVLTree productTree, List productList) {
         System.out.println("Ingrese el nombre del producto que desea eliminar.");
@@ -201,5 +212,5 @@ public static void addProduct( AVLTree productTree, List productList)
             System.out.println(ex.getMessage());
         }
     }
-    }
+    
 }
