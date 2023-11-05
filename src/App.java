@@ -5,7 +5,7 @@ import entities.Product;
 
 public class App {
     private static Scanner scanner = new Scanner(System.in);
-    public static void main(String[] args) throws Exception {
+    public static void main(String[] args) {
         AVLTree productTree = new AVLTree();
         List productHistory = new List();
         switch(menu()) {
