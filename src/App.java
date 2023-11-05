@@ -20,12 +20,7 @@ public class App {
             case 3:
                 System.out.println("Ingrese el nombre del producto que desea buscar.");
                 String productToFind = scanner.nextLine();
-
-                try {
-                    findingProduct(productToFind, productTree, productHistory);
-                } catch(ProductNotFoundException e) {
-                    System.out.println(e.getMessage());
-                }
+                findingProduct(productToFind, productTree, productHistory);
                 break;
             case 4: 
                 System.out.println("Inventario de productos completo:");
@@ -67,13 +62,13 @@ public class App {
     }
 
     private static void findingProduct(String productToFind, AVLTree productTree, List productHistory) throws ProductNotFoundException {
-        if(!productTree.searchProduct(productToFind).isEmpty()) {
-            System.out.println(productTree.searchProduct(productToFind));
-        } else if(!productHistory.findProduct(productToFind).isEmpty()) {
-            System.out.println(productHistory.findProduct(productToFind));
+        if(productTree.productIsOnList(productToFind)) {
+            System.out.println(productTree.searchProduct(productToFind).toString());
+        } else if(productHistory.productIsOnList(productToFind)) {
+            System.out.println(productHistory.searchProduct(productToFind).toString());
         } else {
-            System.err.println("El producto no está en el inventario");
+            throw new ProductNotFoundException(productToFind);
         }
     }
-    
+
 }
