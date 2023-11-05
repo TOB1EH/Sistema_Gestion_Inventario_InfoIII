@@ -1,5 +1,7 @@
 package entities;
 
+import exceptions.ProductNotFoundException;
+
 /**
  * Represents a generic linked list data structure.
  *
@@ -67,6 +69,25 @@ public class List {
         }
     }
 
+    /**
+    * Finds a product in the list, if the product was found, it prints the information about it, otherwise prints a message error.
+    * @param key to find in the list.
+    * @return product found.
+    * @throws ProductNotFoundException if product wasn't found
+    */
+    public String findProduct(String key) throws ProductNotFoundException {
+        ListNode currentNode = front;
+
+        while(currentNode != null) {
+            if(currentNode.product.element.equals(key)) {
+                return currentNode.product.toString();
+            }
+            currentNode = currentNode.next;
+        }
+
+        throw new ProductNotFoundException(key);
+    }
+    
     /**
      * Checks if the list is empty.
      *
