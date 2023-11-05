@@ -1,10 +1,13 @@
 import java.util.Scanner;
-
 import entities.AVLTree;
 import entities.List;
+import entities.ListNode;
+import entities.Product;
+import exceptions.ProductNotFoundException;
 
 public class App {
-    public static void main(String[] args) throws Exception {
+    private static Scanner scanner = new Scanner(System.in);
+    public static void main(String[] args) {
         AVLTree productTree = new AVLTree();
         List productHistory = new List();
         switch(menu()) {
@@ -12,13 +15,18 @@ public class App {
                 System.out.println("Ingrese el nombre del producto que desea agregar.");        
                 break;
             case 2:
-                System.out.println("Ingrese el nombre del producto que desea eliminar.");
+                removeProduct(productTree, productHistory);
                 break;
             case 3:
                 System.out.println("Ingrese el nombre del producto que desea buscar.");
                 break;
-            case 4: 
+            case 4:
                 System.out.println("Inventario de productos completo:");
+                ListNode currentNode = productHistory.getFront();
+                while (currentNode != null) {
+                    System.out.println(currentNode.product);
+                    currentNode = currentNode.next;
+                }
                 break;
             default:
                 System.out.println("Valor ingresado invalido");
@@ -52,8 +60,37 @@ public class App {
         System.out.println("Si desea mostrar el inventario completo de productos, ingrese el numero 4");
         System.out.println("Si desea salir, ingrese el numero 5");
         int op =scanner.nextInt();
-        scanner.close();
         return op;
     }
-    
+
+    private static void removeProduct(AVLTree productTree, List productList) {
+        System.out.println("Ingrese el nombre del producto que desea eliminar.");
+        String string = scanner.nextLine().toLowerCase().replace(" ", "_");
+
+        int stock = 0;
+        do {
+            System.out.print("Ingrese cuantos elementos del inventario desea eliminar: ");
+            try {
+                stock = scanner.nextInt();
+            }
+            catch(NumberFormatException e) {
+                System.out.println("Debes ingresar un valor numerico entero.");
+            }
+            if(stock == 0)
+                System.out.println("Debes ingresar un valor superior a 0");
+        } while(stock <= 0);
+
+        try {
+            Product product = productTree.searchProduct(string);
+            if (product.stock >= stock) {
+                product.stock -= stock;
+                System.out.println("Elementos eliminados correctamente!");
+                if (product.stock == 0) {
+                    productTree.deleteProduct(string);
+                }
+            }
+        } catch (ProductNotFoundException ex) {
+            System.out.println(ex.getMessage());
+        }
+    }
 }
