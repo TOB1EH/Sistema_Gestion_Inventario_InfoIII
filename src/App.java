@@ -67,7 +67,7 @@ public class App {
         } else if(productHistory.productIsOnList(productToFind)) {
             System.out.println(productHistory.searchProduct(productToFind).toString());
         } else {
-            throw new ProductNotFoundException(productToFind);
+            System.out.println(productToFind + " was nos found in the inventory.");
         }
     }
 
