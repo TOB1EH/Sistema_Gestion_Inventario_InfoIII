@@ -31,8 +31,6 @@ public class List {
     public void insertNode(Product product) {
         if (product == null)
             throw new NullPointerException("The product is null");
-        if(productIsOnList(product.element))
-            throw new IllegalStateException("Product already is on list!");
         // Insert the node
         ListNode newNode = new ListNode(product);
 
