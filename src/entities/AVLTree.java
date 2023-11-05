@@ -205,7 +205,7 @@ public class AVLTree {
         return root;
     }
 
-    public String searchProduct(String name) throws ProductNotFoundException {
+    public Product searchProduct(String name) throws ProductNotFoundException {
         return search(root, name);
     }
 
@@ -217,14 +217,14 @@ public class AVLTree {
      * @return The information about the product as a string.
      * @throws ProductNotFoundException If the product is not found.
      */
-    private String search(TreeNode root, String name) throws ProductNotFoundException {
+    private Product search(TreeNode root, String name) throws ProductNotFoundException {
         if (root == null) {
             throw new ProductNotFoundException(name);
         }
 
         int cmp = name.compareTo(root.product.element);
         if (cmp == 0) {
-            return "Product's name: " + root.product.element + ", Stock: " + root.product.stock; // + stock
+            return root.product;
         } else if (cmp < 0) {
             return search(root.left, name);
         } else {
