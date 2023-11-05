@@ -210,6 +210,23 @@ public class AVLTree {
     }
 
     /**
+     * Check if an element already exist in Tree
+     * @param name of the product
+     * @return true if already exist, false if it's not
+     */
+    public boolean productIsOnList(String name)
+    {
+        try
+        {
+            searchProduct(name);
+            return true;
+        } catch(ProductNotFoundException e)
+        {
+            return false;
+        }
+    }
+
+    /**
      * Searches a product in the inventory and returns the information about it as a string.
      * If the product is not found, it throws a ProductNotFoundException.
      * @param root The root node of the AVL tree.
