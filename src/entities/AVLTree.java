@@ -107,21 +107,17 @@ public class AVLTree {
         node.height = max(height(node.left), height(node.right)) + 1;
         int balance = getBalance(node);
 
-        if (balance > 1 && product.element.compareTo(node.left.product.element) < 0) {
-            return rightRotate(node);
+        if(balance > 1) {
+            if(product.element.compareTo(node.left.product.element) > 0) {
+                node.left = leftRotate(node.left);
+            }
+            rightRotate(node);
         }
 
-        if (balance < -1 && product.element.compareTo(node.right.product.element) > 0) {
-            return leftRotate(node);
-        }
-
-        if (balance > 1 && product.element.compareTo(node.left.product.element) > 0) {
-            node.left = leftRotate(node.left);
-            return rightRotate(node);
-        }
-
-        if (balance < -1 && product.element.compareTo(node.right.product.element) < 0) {
-            node.right = rightRotate(node.right);
+        if(balance < -1) {
+            if(product.element.compareTo(node.right.product.element) < 0) {
+                node.right = rightRotate(node.right);
+            }
             return leftRotate(node);
         }
 
@@ -186,38 +182,16 @@ public class AVLTree {
         int balance = getBalance(root);
 
         if(balance > 1) {
-            if(getBalance(root.left) >= 0) {
-                return rightRotate(root);
-            } else {
+            if(getBalance(root.left) < 0) {
                 root.left = leftRotate(root.left);
-                return rightRotate(root);
             }
+            return rightRotate(root);
         }
 
         if(balance < -1) {
-            if(getBalance(root.right) <= 0) {
-                return leftRotate(root);    
-            } else {
+            if(getBalance(root.right) > 0) {
                 root.right = rightRotate(root.right);
-                return leftRotate(root);
             }
-        }
-
-        if (balance > 1 && getBalance(root.left) >= 0) {
-            return rightRotate(root);
-        }
-
-        if (balance < -1 && getBalance(root.right) <= 0) {
-            return leftRotate(root);
-        }
-
-        if (balance > 1 && getBalance(root.left) < 0) {
-            root.left = leftRotate(root.left);
-            return rightRotate(root);
-        }
-
-        if (balance < -1 && getBalance(root.right) > 0) {
-            root.right = rightRotate(root.right);
             return leftRotate(root);
         }
 
