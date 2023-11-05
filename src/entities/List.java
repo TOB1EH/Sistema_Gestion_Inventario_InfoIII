@@ -22,17 +22,17 @@ public class List {
     }
 
     /**
-     * Inserts a new node with the given product at the end of the list.
+     * Inserts a new node with the given product at the end of the list if it'snt on the list .
      * If the list is empty, the new node becomes the front of the list.
      *
      * @param product the product to be inserted
      * @throws NullPointerException if the product is null
      */
     public void insertNode(Product product) {
-        if (product == null) {
+        if (product == null)
             throw new NullPointerException("The product is null");
-        }
-
+        if(productIsOnList(product.element))
+            throw new IllegalStateException("Product already is on list!");
         // Insert the node
         ListNode newNode = new ListNode(product);
 
@@ -66,6 +66,23 @@ public class List {
         }
 
         throw new ProductNotFoundException(name);
+    }
+
+    /**
+     * Check if an element already exist in list
+     * @param name of the product
+     * @return true if already exist, false if it's not
+     */
+    public boolean productIsOnList(String name)
+    {
+        try
+        {
+            searchProduct(name);
+            return true;
+        } catch(ProductNotFoundException e)
+        {
+            return false;
+        }
     }
 
     /**
