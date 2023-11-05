@@ -2,9 +2,11 @@ import java.util.Scanner;
 
 import entities.AVLTree;
 import entities.List;
+import entities.ListNode;
 
 public class App {
     public static void main(String[] args) throws Exception {
+        Scanner scanner = new Scanner(System.in);
         AVLTree productTree = new AVLTree();
         List productHistory = new List();
         switch(menu()) {
@@ -13,6 +15,33 @@ public class App {
                 break;
             case 2:
                 System.out.println("Ingrese el nombre del producto que desea eliminar.");
+
+                String string = scanner.nextLine();
+
+                string = string.toLowerCase();
+
+                string = string.replace(" ", "_");
+
+                System.out.println("Ingrese cuantos elementos del inventario desea eliminar. ");
+
+                int value = scanner.nextInt();
+
+                if (productHistory.isEmpty()) {
+                    System.out.println("Lista vacia!");
+                } else {
+                    ListNode temp = productHistory.getFront();
+                    while (temp.next != null) {
+                        if (temp.product.element == string) {
+                            if (temp.product.stock >= value) {
+                                temp.product.stock -= value;
+                            }
+                        } else {
+                            temp = temp.next;
+                        }
+                    }
+                }
+
+                productTree.searchProduct(string);
                 break;
             case 3:
                 System.out.println("Ingrese el nombre del producto que desea buscar.");
