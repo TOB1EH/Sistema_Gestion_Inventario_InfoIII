@@ -61,7 +61,7 @@ public class App {
         return op;
     }
 
-    private static void findingProduct(String productToFind, AVLTree productTree, List productHistory) throws ProductNotFoundException {
+    private static void findingProduct(String productToFind, AVLTree productTree, List productHistory) {
         if(productTree.productIsOnList(productToFind)) {
             System.out.println(productTree.searchProduct(productToFind).toString());
         } else if(productHistory.productIsOnList(productToFind)) {
