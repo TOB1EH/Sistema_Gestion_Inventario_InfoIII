@@ -132,7 +132,7 @@ public static void addProduct( AVLTree productTree, List productList)
             }
             if(stock == 0)
                 System.out.println("Debes ingresar un valor superior a 0");
-        } while(stock > 0);
+        } while(stock <= 0);
         
         product.stock += stock;
     }
