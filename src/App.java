@@ -1,9 +1,7 @@
 import java.util.Scanner;
 import entities.AVLTree;
 import entities.List;
-import entities.ListNode;
 import entities.Product;
-import exceptions.ProductNotFoundException;
 
 public class App {
     private static Scanner scanner = new Scanner(System.in);
@@ -12,7 +10,7 @@ public class App {
         List productHistory = new List();
         switch(menu()) {
             case 1:
-                System.out.println("Ingrese el nombre del producto que desea agregar.");        
+                addProduct(productTree, productHistory);
                 break;
             case 2:
                 removeProduct(productTree, productHistory);
@@ -36,7 +34,6 @@ public class App {
 }
 
     private static int menu() {
-        Scanner scanner = new Scanner(System.in);
 
         System.out.println("\n" + //
                 "──────────────────────────────────────────\n" + //
@@ -59,8 +56,72 @@ public class App {
         System.out.println("Si desea buscar un producto, ingrese el numero 3");
         System.out.println("Si desea mostrar el inventario completo de productos, ingrese el numero 4");
         System.out.println("Si desea salir, ingrese el numero 5");
-        int op =scanner.nextInt();
+        int op =Integer.parseInt(scanner.nextLine());
         return op;
+    }
+
+public static void addProduct( AVLTree productTree, List productList)
+{
+    String productName="";
+    do{
+        System.out.println("Ingrese el nombre del producto que desea agregar:");
+        productName = scanner.nextLine();
+        if(productName.equals(""))
+            System.out.println("Debes ingresar un nombre de producto!");
+    }while(productName.equals(""));
+    Product product = findingProduct(productName.toLowerCase().replaceAll("\\s+", "_"), productTree, productList);
+    
+    if(product != null)
+    {
+        System.out.println("Encontrado: \n" + product);
+        incrementStock(product);
+    }
+    else
+    {
+        String op="";
+            do
+            {
+                System.out.println("El producto: " + productName + 
+                " no se encuentra registrado en el sistema\n Deseea añadirlo?(s/n)\n");
+                op = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
+                switch (op)
+                {
+                    case "s":
+                        product = new Product(productName.toLowerCase().replaceAll("\\s+", "_"), 0);
+                        incrementStock(product);
+                        //insertar en arbol y lista
+                        productTree.insertProduct(product);
+                        productList.insertNode(product);
+                        System.out.println("Producto añadido con exito!");
+                        break;
+                    case "n":
+                        break;
+                    default:
+                        System.out.println("Invalido");
+                        break;
+                }
+            }while(!op.equals("n") && !op.equals("s"));
+    }
+}
+
+    public static void incrementStock(Product product)
+    {
+        int stock =0;
+        do
+        {
+            System.out.println("Ingresa el stock a añadir: ");
+            try
+            {
+                stock = Integer.parseInt(scanner.nextLine());
+            }
+            catch(NumberFormatException nfe)
+            {
+                System.out.println("Debes ingresar un valor numerico");
+
+            if(stock == 0)
+                System.out.println("Debes ingresar un valor superior a 0");
+        } while(stock <= 0);
+        product.stock += stock;
     }
 
     private static void removeProduct(AVLTree productTree, List productList) {
@@ -79,8 +140,8 @@ public class App {
             if(stock == 0)
                 System.out.println("Debes ingresar un valor superior a 0");
         } while(stock <= 0);
-
-        try {
+      
+              try {
             Product product = productTree.searchProduct(string);
             if (product.stock >= stock) {
                 product.stock -= stock;
@@ -92,5 +153,11 @@ public class App {
         } catch (ProductNotFoundException ex) {
             System.out.println(ex.getMessage());
         }
+    }
+    }
+    
+    private static Product findingProduct(String productToFind, AVLTree productTree, List productList)
+    {
+        return null;
     }
 }
