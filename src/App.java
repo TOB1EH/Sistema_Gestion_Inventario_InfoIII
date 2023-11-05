@@ -1,7 +1,9 @@
+import java.nio.file.ProviderNotFoundException;
 import java.util.Scanner;
 
 import entities.AVLTree;
 import entities.List;
+import entities.Product;
 import exceptions.ProductNotFoundException;
 
 public class App {
@@ -61,14 +63,22 @@ public class App {
         return op;
     }
 
-    private static void findingProduct(String productToFind, AVLTree productTree, List productHistory) {
-        if(productTree.productIsOnList(productToFind)) {
-            System.out.println(productTree.searchProduct(productToFind).toString());
-        } else if(productHistory.productIsOnList(productToFind)) {
-            System.out.println(productHistory.searchProduct(productToFind).toString());
-        } else {
-            System.out.println(productToFind + " was nos found in the inventory.");
-        }
+    private static void findingProduct(String productToFind, AVLTree productTree, List productList) {
+        Product product;
+        try{
+            product = productTree.searchProduct(productToFind); 
+            System.out.println("Encontrado: \n" + product);
+
+       }catch(ProductNotFoundException e)
+       {
+            try{
+                product = productList.searchProduct(productToFind);
+                System.out.println("Encontrado: \n" + product);
+            } catch(ProductNotFoundException d)
+            {
+                System.out.println("Producto no encontrado en el sistema\n");
+            }
+       }
     }
 
 }
