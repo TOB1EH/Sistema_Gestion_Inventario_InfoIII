@@ -1,3 +1,4 @@
+import java.nio.file.ProviderNotFoundException;
 import java.util.Scanner;
 import entities.AVLTree;
 import entities.List;
@@ -8,6 +9,8 @@ public class App {
     public static void main(String[] args) {
         AVLTree productTree = new AVLTree();
         List productHistory = new List();
+        Scanner scanner = new Scanner(System.in);
+
         switch(menu()) {
             case 1:
                 addProduct(productTree, productHistory);
@@ -17,6 +20,7 @@ public class App {
                 break;
             case 3:
                 System.out.println("Ingrese el nombre del producto que desea buscar.");
+                findingProduct(inputProduct(), productTree, productHistory);
                 break;
             case 4:
                 System.out.println("Inventario de productos completo:");
@@ -60,6 +64,49 @@ public class App {
         return op;
     }
 
+    /**
+     * First looks for the product in the avl tree, if not's in the avl tree looks for it in the list, otherwise there's not the product in the inventory. 
+     * @param productToFind looks for that product.
+     * @param productTree avl tree to look for.
+     * @param productList list to look for.
+     * @return product found, otherwise null.
+     */
+    private static Product findingProduct(String productToFind, AVLTree productTree, List productList) {
+        Product product;
+        try{
+            product = productTree.searchProduct(productToFind); 
+            System.out.println("Encontrado: \n" + product);
+            return product;
+
+       }catch(ProductNotFoundException e)
+       {
+            try{
+                product = productList.searchProduct(productToFind);
+                System.out.println("Encontrado: \n" + product);
+                return product;
+            } catch(ProductNotFoundException d)
+            {
+                System.out.println("Producto no encontrado en el sistema\n");
+                return null;
+            }
+       }
+    }
+
+    /** Reads input on the keyboard the product that will be used for.
+     * 
+     * @return product inserted by keyboard.
+     */
+    private static String inputProduct() {
+        Scanner scanner = new Scanner(System.in);
+
+        String productToFind = scanner.nextLine().toLowerCase().replace(" ", "_");
+
+        while(productToFind.isEmpty()) {
+            System.out.println("Vuelva a ingresar la cadena");
+            productToFind = scanner.nextLine().toLowerCase().replace(" ", "_");
+        }
+        return productToFind;
+      
 public static void addProduct( AVLTree productTree, List productList)
 {
     String productName="";
@@ -154,10 +201,5 @@ public static void addProduct( AVLTree productTree, List productList)
             System.out.println(ex.getMessage());
         }
     }
-    }
-    
-    private static Product findingProduct(String productToFind, AVLTree productTree, List productList)
-    {
-        return null;
     }
 }
