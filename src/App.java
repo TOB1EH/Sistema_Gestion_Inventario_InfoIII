@@ -3,7 +3,6 @@ import java.util.Scanner;
 import entities.AVLTree;
 import entities.List;
 import entities.Product;
-import exceptions.ProductNotFoundException;
 
 public class App {
     private static Scanner scanner = new Scanner(System.in);
@@ -66,30 +65,16 @@ public static void addProduct( AVLTree productTree, List productList)
         if(productName.equals(""))
             System.out.println("Debes ingresar un nombre de producto!");
     }while(productName.equals(""));
-    Product product;
-
-    //busqueda
-    try//buscar en el arbol 
+    Product product = findingProduct(productName.toLowerCase().replaceAll("\\s+", "_"), productTree, productList);
+    
+    if(product != null)
     {
-        product = productTree.searchProduct(productName.toLowerCase().replaceAll("\\s+", ""));
         System.out.println("Encontrado: \n" + product);
         incrementStock(product);
-
     }
-    catch(ProductNotFoundException e)//el produto no se encontro en el arbol
+    else
     {
-        //busqueda en la lista
-        System.out.println("->CONTROL FLOW SOUT: Producto no encontrado en arbol");//sout auxiliar
-        try
-        {
-            product = productList.searchProduct(productName.toLowerCase().replaceAll("\\s+", "_"));
-            System.out.println("Encontrado: \n" + product);
-            incrementStock(product);
-
-        }
-        catch(ProductNotFoundException d)//producto no se encontro en la lista
-        {
-            String op="";
+        String op="";
             do
             {
                 System.out.println("El producto: " + productName + 
@@ -112,7 +97,6 @@ public static void addProduct( AVLTree productTree, List productList)
                         break;
                 }
             }while(!op.equals("n") && !op.equals("s"));
-        }
     }
 }
 
@@ -136,4 +120,10 @@ public static void addProduct( AVLTree productTree, List productList)
         
         product.stock += stock;
     }
+    
+    private static Product findingProduct(String productToFind, AVLTree productTree, List productList)
+    {
+        return null;
+    }
+    
 }
