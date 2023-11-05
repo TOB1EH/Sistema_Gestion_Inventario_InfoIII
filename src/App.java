@@ -31,7 +31,7 @@ public class App {
                 case 5:
                     break;
                 default:
-                    System.out.println("Valor ingresado invalido");
+                    System.out.println("\nValor ingresado invalido,debes ingresar un valor numerico");
                     break;
             }
             
@@ -62,14 +62,21 @@ public class App {
         
     }
     private static int menu() {
-        System.out.println(" Por favor, ingrese una opcion segun desee:");
+        System.out.println("\nPor favor, ingrese una opcion segun desee:");
         System.out.println("Si desea agregar un producto, ingrese el numero 1.");
         System.out.println("Si desea eliminar un producto del inventario, ingrese el numero 2");
         System.out.println("Si desea buscar un producto, ingrese el numero 3");
         System.out.println("Si desea mostrar el inventario completo de productos, ingrese el numero 4");
         System.out.println("Si desea salir, ingrese el numero 5");
-        int op =Integer.parseInt(scanner.nextLine());
-        return op;
+        try{
+
+            int op =Integer.parseInt(scanner.nextLine());
+            return op;
+        }
+        catch(NumberFormatException e)
+        {
+            return 6;
+        }
     }
 
     /**
@@ -121,7 +128,7 @@ public class App {
  */
     public static void addProduct( AVLTree productTree, List productList)
     {
-        System.out.println("Ingresa el nombre del producto a añadir:\n");
+        System.out.println("\nIngresa el nombre del producto a añadir:");
         String productName=inputProduct();
         Product product = findingProduct(productName, productTree, productList);
         
