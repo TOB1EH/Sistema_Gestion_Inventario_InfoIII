@@ -82,7 +82,7 @@ public static void addProduct( AVLTree productTree, List productList)
         System.out.println("->CONTROL FLOW SOUT: Producto no encontrado en arbol");//sout auxiliar
         try
         {
-            product = productList.searchProduct(productName.toLowerCase().replaceAll("\\s+", ""));
+            product = productList.searchProduct(productName.toLowerCase().replaceAll("\\s+", "_"));
             System.out.println("Encontrado: \n" + product);
             incrementStock(product);
 
@@ -98,7 +98,7 @@ public static void addProduct( AVLTree productTree, List productList)
                 switch (op)
                 {
                     case "s":
-                        product = new Product(productName.toLowerCase().replaceAll("\\s+", ""), 0);
+                        product = new Product(productName.toLowerCase().replaceAll("\\s+", "_"), 0);
                         incrementStock(product);
                         //insertar en arbol y lista
                         productTree.insertProduct(product);
