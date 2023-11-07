@@ -1,3 +1,4 @@
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import entities.AVLTree;
 import entities.List;
@@ -9,40 +10,46 @@ public class App {
     public static void main(String[] args) {
         AVLTree productTree = new AVLTree();
         List productHistory = new List();
+        int option;
+
         menuIntro();
-        int op;
-        do{
-            op=menu();
-            switch(op) {
+
+        do {
+            option = menu();
+
+            switch(option) {
                 case 1:
-                    addProduct(productTree, productHistory);
+                    System.out.println("Enter the name of the product to add:");
+                    addProduct(inputProduct(), productTree, productHistory);
                     break;
                 case 2:
-                    removeProduct(productTree, productHistory);
+                    System.out.println("Enter the name of the product you want to delete.");
+                    removeProduct(inputProduct(), productTree, productHistory);
                     break;
                 case 3:
-                    System.out.println("Ingrese el nombre del producto que desea buscar.");
+                    System.out.println("Enter the name of the product you want to search for.");
                     findingProduct(inputProduct(), productTree, productHistory);
                     break;
                 case 4:
-                    System.out.println("Inventario de productos completo:");
+                    System.out.println("Complete product inventory:");
                     System.out.println(productHistory);
                     break;
                 case 5:
                     break;
                 default:
-                    System.out.println("\nValor ingresado invalido,debes ingresar un valor numerico");
+                    System.out.println("\nInvalid value entered, you must enter a numerical value.");
                     break;
             }
-            
-            
-        }while(op != 5);
+        } while(option != 5);
+
         System.out.println("Gracias por utilizar el sistema de gestion de inventario.");
         scanner.close();
-}
+    }
 
-    private static void menuIntro()
-    {
+    /**
+     * Shows by screen a logotype of the inventory management system and the introduction of the menu.
+     */
+    private static void menuIntro() {
         System.out.println("\n" + //
                 "──────────────────────────────────────────\n" + //
                 "─██████████████─██████████████─██████████─\n" + //
@@ -58,23 +65,25 @@ public class App {
                 "─██████████████─██████████████─██████████─\n" + //
                 "──────────────────────────────────────────");
 
-        System.out.println("Bienvenido al sistema de gestion de inventario.\n");
-        
+        System.out.println("Welcome to the inventory management system.");
     }
-    private static int menu() {
-        System.out.println("\nPor favor, ingrese una opcion segun desee:");
-        System.out.println("Si desea agregar un producto, ingrese el numero 1.");
-        System.out.println("Si desea eliminar un producto del inventario, ingrese el numero 2");
-        System.out.println("Si desea buscar un producto, ingrese el numero 3");
-        System.out.println("Si desea mostrar el inventario completo de productos, ingrese el numero 4");
-        System.out.println("Si desea salir, ingrese el numero 5");
-        try{
 
-            int op =Integer.parseInt(scanner.nextLine());
-            return op;
-        }
-        catch(NumberFormatException e)
-        {
+    /**
+     * Shows by screen the menu of the inventory management system.
+     * @return option to use of the menu.
+     */
+    private static int menu() {
+        System.out.println("\nPlease enter an option as desired:");
+        System.out.println("If you want to add a product, enter the number 1.");
+        System.out.println("If you want to remove a product from inventory, enter the number 2.");
+        System.out.println("If you want to search for a product, enter the number 3.");
+        System.out.println("If you want to show the complete inventory of products, enter the number 4.");
+        System.out.println("If you want to leave, enter the number 5.");
+
+        try {
+            int option = scanner.nextInt();
+            return option;
+        } catch(InputMismatchException e) {
             return 6;
         }
     }
@@ -88,20 +97,20 @@ public class App {
      */
     private static Product findingProduct(String productToFind, AVLTree productTree, List productList) {
         Product product;
-        try{
+        try {
             product = productTree.searchProduct(productToFind); 
-            System.out.println("Encontrado: \n" + product);
-            return product;
+            System.out.println("Found:\n" + product);
 
-       }catch(ProductNotFoundException e)
-       {
-            try{
+            return product;
+       } catch(ProductNotFoundException e) {
+            try {
                 product = productList.searchProduct(productToFind);
-                System.out.println("Encontrado: \n" + product);
+                System.out.println("Found:\n" + product);
+
                 return product;
-            } catch(ProductNotFoundException d)
-            {
-                System.out.println("Producto no encontrado en el sistema\n");
+            } catch(ProductNotFoundException d) {
+                System.err.println("Product not found in the system.");
+
                 return null;
             }
        }
@@ -115,108 +124,107 @@ public class App {
         String productToFind = scanner.nextLine().toLowerCase().replaceAll("\\s+", "_");
 
         while(productToFind.isEmpty()) {
-            System.out.println("Debes ingresar un nombre de producto!");
             productToFind = scanner.nextLine().toLowerCase().replaceAll("\\s+", "_");
         }
+
         return productToFind;
     }
 
-/**
- * Add stock to an existing product or add the product if it is not in the system.
- * @param productTree
- * @param productList
- */
-    public static void addProduct( AVLTree productTree, List productList)
-    {
-        System.out.println("\nIngresa el nombre del producto a añadir:");
-        String productName=inputProduct();
-        Product product = findingProduct(productName, productTree, productList);
+    /**
+     * Add stock to an existing product or add the product if it is not in the system.
+     * @param productTree
+     * @param productList
+     */
+    public static void addProduct(String productToBeAdded, AVLTree productTree, List productList) {
+        Product product = findingProduct(productToBeAdded, productTree, productList);
         
-        if(product != null)
-        {
-            System.out.println("Encontrado: \n" + product);
+        if(product != null) {
+            System.out.println("Found:\n" + product);
             incrementStock(product);
-        }
-        else
-        {
-            String op="";
-                do
-                {
-                    System.out.println("El producto: " + productName + 
-                    " no se encuentra registrado en el sistema\n Deseea añadirlo?(s/n)\n");
-                    op = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
-                    switch (op)
-                    {
-                        case "s":
-                            product = new Product(productName.toLowerCase().replaceAll("\\s+", "_"), 0);
-                            incrementStock(product);
-                            //insertar en arbol y lista
-                            productTree.insertProduct(product);
-                            productList.insertNode(product);
-                            System.out.println("Producto añadido con exito!");
-                            break;
-                        case "n":
-                            break;
-                        default:
-                            System.out.println("Invalido");
-                            break;
-                    }
-                }while(!op.equals("n") && !op.equals("s"));
+        } else {
+            String option = "";
+
+            do {
+                System.out.println("The product: " + productToBeAdded + 
+                " is not registered in the system.\nDo you want to add it? (y / n)");
+                option = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
+
+                switch(option) {
+                    case "y":
+                        product = new Product(productToBeAdded.toLowerCase().replaceAll("\\s+", "_"), 0);
+                        incrementStock(product);
+                        //Insert to the avltree and list
+                        productTree.insertProduct(product);
+                        productList.insertNode(product);
+                        System.out.println("Product added successfully!");
+                        break;
+                    case "n":
+                        break;
+                    default:
+                        System.err.println("Invalid");
+                        break;
+                }
+            } while(!option.equals("n") && !option.equals("y"));
         }
     }
 
     /**
-     * Increments stock
-     * @param product
+     * Increments stock.
+     * @param product to be incremented.
      */
-    public static void incrementStock(Product product)
-    {
-        int stock =0;
-        do
-        {
-            System.out.println("Ingresa el stock a añadir: ");
-            try
-            {
-                stock = Integer.parseInt(scanner.nextLine());
-            }
-            catch(NumberFormatException nfe)
-            {
-                System.out.println("Debes ingresar un valor numerico");
-            }
-            if(stock == 0)
-                System.out.println("Debes ingresar un valor superior a 0");
-        } while(stock <= 0);
-        product.stock += stock;
-}
-
-    private static void removeProduct(AVLTree productTree, List productList) {
-        System.out.println("Ingrese el nombre del producto que desea eliminar.");
-        String string = scanner.nextLine().toLowerCase().replace(" ", "_");
-
+    public static void incrementStock(Product product) {
         int stock = 0;
+
         do {
-            System.out.print("Ingrese cuantos elementos del inventario desea eliminar: ");
+            System.out.println("Enter the stock to add: ");
+
             try {
                 stock = scanner.nextInt();
+            } catch(InputMismatchException e) {
+                System.err.println("You must enter a numerical value.");
             }
-            catch(NumberFormatException e) {
-                System.out.println("Debes ingresar un valor numerico entero.");
+            if(stock == 0) {
+                System.err.println("You must enter a value greater than 0.");
             }
-            if(stock == 0)
-                System.out.println("Debes ingresar un valor superior a 0");
+        } while(stock <= 0);
+
+        product.stock += stock;
+    }
+
+    /**
+     * Decreases stock of the product inserted by input. If stock is equal 0, then it eliminates the product from the avltree.
+     * @param productTree to be eliminated from the tree or reduced stock.
+     * @param productList to be eliminated from the list or reduced stock.
+     */
+    private static void removeProduct(String productToDelete, AVLTree productTree, List productList) {
+        int stock = 0;
+
+        do {
+            System.out.print("Enter how many inventory items you want to delete: ");
+
+            try {
+                stock = scanner.nextInt();
+            } catch(InputMismatchException e) {
+                System.err.println("You must enter an integer numerical value.");
+            }
+            if(stock <= 0) {
+                System.err.println("You must enter a value greater than 0");
+            }
         } while(stock <= 0);
       
-              try {
-            Product product = productTree.searchProduct(string);
+        try {
+            Product product = productTree.searchProduct(productToDelete);
             if (product.stock >= stock) {
                 product.stock -= stock;
-                System.out.println("Elementos eliminados correctamente!");
+                System.out.println("Successfully deleted items!");
                 if (product.stock == 0) {
-                    productTree.deleteProduct(string);
+                    productTree.deleteProduct(productToDelete);
                 }
+            } else {
+                System.err.println("You have entered a greater stock than the current product has.");
             }
-        } catch (ProductNotFoundException ex) {
-            System.out.println(ex.getMessage());
+        } catch(ProductNotFoundException e) {
+            System.out.println(e.getMessage());
         }
     }
     
