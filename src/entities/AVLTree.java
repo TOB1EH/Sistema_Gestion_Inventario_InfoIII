@@ -8,8 +8,7 @@ import exceptions.ProductNotFoundException;
  */
 public class AVLTree {
 
-    public TreeNode root;
-    //private TreeNode root;
+    private TreeNode root;
 
     /**
      * Returns the root node of the AVL tree.
@@ -17,14 +16,6 @@ public class AVLTree {
      */
     public TreeNode getRoot() {
         return root;
-    }
-
-    /**
-     * Sets the root node of the AVL tree.
-     * @param root The root node to be set.
-     */
-    public void setRoot(TreeNode root) {
-        this.root = root;
     }
 
     /**
@@ -53,9 +44,9 @@ public class AVLTree {
      */
     private TreeNode rightRotate(TreeNode y) {
         TreeNode x = y.left;
-        TreeNode T2 = x.right;
+        TreeNode t2 = x.right;
         x.right = y;
-        y.left = T2;
+        y.left = t2;
         y.height = max(height(y.left), height(y.right)) + 1;
         x.height = max(height(x.left), height(x.right)) + 1;
         return x;
@@ -68,9 +59,9 @@ public class AVLTree {
      */
     private TreeNode leftRotate(TreeNode x) {
         TreeNode y = x.right;
-        TreeNode T2 = y.left;
+        TreeNode t2 = y.left;
         y.left = x;
-        x.right = T2;
+        x.right = t2;
         x.height = max(height(x.left), height(x.right)) + 1;
         y.height = max(height(y.left), height(y.right)) + 1;
         return y;
@@ -81,8 +72,12 @@ public class AVLTree {
      * @param N The node to calculate the balance factor for.
      * @return The balance factor of the node.
      */
-    private int getBalance(TreeNode N) {
-        return N == null ? 0 : height(N.left) - height(N.right);
+    private int getBalance(TreeNode n) {
+        return n == null ? 0 : height(n.left) - height(n.right);
+    }
+
+    public void insertProduct(Product product) {
+        this.root = insert(root, product);
     }
 
     /**
@@ -91,7 +86,7 @@ public class AVLTree {
      * @param product The product of the new node to be inserted.
      * @return The new root node of the AVL tree.
      */
-    public TreeNode insert(TreeNode node, Product product) {
+    private TreeNode insert(TreeNode node, Product product) {
         if (node == null) {
             return new TreeNode(product);
         }
@@ -137,13 +132,17 @@ public class AVLTree {
         return current;
     }
 
+    public void deleteProduct(String key) {
+        this.root = deleteNode(root, key);
+    }
+
     /**
      * Deletes a node with the given product from the AVL tree.
      * @param root The root node of the AVL tree.
      * @param product The product of the node to be deleted.
      * @return The new root node of the AVL tree.
      */
-    public TreeNode deleteNode(TreeNode root, String key) {
+    private TreeNode deleteNode(TreeNode root, String key) {
         if (root == null) {
             return root;
         }
@@ -198,6 +197,27 @@ public class AVLTree {
         return root;
     }
 
+    public Product searchProduct(String name) throws ProductNotFoundException {
+        return search(root, name);
+    }
+
+    /**
+     * Check if an element already exist in Tree
+     * @param name of the product
+     * @return true if already exist, false if it's not
+     */
+    public boolean productIsOnList(String name)
+    {
+        try
+        {
+            searchProduct(name);
+            return true;
+        } catch(ProductNotFoundException e)
+        {
+            return false;
+        }
+    }
+
     /**
      * Searches a product in the inventory and returns the information about it as a string.
      * If the product is not found, it throws a ProductNotFoundException.
@@ -206,14 +226,14 @@ public class AVLTree {
      * @return The information about the product as a string.
      * @throws ProductNotFoundException If the product is not found.
      */
-    public String search(TreeNode root, String name) throws ProductNotFoundException {
+    private Product search(TreeNode root, String name) throws ProductNotFoundException {
         if (root == null) {
             throw new ProductNotFoundException(name);
         }
 
         int cmp = name.compareTo(root.product.element);
         if (cmp == 0) {
-            return "Product's name: " + root.product + ", Stock: "; // + stock
+            return root.product;
         } else if (cmp < 0) {
             return search(root.left, name);
         } else {
@@ -226,6 +246,7 @@ public class AVLTree {
      * @param node The root node of the AVL tree.
      * @return A string representation of the traversal.
      */
+    /*
     public String preOrder(TreeNode node) {
         StringBuilder sb = new StringBuilder();
         if (node != null) {
@@ -235,6 +256,7 @@ public class AVLTree {
         }
         return sb.toString();
     }
+    */
 
     /**
      * Traverses the AVL tree in in-order and returns a string representation of the products of the nodes.
@@ -251,5 +273,4 @@ public class AVLTree {
         return sb.toString();
     }
 
-    /*     Devolver una representación de cadena del recorrido en lugar de usar `System.out.print` hace que el código sea más modular porque separa la lógica transversal de la lógica de impresión. También hace que el código sea más fácil de probar porque la salida se puede comparar con los valores esperados. */
 }
