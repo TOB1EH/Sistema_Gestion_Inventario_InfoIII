@@ -96,7 +96,7 @@ public class App {
                 "██║╚██╔╝██║██╔══██║██║╚████║██╔══██║██║░░╚██╗██╔══╝░░██║╚██╔╝██║██╔══╝░░██║╚████║░░░██║░░░\n" + //
                 "██║░╚═╝░██║██║░░██║██║░╚███║██║░░██║╚██████╔╝███████╗██║░╚═╝░██║███████╗██║░╚███║░░░██║░░░\n" + //
                 "╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝╚═╝░░╚═╝░╚═════╝░╚══════╝╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚══╝░░░╚═╝░░░");
-        
+
         System.out.println("\n"+ "\u001B[33m" + //
                 "▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄\n" + //
                 "░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░"+"\u001B[0m");
@@ -136,7 +136,7 @@ public class App {
     private static Product findingProduct(String productToFind, AVLTree productTree, List productList) {
         Product product;
         try {
-            product = productTree.searchProduct(productToFind); 
+            product = productTree.searchProduct(productToFind);
             System.out.println("\n                "+"\033[42m"+" Found: "+"\033[0m" +"\n" + product);
             return product;
        } catch(ProductNotFoundException e) {
@@ -222,7 +222,7 @@ public class App {
 
             try {
                 stock = Integer.parseInt(scanner.nextLine());
-                if(stock <= 0) 
+                if(stock <= 0)
                     System.err.println("\n                "+"\033[41m"+"You must enter a value greater than 0."+"\033[0m");
             } catch(NumberFormatException e) {
                 System.err.println("\n                "+"\033[41m"+"You must enter a numerical value."+"\033[0m");
