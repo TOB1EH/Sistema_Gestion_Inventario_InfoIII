@@ -153,6 +153,8 @@ public class App {
         Product product = findingProduct(productToBeAdded, productTree, productList);
         
         if(product != null) {
+            if(product.stock == 0)
+                productTree.insertProduct(product);
             incrementStock(product);
             System.out.println("\n                "+"\033[42m"+"Product added successfully!"+"\033[0m");
             System.out.println("                  (Press enter to continue)");
