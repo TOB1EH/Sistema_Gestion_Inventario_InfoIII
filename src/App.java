@@ -24,8 +24,32 @@ public class App {
                     addProduct(inputProduct(), productTree, productHistory);
                     break;
                 case 2:
-                    System.out.println("\n\nEnter the name of the product you want to delete:\n");
-                    removeProduct(inputProduct(), productTree, productHistory);
+                    do {
+                        System.out.println("Do you want to ...");
+                        System.out.println("1) Eliminate a product.");
+                        System.out.println("2) Decrease your stock.");
+                        System.out.print("Enter an option: ");
+
+                        try {
+                            option = Integer.parseInt(scanner.nextLine());
+                        } catch(NumberFormatException e) {
+                            System.err.println("\n                "+"\033[41m"+"You must enter a numerical value."+"\033[0m");
+                        }
+
+                        switch(option) {
+                            case 1:
+                                System.out.println("Enter the name of the product you want to delete.");
+                                removeProduct(inputProduct(), productTree, productHistory);
+                                break;
+                            case 2:
+                                System.out.println("Enter the name of the product you want to reduce stock.");
+                                decreaseStock(inputProduct(), productTree);
+                                break;
+                            default:
+                                System.err.println("Invalid");
+                                break;
+                        }
+                    } while(option != 1 && option != 2);
                     break;
                 case 3:
                     System.out.println("\n\nEnter the name of the product you want to search for:\n");
@@ -56,15 +80,15 @@ public class App {
      */
     private static void menuIntro() {
        System.out.println("\n"+ "\u001B[33m" + //
-                "▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄\n" + //
-                "░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░"+"\u001B[0m");
+                "▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄\n" + //
+                "░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░"+"\u001B[0m");
         System.out.println("\n" + //
-                "██╗███╗░░██╗██╗░░░██╗███████╗███╗░░██╗████████╗░█████╗░██████╗░██╗░░░██╗\n" + //
-                "██║████╗░██║██║░░░██║██╔════╝████╗░██║╚══██╔══╝██╔══██╗██╔══██╗╚██╗░██╔╝\n" + //
-                "██║██╔██╗██║╚██╗░██╔╝█████╗░░██╔██╗██║░░░██║░░░██║░░██║██████╔╝░╚████╔╝░\n" + //
-                "██║██║╚████║░╚████╔╝░██╔══╝░░██║╚████║░░░██║░░░██║░░██║██╔══██╗░░╚██╔╝░░\n" + //
-                "██║██║░╚███║░░╚██╔╝░░███████╗██║░╚███║░░░██║░░░╚█████╔╝██║░░██║░░░██║░░░\n" + //
-                "╚═╝╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░\n" + //
+                "\t██╗███╗░░██╗██╗░░░██╗███████╗███╗░░██╗████████╗░█████╗░██████╗░██╗░░░██╗\n" + //
+                "\t██║████╗░██║██║░░░██║██╔════╝████╗░██║╚══██╔══╝██╔══██╗██╔══██╗╚██╗░██╔╝\n" + //
+                "\t██║██╔██╗██║╚██╗░██╔╝█████╗░░██╔██╗██║░░░██║░░░██║░░██║██████╔╝░╚████╔╝░\n" + //
+                "\t██║██║╚████║░╚████╔╝░██╔══╝░░██║╚████║░░░██║░░░██║░░██║██╔══██╗░░╚██╔╝░░\n" + //
+                "\t██║██║░╚███║░░╚██╔╝░░███████╗██║░╚███║░░░██║░░░╚█████╔╝██║░░██║░░░██║░░░\n" + //
+                "\t╚═╝╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░\n" + //
                 "\n" + //
                 "███╗░░░███╗░█████╗░███╗░░██╗░█████╗░░██████╗░███████╗███╗░░░███╗███████╗███╗░░██╗████████╗\n" + //
                 "████╗░████║██╔══██╗████╗░██║██╔══██╗██╔════╝░██╔════╝████╗░████║██╔════╝████╗░██║╚══██╔══╝\n" + //
@@ -72,10 +96,10 @@ public class App {
                 "██║╚██╔╝██║██╔══██║██║╚████║██╔══██║██║░░╚██╗██╔══╝░░██║╚██╔╝██║██╔══╝░░██║╚████║░░░██║░░░\n" + //
                 "██║░╚═╝░██║██║░░██║██║░╚███║██║░░██║╚██████╔╝███████╗██║░╚═╝░██║███████╗██║░╚███║░░░██║░░░\n" + //
                 "╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝╚═╝░░╚═╝░╚═════╝░╚══════╝╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚══╝░░░╚═╝░░░");
-        
+
         System.out.println("\n"+ "\u001B[33m" + //
-                "▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄\n" + //
-                "░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░"+"\u001B[0m");
+                "▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄\n" + //
+                "░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░"+"\u001B[0m");
         System.out.println("\n                Welcome to the inventory management system.");
         System.out.println("                            (Press enter to start)");
         scanner.nextLine();
@@ -89,10 +113,10 @@ public class App {
         System.out.println("===========================================================================");
         System.out.println("\nEnter an option:\n");
         System.out.println("        1) Add a product");
-        System.out.println("        2)Remove a product");
-        System.out.println("        3)Search product");
-        System.out.println("        4)Show Inventory");
-        System.out.println("        5)Exit\n");
+        System.out.println("        2) Remove a product");
+        System.out.println("        3) Search product");
+        System.out.println("        4) Show Inventory");
+        System.out.println("        5) Exit\n");
 
         try {
             int option = Integer.parseInt(scanner.nextLine());
@@ -103,7 +127,7 @@ public class App {
     }
 
     /**
-     * First looks for the product in the avl tree, if not's in the avl tree looks for it in the list, otherwise there's not the product in the inventory. 
+     * First looks for the product in the avl tree, if not's in the avl tree looks for it in the list, otherwise there's not the product in the inventory.
      * @param productToFind looks for that product.
      * @param productTree avl tree to look for.
      * @param productList list to look for.
@@ -112,9 +136,8 @@ public class App {
     private static Product findingProduct(String productToFind, AVLTree productTree, List productList) {
         Product product;
         try {
-            product = productTree.searchProduct(productToFind); 
+            product = productTree.searchProduct(productToFind);
             System.out.println("\n                "+"\033[42m"+" Found: "+"\033[0m" +"\n" + product);
-
             return product;
        } catch(ProductNotFoundException e) {
             try {
@@ -131,7 +154,7 @@ public class App {
     }
 
     /** Reads input on the keyboard the product that will be used for.
-     * 
+     *
      * @return product inserted by keyboard.
      */
     private static String inputProduct() {
@@ -151,7 +174,7 @@ public class App {
      */
     public static void addProduct(String productToBeAdded, AVLTree productTree, List productList) {
         Product product = findingProduct(productToBeAdded, productTree, productList);
-        
+
         if(product != null) {
             if(product.stock == 0)
                 productTree.insertProduct(product);
@@ -163,7 +186,9 @@ public class App {
             String option = "";
 
             do {
-                System.out.println("\nDo you want to add it? (y / n)");
+                System.out.println("The product: " + productToBeAdded +
+                " is not registered in the system.");
+                System.out.print("\nDo you want to add it? (y / n) ");
                 option = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
 
                 switch(option) {
@@ -185,7 +210,6 @@ public class App {
                 }
             } while(!option.equals("n") && !option.equals("y"));
         }
-        
     }
 
     /**
@@ -200,7 +224,7 @@ public class App {
 
             try {
                 stock = Integer.parseInt(scanner.nextLine());
-                if(stock <= 0) 
+                if(stock <= 0)
                     System.err.println("\n                "+"\033[41m"+"You must enter a value greater than 0."+"\033[0m");
             } catch(NumberFormatException e) {
                 System.err.println("\n                "+"\033[41m"+"You must enter a numerical value."+"\033[0m");
@@ -213,26 +237,27 @@ public class App {
     /**
      * Decreases stock of the product inserted by input. If stock is equal 0, then it eliminates the product from the avltree.
      * @param productTree to be eliminated from the tree or reduced stock.
-     * @param productList to be eliminated from the list or reduced stock.
      */
-    private static void removeProduct(String productToDelete, AVLTree productTree, List productList) {
-        int stock = 0;
+    private static void decreaseStock(String productToDelete, AVLTree productTree) {
 
-        do {
-            System.out.print("Enter how many inventory items you want to delete: ");
-
-            try {
-                stock = scanner.nextInt();
-            } catch(InputMismatchException e) {
-                System.err.println("You must enter an integer numerical value.");
-            }
-            if(stock <= 0) {
-                System.err.println("You must enter a value greater than 0");
-            }
-        } while(stock <= 0);
-      
         try {
             Product product = productTree.searchProduct(productToDelete);
+            System.out.println("Product: " + productToDelete + " was found registered in the system! Current stock: " + product.stock);
+
+            int stock = 0;
+
+            do {
+                System.out.println("Enter how many inventory items you want to delete: ");
+                if(stock <= 0) {
+                    System.err.println("\n                "+"\033[41m"+"You must enter a value greater than 0."+"\033[0m");
+                }
+                try {
+                    stock = Integer.parseInt(scanner.nextLine());
+                } catch(NumberFormatException e) {
+                    System.err.println("\n                "+"\033[41m"+"You must enter a numerical value."+"\033[0m");
+                }
+            } while(stock <= 0);
+
             if (product.stock >= stock) {
                 product.stock -= stock;
                 System.out.println("Successfully deleted items!");
@@ -241,6 +266,25 @@ public class App {
                 }
             } else {
                 System.err.println("You have entered a greater stock than the current product has.");
+                System.out.println("Current stock: " + product.stock);
+
+                String option = "";
+
+                do {
+                    System.out.println("Do you want to enter another stock? (y / n)");
+                    option = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
+
+                    switch(option) {
+                        case "y":
+                            decreaseStock(productToDelete, productTree);
+                            break;
+                        case "n":
+                            break;
+                        default:
+                            System.err.println("Invalid");
+                            break;
+                    }
+                } while(!option.equals("n") && !option.equals("y"));
             }
         } catch(ProductNotFoundException e) {
             System.out.println(e.getMessage());
@@ -263,5 +307,41 @@ public class App {
         System.out.println(aux.userInOrder());
 
     }
-    
+
+    /**
+     * Removes a product from the inventory system.
+     * It checks if the product exists in the system, prompts the user for confirmation,
+     * and then deletes the product from both the AVL tree and the product list.
+     *
+     * @param productToDelete The name of the product to be deleted.
+     * @param productTree     The AVL tree data structure that stores the products.
+     * @param productList     The linked list data structure that stores the products.
+     */
+    private static void removeProduct(String productToDelete, AVLTree productTree, List productList) {
+        Product product = findingProduct(productToDelete, productTree, productList);
+        if (product != null) {
+            System.out.println("Product: " + productToDelete + " was found registered in the system! Current stock: " + product.stock);
+        } else {
+            System.out.println("The product: " + productToDelete + " is not registered in the system.");
+            return;
+        }
+
+        String option;
+        do {
+            System.out.print("Product " + productToDelete + " will be deleted. Do you want to confirm? (y / n)");
+            option = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
+            switch (option) {
+                case "y":
+                    productTree.deleteProduct(productToDelete);
+                    productList.removeNode(productToDelete);
+                    System.out.println("Product disposed correctly!");
+                    break;
+                case "n":
+                    break;
+                default:
+                    System.err.println("Invalid option");
+                    break;
+            }
+        } while (!option.equals("n") && !option.equals("y"));
+    }
 }
