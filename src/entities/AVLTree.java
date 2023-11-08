@@ -201,22 +201,6 @@ public class AVLTree {
         return search(root, name);
     }
 
-    /**
-     * Check if an element already exist in Tree
-     * @param name of the product
-     * @return true if already exist, false if it's not
-     */
-    public boolean productIsOnList(String name)
-    {
-        try
-        {
-            searchProduct(name);
-            return true;
-        } catch(ProductNotFoundException e)
-        {
-            return false;
-        }
-    }
 
     /**
      * Searches a product in the inventory and returns the information about it as a string.
@@ -240,23 +224,6 @@ public class AVLTree {
             return search(root.right, name);
         }
     }
-
-    /**
-     * Traverses the AVL tree in pre-order and returns a string representation of the products of the nodes.
-     * @param node The root node of the AVL tree.
-     * @return A string representation of the traversal.
-     */
-    /*
-    public String preOrder(TreeNode node) {
-        StringBuilder sb = new StringBuilder();
-        if (node != null) {
-            sb.append(node.product.element).append(" ");
-            sb.append(preOrder(node.left));
-            sb.append(preOrder(node.right));
-        }
-        return sb.toString();
-    }
-    */
 
     /**
      * Traverses the AVL tree in in-order and returns a string representation of the products of the nodes.
