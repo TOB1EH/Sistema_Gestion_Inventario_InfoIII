@@ -19,7 +19,7 @@ public class App {
 
             switch(option) {
                 case 1:
-                    System.out.println("Enter the name of the product to add:");
+                    System.out.println("\n\nEnter the name of the product to add:\n");
                     addProduct(inputProduct(), productTree, productHistory);
                     break;
                 case 2:
@@ -46,8 +46,10 @@ public class App {
                     } while(option != 1 && option != 2);
                     break;
                 case 3:
-                    System.out.println("Enter the name of the product you want to search for.");
+                    System.out.println("\n\nEnter the name of the product you want to search for:\n");
                     findingProduct(inputProduct(), productTree, productHistory);
+                    System.out.println("                  (Press enter to continue)");
+                    scanner.nextLine();
                     break;
                 case 4:
                     System.out.println("Complete inventory of products available:");
@@ -55,18 +57,21 @@ public class App {
                     // muestro los productos en orden alfabetico utilizando el avl
                     System.out.println(productTree.inOrder(productTree.getRoot()));
 
-/*                     // Muestra el inventario completo de productos
-                    System.out.println(productHistory.toString()); */
+                    // Muestra el inventario completo de productos
+                    System.out.println("\n\n                "+"\033[45m"+"Complete product inventory:"+"\033[0m");
+                    System.out.println(productHistory);
+                    System.out.println("                  (Press enter to continue)");
+                    scanner.nextLine();
                     break;
                 case 5:
                     break;
                 default:
-                    System.out.println("\nInvalid value entered, you must enter a numerical value.");
+                    System.out.println("\n                "+"\033[41m"+"Invalid value entered, you must enter a numerical value."+"\033[0m");
                     break;
             }
         } while(option != 5);
 
-        System.out.println("Gracias por utilizar el sistema de gestion de inventario.");
+        System.out.println("\n----------Thank you for using the inventory management system----------\n\n");
         scanner.close();
     }
 
@@ -74,22 +79,30 @@ public class App {
      * Shows by screen a logotype of the inventory management system and the introduction of the menu.
      */
     private static void menuIntro() {
+       System.out.println("\n"+ "\u001B[33m" + //
+                "▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄\n" + //
+                "░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░"+"\u001B[0m");
         System.out.println("\n" + //
-                "──────────────────────────────────────────\n" + //
-                "─██████████████─██████████████─██████████─\n" + //
-                "─██░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░██─\n" + //
-                "─██░░██████████─██░░██████████─████░░████─\n" + //
-                "─██░░██─────────██░░██───────────██░░██───\n" + //
-                "─██░░██████████─██░░██───────────██░░██───\n" + //
-                "─██░░░░░░░░░░██─██░░██──██████───██░░██───\n" + //
-                "─██████████░░██─██░░██──██░░██───██░░██───\n" + //
-                "─────────██░░██─██░░██──██░░██───██░░██───\n" + //
-                "─██████████░░██─██░░██████░░██─████░░████─\n" + //
-                "─██░░░░░░░░░░██─██░░░░░░░░░░██─██░░░░░░██─\n" + //
-                "─██████████████─██████████████─██████████─\n" + //
-                "──────────────────────────────────────────");
-
-        System.out.println("Welcome to the inventory management system.");
+                "██╗███╗░░██╗██╗░░░██╗███████╗███╗░░██╗████████╗░█████╗░██████╗░██╗░░░██╗\n" + //
+                "██║████╗░██║██║░░░██║██╔════╝████╗░██║╚══██╔══╝██╔══██╗██╔══██╗╚██╗░██╔╝\n" + //
+                "██║██╔██╗██║╚██╗░██╔╝█████╗░░██╔██╗██║░░░██║░░░██║░░██║██████╔╝░╚████╔╝░\n" + //
+                "██║██║╚████║░╚████╔╝░██╔══╝░░██║╚████║░░░██║░░░██║░░██║██╔══██╗░░╚██╔╝░░\n" + //
+                "██║██║░╚███║░░╚██╔╝░░███████╗██║░╚███║░░░██║░░░╚█████╔╝██║░░██║░░░██║░░░\n" + //
+                "╚═╝╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░\n" + //
+                "\n" + //
+                "███╗░░░███╗░█████╗░███╗░░██╗░█████╗░░██████╗░███████╗███╗░░░███╗███████╗███╗░░██╗████████╗\n" + //
+                "████╗░████║██╔══██╗████╗░██║██╔══██╗██╔════╝░██╔════╝████╗░████║██╔════╝████╗░██║╚══██╔══╝\n" + //
+                "██╔████╔██║███████║██╔██╗██║███████║██║░░██╗░█████╗░░██╔████╔██║█████╗░░██╔██╗██║░░░██║░░░\n" + //
+                "██║╚██╔╝██║██╔══██║██║╚████║██╔══██║██║░░╚██╗██╔══╝░░██║╚██╔╝██║██╔══╝░░██║╚████║░░░██║░░░\n" + //
+                "██║░╚═╝░██║██║░░██║██║░╚███║██║░░██║╚██████╔╝███████╗██║░╚═╝░██║███████╗██║░╚███║░░░██║░░░\n" + //
+                "╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝╚═╝░░╚═╝░╚═════╝░╚══════╝╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚══╝░░░╚═╝░░░");
+        
+        System.out.println("\n"+ "\u001B[33m" + //
+                "▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄\n" + //
+                "░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░"+"\u001B[0m");
+        System.out.println("\n                Welcome to the inventory management system.");
+        System.out.println("                            (Press enter to start)");
+        scanner.nextLine();
     }
 
     /**
@@ -97,17 +110,18 @@ public class App {
      * @return option to use of the menu.
      */
     private static int menu() {
-        System.out.println("\nPlease enter an option as desired:");
-        System.out.println("If you want to add a product, enter the number 1.");
-        System.out.println("If you want to remove a product from inventory, enter the number 2.");
-        System.out.println("If you want to search for a product, enter the number 3.");
-        System.out.println("If you want to show the complete inventory of products, enter the number 4.");
-        System.out.println("If you want to leave, enter the number 5.");
+        System.out.println("===========================================================================");
+        System.out.println("\nEnter an option:\n");
+        System.out.println("        1) Add a product");
+        System.out.println("        2)Remove a product");
+        System.out.println("        3)Search product");
+        System.out.println("        4)Show Inventory");
+        System.out.println("        5)Exit\n");
 
         try {
-            int option = scanner.nextInt();
+            int option = Integer.parseInt(scanner.nextLine());
             return option;
-        } catch(InputMismatchException e) {
+        } catch(NumberFormatException e) {
             return 6;
         }
     }
@@ -122,18 +136,17 @@ public class App {
     private static Product findingProduct(String productToFind, AVLTree productTree, List productList) {
         Product product;
         try {
-            product = productTree.searchProduct(productToFind);
-            System.out.println("Found:\n" + product);
-
+            product = productTree.searchProduct(productToFind); 
+            System.out.println("\n                "+"\033[42m"+" Found: "+"\033[0m" +"\n" + product);
             return product;
        } catch(ProductNotFoundException e) {
             try {
                 product = productList.searchProduct(productToFind);
-                System.out.println("Found:\n" + product);
+                System.out.println("\n                "+"\033[42m"+" Found: \n" +"\033[0m"+ product);
 
                 return product;
             } catch(ProductNotFoundException d) {
-                System.err.println("Product not found in the system.");
+                System.err.println("\n                "+"\033[41m"+"Product \"" + productToFind + "\" not found in the system."+"\033[0m"+"\n");
 
                 return null;
             }
@@ -163,14 +176,17 @@ public class App {
         Product product = findingProduct(productToBeAdded, productTree, productList);
 
         if(product != null) {
-            System.out.println("Found:\n" + product);
             incrementStock(product);
+            System.out.println("\n                "+"\033[42m"+"Product added successfully!"+"\033[0m");
+            System.out.println("                  (Press enter to continue)");
+            scanner.nextLine();
         } else {
             String option = "";
 
             do {
                 System.out.println("The product: " + productToBeAdded +
-                " is not registered in the system.\nDo you want to add it? (y / n)");
+                " is not registered in the system.");
+                System.out.print("\nDo you want to add it? (y / n) ");
                 option = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
 
                 switch(option) {
@@ -180,12 +196,14 @@ public class App {
                         //Insert to the avltree and list
                         productTree.insertProduct(product);
                         productList.insertNode(product);
-                        System.out.println("Product added successfully!");
+                        System.out.println("\n                "+"\033[42m"+"Product added successfully!"+"\033[0m");
+                        System.out.println("                  (Press enter to continue)");
+                        scanner.nextLine();
                         break;
                     case "n":
                         break;
                     default:
-                        System.err.println("Invalid");
+                        System.err.println("\n                "+"\033[41m"+"Invalid"+"\033[0m");
                         break;
                 }
             } while(!option.equals("n") && !option.equals("y"));
@@ -200,15 +218,14 @@ public class App {
         int stock = 0;
 
         do {
-            System.out.println("Enter the stock to add: ");
+            System.out.println("\nEnter the stock to add:\n");
 
             try {
-                stock = scanner.nextInt();
-            } catch(InputMismatchException e) {
-                System.err.println("You must enter a numerical value.");
-            }
-            if(stock == 0) {
-                System.err.println("You must enter a value greater than 0.");
+                stock = Integer.parseInt(scanner.nextLine());
+                if(stock <= 0) 
+                    System.err.println("\n                "+"\033[41m"+"You must enter a value greater than 0."+"\033[0m");
+            } catch(NumberFormatException e) {
+                System.err.println("\n                "+"\033[41m"+"You must enter a numerical value."+"\033[0m");
             }
         } while(stock <= 0);
 
