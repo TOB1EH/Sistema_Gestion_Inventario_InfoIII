@@ -245,7 +245,7 @@ public class App {
 
             int stock = 0;
 
-            while (true) {
+            while (stock <= 0) {
                 System.out.println("Enter how many inventory items you want to delete: ");
 
                 try {
