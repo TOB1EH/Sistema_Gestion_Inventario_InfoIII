@@ -57,12 +57,6 @@ public class App {
                     scanner.nextLine();
                     break;
                 case 4:
-                    System.out.println("Complete inventory of products available:");
-
-                    // muestro los productos en orden alfabetico utilizando el avl
-                    System.out.println(productTree.inOrder(productTree.getRoot()));
-
-                    // Muestra el inventario completo de productos
                     System.out.println("\n\n                "+"\033[45m"+"Complete product inventory:"+"\033[0m");
                     System.out.println(productHistory);
                     System.out.println("                  (Press enter to continue)");
