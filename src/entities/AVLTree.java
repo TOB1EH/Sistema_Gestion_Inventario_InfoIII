@@ -116,6 +116,24 @@ public class AVLTree {
             return leftRotate(node);
         }
 
+        /*if (balance > 1 && product.element.compareTo(node.left.product.element) < 0) {
+            return rightRotate(node);
+        }
+
+        if (balance < -1 && product.element.compareTo(node.right.product.element) > 0) {
+            return leftRotate(node);
+        }
+
+        if (balance > 1 && product.element.compareTo(node.left.product.element) > 0) {
+            node.left = leftRotate(node.left);
+            return rightRotate(node);
+        }
+
+        if (balance < -1 && product.element.compareTo(node.right.product.element) < 0) {
+            node.right = rightRotate(node.right);
+            return leftRotate(node);
+        } */
+
         return node;
     }
 
