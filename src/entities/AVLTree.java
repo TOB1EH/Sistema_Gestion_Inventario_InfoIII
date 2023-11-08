@@ -248,4 +248,8 @@ public class AVLTree {
         return sb.toString();
     }
 
+    public String userInOrder() {
+        return inOrder(this.root);
+    }
+
 }
