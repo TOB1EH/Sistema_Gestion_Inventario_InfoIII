@@ -216,32 +216,29 @@ public class App {
     }
 
     /**
-     * Decreases the stock of a product in the AVL tree. If the stock becomes zero, the product is removed from the tree.
-     * @param productToDelete The name of the product to be deleted or have its stock reduced.
-     * @param productTree The AVL tree containing the products.
+     * Decreases stock of the product inserted by input. If stock is equal 0, then it eliminates the product from the avltree.
+     * @param productTree to be eliminated from the tree or reduced stock.
      */
     private static void decreaseStock(String productToDelete, AVLTree productTree) {
+
         try {
             Product product = productTree.searchProduct(productToDelete);
             System.out.println("Product: " + productToDelete + " was found registered in the system! Current stock: " + product.stock);
 
             int stock = 0;
 
-            while (true) {
+            do {
                 System.out.println("Enter how many inventory items you want to delete: ");
 
                 try {
                     stock = scanner.nextInt();
-                    if (stock <= 0) {
-                        System.err.println("You must enter a value greater than 0");
-                        continue;
-                    }
-                    break;
-                } catch (InputMismatchException e) {
+                } catch(InputMismatchException e) {
                     System.err.println("You must enter an integer numerical value.");
-                    scanner.nextLine();
                 }
-            }
+                if(stock <= 0) {
+                    System.err.println("You must enter a value greater than 0");
+                }
+            } while(stock <= 0);
 
             if (product.stock >= stock) {
                 product.stock -= stock;
@@ -255,22 +252,23 @@ public class App {
 
                 String option = "";
 
-                while (true) {
+                do {
                     System.out.println("Do you want to enter another stock? (y / n)");
                     option = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
 
-                    switch (option) {
+                    switch(option) {
                         case "y":
                             decreaseStock(productToDelete, productTree);
-                            return;
+                            break;
                         case "n":
-                            return;
+                            break;
                         default:
                             System.err.println("Invalid");
+                            break;
                     }
-                }
+                } while(!option.equals("n") && !option.equals("y"));
             }
-        } catch (ProductNotFoundException e) {
+        } catch(ProductNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
