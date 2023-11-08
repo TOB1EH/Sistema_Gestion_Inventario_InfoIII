@@ -23,6 +23,7 @@ public class Product {
      */
     @Override
     public String toString() {
-        return "Product: " + element + "\nStock: " + stock + "\n";
+        return "\n**********************************\n"+"\nProduct: " + element + "\n\nStock: " + 
+        stock + "\n" +"\n**********************************\n";
     }
 }
