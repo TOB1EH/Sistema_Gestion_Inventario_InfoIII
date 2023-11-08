@@ -28,7 +28,12 @@ public class App {
                         System.out.println("1) Eliminate a product.");
                         System.out.println("2) Decrease your stock.");
                         System.out.print("Enter an option: ");
-                        option = scanner.nextInt();
+
+                        try {
+                            option = Integer.parseInt(scanner.nextLine());
+                        } catch(NumberFormatException e) {
+                            System.err.println("\n                "+"\033[41m"+"You must enter a numerical value."+"\033[0m");
+                        }
 
                         switch(option) {
                             case 1:
@@ -80,15 +85,15 @@ public class App {
      */
     private static void menuIntro() {
        System.out.println("\n"+ "\u001B[33m" + //
-                "▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄\n" + //
-                "░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░"+"\u001B[0m");
+                "▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄\n" + //
+                "░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░"+"\u001B[0m");
         System.out.println("\n" + //
-                "██╗███╗░░██╗██╗░░░██╗███████╗███╗░░██╗████████╗░█████╗░██████╗░██╗░░░██╗\n" + //
-                "██║████╗░██║██║░░░██║██╔════╝████╗░██║╚══██╔══╝██╔══██╗██╔══██╗╚██╗░██╔╝\n" + //
-                "██║██╔██╗██║╚██╗░██╔╝█████╗░░██╔██╗██║░░░██║░░░██║░░██║██████╔╝░╚████╔╝░\n" + //
-                "██║██║╚████║░╚████╔╝░██╔══╝░░██║╚████║░░░██║░░░██║░░██║██╔══██╗░░╚██╔╝░░\n" + //
-                "██║██║░╚███║░░╚██╔╝░░███████╗██║░╚███║░░░██║░░░╚█████╔╝██║░░██║░░░██║░░░\n" + //
-                "╚═╝╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░\n" + //
+                "\t██╗███╗░░██╗██╗░░░██╗███████╗███╗░░██╗████████╗░█████╗░██████╗░██╗░░░██╗\n" + //
+                "\t██║████╗░██║██║░░░██║██╔════╝████╗░██║╚══██╔══╝██╔══██╗██╔══██╗╚██╗░██╔╝\n" + //
+                "\t██║██╔██╗██║╚██╗░██╔╝█████╗░░██╔██╗██║░░░██║░░░██║░░██║██████╔╝░╚████╔╝░\n" + //
+                "\t██║██║╚████║░╚████╔╝░██╔══╝░░██║╚████║░░░██║░░░██║░░██║██╔══██╗░░╚██╔╝░░\n" + //
+                "\t██║██║░╚███║░░╚██╔╝░░███████╗██║░╚███║░░░██║░░░╚█████╔╝██║░░██║░░░██║░░░\n" + //
+                "\t╚═╝╚═╝░░╚══╝░░░╚═╝░░░╚══════╝╚═╝░░╚══╝░░░╚═╝░░░░╚════╝░╚═╝░░╚═╝░░░╚═╝░░░\n" + //
                 "\n" + //
                 "███╗░░░███╗░█████╗░███╗░░██╗░█████╗░░██████╗░███████╗███╗░░░███╗███████╗███╗░░██╗████████╗\n" + //
                 "████╗░████║██╔══██╗████╗░██║██╔══██╗██╔════╝░██╔════╝████╗░████║██╔════╝████╗░██║╚══██╔══╝\n" + //
@@ -98,8 +103,8 @@ public class App {
                 "╚═╝░░░░░╚═╝╚═╝░░╚═╝╚═╝░░╚══╝╚═╝░░╚═╝░╚═════╝░╚══════╝╚═╝░░░░░╚═╝╚══════╝╚═╝░░╚══╝░░░╚═╝░░░");
 
         System.out.println("\n"+ "\u001B[33m" + //
-                "▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄\n" + //
-                "░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░"+"\u001B[0m");
+                "▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄ ▄▄\n" + //
+                "░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░ ░░"+"\u001B[0m");
         System.out.println("\n                Welcome to the inventory management system.");
         System.out.println("                            (Press enter to start)");
         scanner.nextLine();
@@ -113,10 +118,10 @@ public class App {
         System.out.println("===========================================================================");
         System.out.println("\nEnter an option:\n");
         System.out.println("        1) Add a product");
-        System.out.println("        2)Remove a product");
-        System.out.println("        3)Search product");
-        System.out.println("        4)Show Inventory");
-        System.out.println("        5)Exit\n");
+        System.out.println("        2) Remove a product");
+        System.out.println("        3) Search product");
+        System.out.println("        4) Show Inventory");
+        System.out.println("        5) Exit\n");
 
         try {
             int option = Integer.parseInt(scanner.nextLine());
@@ -248,12 +253,12 @@ public class App {
                 System.out.println("Enter how many inventory items you want to delete: ");
 
                 try {
-                    stock = scanner.nextInt();
-                } catch(InputMismatchException e) {
-                    System.err.println("You must enter an integer numerical value.");
+                    stock = Integer.parseInt(scanner.nextLine());
+                } catch(NumberFormatException e) {
+                    System.err.println("\n                "+"\033[41m"+"You must enter a numerical value."+"\033[0m");
                 }
                 if(stock <= 0) {
-                    System.err.println("You must enter a value greater than 0");
+                    System.err.println("\n                "+"\033[41m"+"You must enter a value greater than 0."+"\033[0m");
                 }
             } while(stock <= 0);
 
