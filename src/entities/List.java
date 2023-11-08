@@ -66,22 +66,6 @@ public class List {
         throw new ProductNotFoundException(name);
     }
 
-    /**
-     * Check if an element already exist in list
-     * @param name of the product
-     * @return true if already exist, false if it's not
-     */
-    public boolean productIsOnList(String name)
-    {
-        try
-        {
-            searchProduct(name);
-            return true;
-        } catch(ProductNotFoundException e)
-        {
-            return false;
-        }
-    }
 
     /**
      * Removes the node with the given product from the list.
