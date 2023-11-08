@@ -2,6 +2,7 @@ import java.util.InputMismatchException;
 import java.util.Scanner;
 import entities.AVLTree;
 import entities.List;
+import entities.ListNode;
 import entities.Product;
 import exceptions.ProductNotFoundException;
 
@@ -34,7 +35,7 @@ public class App {
                     break;
                 case 4:
                     System.out.println("\n\n                "+"\033[45m"+"Complete product inventory:"+"\033[0m");
-                    System.out.println(productHistory);
+                    showOrderProductList(productHistory);
                     System.out.println("                  (Press enter to continue)");
                     scanner.nextLine();
                     break;
@@ -241,7 +242,24 @@ public class App {
             }
         } catch(ProductNotFoundException e) {
             System.out.println(e.getMessage());
+        } 
+    }
+
+    /**
+     * Sorts the historical list alphabetically and displays it by console
+     * @param produList
+     */
+    private static void showOrderProductList(List produList){
+            
+        AVLTree aux = new AVLTree();
+        ListNode temp = produList.getFront();
+        while (temp != null)
+        {
+            aux.insertProduct(temp.product);
+            temp = temp.next;
         }
+        System.out.println(aux.userInOrder());
+
     }
     
 }

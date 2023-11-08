@@ -242,10 +242,14 @@ public class AVLTree {
         StringBuilder sb = new StringBuilder();
         if (node != null) {
             sb.append(inOrder(node.left));
-            sb.append(node.product.element).append(" ");
+            sb.append(node.product.toString());
             sb.append(inOrder(node.right));
         }
         return sb.toString();
+    }
+
+    public String userInOrder() {
+        return inOrder(this.root);
     }
 
 }
