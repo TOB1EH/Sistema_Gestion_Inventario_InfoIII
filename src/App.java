@@ -245,14 +245,13 @@ public class App {
 
             do {
                 System.out.println("Enter how many inventory items you want to delete: ");
-
+                if(stock <= 0) {
+                    System.err.println("\n                "+"\033[41m"+"You must enter a value greater than 0."+"\033[0m");
+                }
                 try {
                     stock = Integer.parseInt(scanner.nextLine());
                 } catch(NumberFormatException e) {
                     System.err.println("\n                "+"\033[41m"+"You must enter a numerical value."+"\033[0m");
-                }
-                if(stock <= 0) {
-                    System.err.println("\n                "+"\033[41m"+"You must enter a value greater than 0."+"\033[0m");
                 }
             } while(stock <= 0);
 
