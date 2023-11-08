@@ -1,5 +1,7 @@
 package entities;
 
+import exceptions.ProductNotFoundException;
+
 /**
  * Represents a generic linked list data structure.
  *
@@ -15,18 +17,20 @@ public class List {
         this.front = null;
     }
 
+    public ListNode getFront() {
+        return front;
+    }
+
     /**
-     * Inserts a new node with the given product at the end of the list.
+     * Inserts a new node with the given product at the end of the list if it'snt on the list .
      * If the list is empty, the new node becomes the front of the list.
      *
      * @param product the product to be inserted
      * @throws NullPointerException if the product is null
      */
     public void insertNode(Product product) {
-        if (product == null) {
+        if (product == null)
             throw new NullPointerException("The product is null");
-        }
-
         // Insert the node
         ListNode newNode = new ListNode(product);
 
@@ -40,6 +44,28 @@ public class List {
             lastNode.next = newNode;
         }
     }
+
+    /**
+     * Searches for a product with the given name in the linked list.
+     * If the product is found, it is returned. If the product is not found, a ProductNotFoundException is thrown.
+     *
+     * @param name The name of the product to search for.
+     * @return The product with the given name if found.
+     * @throws ProductNotFoundException If the product with the given name is not found.
+     */
+    public Product searchProduct(String name) throws ProductNotFoundException {
+        ListNode currentNode = front;
+
+        while (currentNode != null) {
+            if (currentNode.product.element.equals(name)) {
+                return currentNode.product;
+            }
+            currentNode = currentNode.next;
+        }
+
+        throw new ProductNotFoundException(name);
+    }
+
 
     /**
      * Removes the node with the given product from the list.
@@ -74,5 +100,18 @@ public class List {
      */
     public boolean isEmpty() {
         return this.front == null;
+    }
+
+    @Override
+    public String toString()
+    {
+      String cad="";
+      ListNode temp = this.front;
+      while (temp != null) 
+      {
+        cad += temp.product.toString();
+        temp=temp.next;
+      } 
+      return cad;
     }
 }
