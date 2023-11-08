@@ -118,16 +118,20 @@ public class List {
         return this.front == null;
     }
 
+    /**
+     * Returns a string representation of the linked list.
+     * Each product in the list is separated by a newline character.
+     *
+     * @return The string representation of the linked list.
+     */
     @Override
-    public String toString()
-    {
-      String cad="";
-      ListNode temp = this.front;
-      while (temp != null) 
-      {
-        cad += temp.product.toString();
-        temp=temp.next;
-      } 
-      return cad;
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        ListNode temp = front;
+        while (temp != null) {
+            sb.append(temp.product.toString()).append("\n");
+            temp = temp.next;
+        }
+        return sb.toString();
     }
 }

@@ -23,16 +23,40 @@ public class App {
                     addProduct(inputProduct(), productTree, productHistory);
                     break;
                 case 2:
-                    System.out.println("Enter the name of the product you want to delete.");
-                    removeProduct(inputProduct(), productTree, productHistory);
+                    do {
+                        System.out.println("Do you want to ...");
+                        System.out.println("1) Eliminate a product.");
+                        System.out.println("2) Decrease your stock.");
+                        System.out.print("Enter an option: ");
+                        option = scanner.nextInt();
+
+                        switch(option) {
+                            case 1:
+                                System.out.println("Enter the name of the product you want to delete.");
+                                removeProduct(inputProduct(), productTree, productHistory);
+                                break;
+                            case 2:
+                                System.out.println("Enter the name of the product you want to reduce stock.");
+                                decreaseStock(inputProduct(), productTree);
+                                break;
+                            default:
+                                System.err.println("Invalid");
+                                break;
+                        }
+                    } while(option != 1 && option != 2);
                     break;
                 case 3:
                     System.out.println("Enter the name of the product you want to search for.");
                     findingProduct(inputProduct(), productTree, productHistory);
                     break;
                 case 4:
-                    System.out.println("Complete product inventory:");
-                    System.out.println(productHistory);
+                    System.out.println("Complete inventory of products available:");
+
+                    // muestro los productos en orden alfabetico utilizando el avl
+                    System.out.println(productTree.inOrder(productTree.getRoot()));
+
+/*                     // Muestra el inventario completo de productos
+                    System.out.println(productHistory.toString()); */
                     break;
                 case 5:
                     break;
@@ -89,7 +113,7 @@ public class App {
     }
 
     /**
-     * First looks for the product in the avl tree, if not's in the avl tree looks for it in the list, otherwise there's not the product in the inventory. 
+     * First looks for the product in the avl tree, if not's in the avl tree looks for it in the list, otherwise there's not the product in the inventory.
      * @param productToFind looks for that product.
      * @param productTree avl tree to look for.
      * @param productList list to look for.
@@ -98,7 +122,7 @@ public class App {
     private static Product findingProduct(String productToFind, AVLTree productTree, List productList) {
         Product product;
         try {
-            product = productTree.searchProduct(productToFind); 
+            product = productTree.searchProduct(productToFind);
             System.out.println("Found:\n" + product);
 
             return product;
@@ -117,7 +141,7 @@ public class App {
     }
 
     /** Reads input on the keyboard the product that will be used for.
-     * 
+     *
      * @return product inserted by keyboard.
      */
     private static String inputProduct() {
@@ -137,7 +161,7 @@ public class App {
      */
     public static void addProduct(String productToBeAdded, AVLTree productTree, List productList) {
         Product product = findingProduct(productToBeAdded, productTree, productList);
-        
+
         if(product != null) {
             System.out.println("Found:\n" + product);
             incrementStock(product);
@@ -145,7 +169,7 @@ public class App {
             String option = "";
 
             do {
-                System.out.println("The product: " + productToBeAdded + 
+                System.out.println("The product: " + productToBeAdded +
                 " is not registered in the system.\nDo you want to add it? (y / n)");
                 option = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
 
@@ -192,28 +216,33 @@ public class App {
     }
 
     /**
-     * Decreases stock of the product inserted by input. If stock is equal 0, then it eliminates the product from the avltree.
-     * @param productTree to be eliminated from the tree or reduced stock.
-     * @param productList to be eliminated from the list or reduced stock.
+     * Decreases the stock of a product in the AVL tree. If the stock becomes zero, the product is removed from the tree.
+     * @param productToDelete The name of the product to be deleted or have its stock reduced.
+     * @param productTree The AVL tree containing the products.
      */
-    private static void removeProduct(String productToDelete, AVLTree productTree, List productList) {
-        int stock = 0;
-
-        do {
-            System.out.print("Enter how many inventory items you want to delete: ");
-
-            try {
-                stock = scanner.nextInt();
-            } catch(InputMismatchException e) {
-                System.err.println("You must enter an integer numerical value.");
-            }
-            if(stock <= 0) {
-                System.err.println("You must enter a value greater than 0");
-            }
-        } while(stock <= 0);
-      
+    private static void decreaseStock(String productToDelete, AVLTree productTree) {
         try {
             Product product = productTree.searchProduct(productToDelete);
+            System.out.println("Product: " + productToDelete + " was found registered in the system! Current stock: " + product.stock);
+
+            int stock = 0;
+
+            while (true) {
+                System.out.println("Enter how many inventory items you want to delete: ");
+
+                try {
+                    stock = scanner.nextInt();
+                    if (stock <= 0) {
+                        System.err.println("You must enter a value greater than 0");
+                        continue;
+                    }
+                    break;
+                } catch (InputMismatchException e) {
+                    System.err.println("You must enter an integer numerical value.");
+                    scanner.nextLine();
+                }
+            }
+
             if (product.stock >= stock) {
                 product.stock -= stock;
                 System.out.println("Successfully deleted items!");
@@ -222,10 +251,64 @@ public class App {
                 }
             } else {
                 System.err.println("You have entered a greater stock than the current product has.");
+                System.out.println("Current stock: " + product.stock);
+
+                String option = "";
+
+                while (true) {
+                    System.out.println("Do you want to enter another stock? (y / n)");
+                    option = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
+
+                    switch (option) {
+                        case "y":
+                            decreaseStock(productToDelete, productTree);
+                            return;
+                        case "n":
+                            return;
+                        default:
+                            System.err.println("Invalid");
+                    }
+                }
             }
-        } catch(ProductNotFoundException e) {
+        } catch (ProductNotFoundException e) {
             System.out.println(e.getMessage());
         }
     }
-    
+
+    /**
+     * Removes a product from the inventory system.
+     * It checks if the product exists in the system, prompts the user for confirmation,
+     * and then deletes the product from both the AVL tree and the product list.
+     *
+     * @param productToDelete The name of the product to be deleted.
+     * @param productTree     The AVL tree data structure that stores the products.
+     * @param productList     The linked list data structure that stores the products.
+     */
+    private static void removeProduct(String productToDelete, AVLTree productTree, List productList) {
+        Product product = findingProduct(productToDelete, productTree, productList);
+        if (product != null) {
+            System.out.println("Product: " + productToDelete + " was found registered in the system! Current stock: " + product.stock);
+        } else {
+            System.out.println("The product: " + productToDelete + " is not registered in the system.");
+            return;
+        }
+
+        String option;
+        do {
+            System.out.print("Product " + productToDelete + " will be deleted. Do you want to confirm? (y / n)");
+            option = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
+            switch (option) {
+                case "y":
+                    productTree.deleteProduct(productToDelete);
+                    productList.removeNode(productToDelete);
+                    System.out.println("Product disposed correctly!");
+                    break;
+                case "n":
+                    break;
+                default:
+                    System.err.println("Invalid option");
+                    break;
+            }
+        } while (!option.equals("n") && !option.equals("y"));
+    }
 }
