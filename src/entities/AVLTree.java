@@ -205,9 +205,10 @@ public class AVLTree {
         return root;
     }
 
-    public String searchProduct(String name) throws ProductNotFoundException {
+    public Product searchProduct(String name) throws ProductNotFoundException {
         return search(root, name);
     }
+
 
     /**
      * Searches a product in the inventory and returns the information about it as a string.
@@ -217,37 +218,20 @@ public class AVLTree {
      * @return The information about the product as a string.
      * @throws ProductNotFoundException If the product is not found.
      */
-    private String search(TreeNode root, String name) throws ProductNotFoundException {
+    private Product search(TreeNode root, String name) throws ProductNotFoundException {
         if (root == null) {
             throw new ProductNotFoundException(name);
         }
 
         int cmp = name.compareTo(root.product.element);
         if (cmp == 0) {
-            return "Product's name: " + root.product.element + ", Stock: " + root.product.stock; // + stock
+            return root.product;
         } else if (cmp < 0) {
             return search(root.left, name);
         } else {
             return search(root.right, name);
         }
     }
-
-    /**
-     * Traverses the AVL tree in pre-order and returns a string representation of the products of the nodes.
-     * @param node The root node of the AVL tree.
-     * @return A string representation of the traversal.
-     */
-    /*
-    public String preOrder(TreeNode node) {
-        StringBuilder sb = new StringBuilder();
-        if (node != null) {
-            sb.append(node.product.element).append(" ");
-            sb.append(preOrder(node.left));
-            sb.append(preOrder(node.right));
-        }
-        return sb.toString();
-    }
-    */
 
     /**
      * Traverses the AVL tree in in-order and returns a string representation of the products of the nodes.
