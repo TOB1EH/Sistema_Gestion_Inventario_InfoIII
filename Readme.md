@@ -87,61 +87,61 @@ ___
     There are no outputs for this method.
 
 
-- `menu()`: Displays the menu options and returns the user's choice.
+### `menu()`: Displays the menu options and returns the user's choice.
 
-    ### Inputs
+    Inputs:
     None
 
-    ### Flow
+    Flow:
     1. Print the menu options.
     2. Read the user's input.
     3. Convert the input to an integer.
     4. Return the integer value.
 
-    ### Outputs
+    Outputs:
     The selected option as an integer.
 
 
-- `findingProduct(String productToFind, AVLTree productTree, List productList)`: Searches for a product in the AVL tree and the linked list.
+### `findingProduct(String productToFind, AVLTree productTree, List productList)`: Searches for a product in the AVL tree and the linked list.
 
-    ### Inputs
+    Inputs:
     - `productToFind` (String): The name of the product to search for.
     - `productTree` (AVLTree): The AVL tree data structure containing the products.
     - `productList` (List): The linked list data structure containing the products.
 
-    ### Flow
+    Flow:
     1. Try to search for the product in the AVL tree using the `searchProduct` method of the `productTree`.
     2. If the product is found in the AVL tree, print a success message and return the product.
     3. If the product is not found in the AVL tree, try to search for it in the linked list using the `searchProduct` method of the `productList`.
     4. If the product is found in the linked list, print a success message and return the product.
     5. If the product is not found in either the AVL tree or the linked list, print an error message and return null.
 
-    ### Outputs
+    Outputs:
     - `product` (Product): The product found in either the AVL tree or the linked list, or null if the product is not found.
 
 
-- `inputProduct()`: Reads user input for a product name.
+### `inputProduct()`: Reads user input for a product name.
 
-    ### Inputs
+    Inputs:
     None
 
-    ### Flow
+    Flow:
     1. Read the input from the keyboard and convert it to lowercase.
     2. Replace any whitespace in the input with underscores.
     3. Check if the input is empty. If it is, repeat step 1 and 2 until a non-empty input is entered.
     4. Return the processed input as the product.
 
-    ### Outputs
+    Outputs:
     The product entered by the user.
 
-- `addProduct(String productToBeAdded, AVLTree productTree, List productList)`: Adds a product to the inventory.
+### `addProduct(String productToBeAdded, AVLTree productTree, List productList)`: Adds a product to the inventory.
 
-    ### Inputs
+    Inputs:
     - `productToBeAdded` (String): The name of the product to be added.
     - `productTree` (AVLTree): An AVLTree object representing the product tree.
     - `productList` (List): A List object representing the product history.
 
-    ### Flow
+    Flow:
     1. The method first calls the `findingProduct` method to check if the product already exists in the system.
     2. If the product exists, it checks if the stock is zero. If so, it inserts the product into the product tree.
     3. It then calls the `incrementStock` method to increment the stock of the product.
@@ -152,32 +152,32 @@ ___
     8. It inserts the new product into the product tree and the product list.
     9. It prints a success message and waits for the user to press enter.
 
-    ### Outputs
+    Outputs:
     None
 
 
-- `incrementStock(Product product)`: Increments the stock of a product.
+### `incrementStock(Product product)`: Increments the stock of a product.
 
-    ### Inputs
+    Inputs:
     - `product` (Product): The product object for which the stock needs to be incremented.
 
-    ### Flow
+    Flow:
     1. Prompt the user to enter the stock to add.
     2. Read the user input and parse it as an integer.
     3. If the parsed value is less than or equal to 0, display an error message and repeat step 1.
     4. Add the parsed value to the current stock of the product.
 
-    ### Outputs
+    Outputs:
     None. The stock of the given product is updated directly.
 
 
-- `decreaseStock(String productToDelete, AVLTree productTree)`: Decreases the stock of a product.
+### `decreaseStock(String productToDelete, AVLTree productTree)`: Decreases the stock of a product.
 
-    ### Inputs
+    Inputs:
     - `productToDelete` (String): The name of the product to be deleted or have its stock reduced.
     - `productTree` (AVLTree): The AVL tree containing the products.
 
-    ### Flow
+    Flow:
     1. Search for the product in the AVL tree using the `searchProduct` method.
     2. If the product is found, prompt the user to enter the number of inventory items to be deleted.
     3. If the input is not a numerical value, display an error message.
@@ -189,7 +189,7 @@ ___
     9. If the user chooses to enter another stock, recursively call the `decreaseStock` method.
     10. If the user chooses not to enter another stock, exit the method.
 
-    ### Outputs
+    Outputs:
     - Success message if the stock is successfully reduced.
     - Error message if the input is not a numerical value.
     - Error message if the input is less than or equal to zero.
@@ -197,12 +197,12 @@ ___
     - Error message if the product is not found in the AVL tree.
 
 
-- `showOrderProductList(List productList)`: Sorts and displays the product list in alphabetical order.
+### `showOrderProductList(List productList)`: Sorts and displays the product list in alphabetical order.
 
-    ### Inputs
+    Inputs:
     - `productList` (List): The historical list of products to be sorted and displayed.
 
-    ### Flow
+    Flow:
     1. Create an `AVLTree` object called `aux`.
     2. Get the front node of the `productList` using the `getFront` method and assign it to a `ListNode` variable called `temp`.
     3. Iterate over the `temp` node and its next nodes until `temp` becomes null.
@@ -210,18 +210,18 @@ ___
     5. After the loop ends, call the `userInOrder` method on the `aux` AVL tree to get the sorted products in the tree.
     6. Print the sorted products on the console.
 
-    ### Outputs
+    Outputs:
     None. The method only displays the sorted products on the console.
 
 
-- `removeProduct(String productToDelete, AVLTree productTree, List productList)`: Removes a product from the inventory.
+### `removeProduct(String productToDelete, AVLTree productTree, List productList)`: Removes a product from the inventory.
 
-    ### Inputs
+    Inputs:
     - `productToDelete` (String): The name of the product to be deleted.
     - `productTree` (AVLTree): The AVL tree data structure that stores the products.
     - `productList` (List): The linked list data structure that stores the products.
 
-    ### Flow
+    Flow:
     1. Find the product in the system by calling the `findingProduct` method with the `productToDelete`, `productTree`, and `productList` as arguments.
     2. If the product is found, print the product name and current stock.
     3. If the product is not found, print a message and return.
@@ -230,7 +230,7 @@ ___
     6. If the user does not confirm (by entering 'n'), do nothing.
     7. Repeat steps 4-6 until the user confirms or cancels.
 
-    ### Outputs
+    Outputs:
     -If the product is found, print the product name and current stock.
     - If the product is not found, print a message indicating that the product is not registered in the system.
     - If the user confirms the deletion, print a message indicating that the product was deleted.
