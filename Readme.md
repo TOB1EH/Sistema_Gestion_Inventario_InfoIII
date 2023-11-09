@@ -89,7 +89,7 @@ ___
 - `menu()`: Displays the menu options and returns the user's choice.
 
     ### Inputs
-    - None
+    None
 
     ### Flow
     1. Print the menu options.
@@ -98,9 +98,25 @@ ___
     4. Return the integer value.
 
     ### Outputs
-    - The selected option as an integer.
+    The selected option as an integer.
 
 - `findingProduct(String productToFind, AVLTree productTree, List productList)`: Searches for a product in the AVL tree and the linked list.
+
+    ### Inputs
+    - `productToFind` (String): The name of the product to search for.
+    - `productTree` (AVLTree): The AVL tree data structure containing the products.
+    - `productList` (List): The linked list data structure containing the products.
+
+    ### Flow
+    1. Try to search for the product in the AVL tree using the `searchProduct` method of the `productTree`.
+    2. If the product is found in the AVL tree, print a success message and return the product.
+    3. If the product is not found in the AVL tree, try to search for it in the linked list using the `searchProduct` method of the `productList`.
+    4. If the product is found in the linked list, print a success message and return the product.
+    5. If the product is not found in either the AVL tree or the linked list, print an error message and return null.
+
+    ### Outputs
+    - `product` (Product): The product found in either the AVL tree or the linked list, or null if the product is not found.
+
 - `inputProduct()`: Reads user input for a product name.
 - `addProduct(String productToBeAdded, AVLTree productTree, List productList)`: Adds a product to the inventory.
 - `incrementStock(Product product)`: Increments the stock of a product.
