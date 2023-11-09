@@ -24,30 +24,32 @@ public class App {
                     break;
                 case 2:
                     do {
-                        System.out.println("Do you want to ...");
+                        option = 0;
+                        System.out.println("\n\nDo you want to ...");
                         System.out.println("1) Eliminate a product.");
                         System.out.println("2) Decrease your stock.");
                         System.out.print("Enter an option: ");
 
                         try {
                             option = Integer.parseInt(scanner.nextLine());
+
+                            switch(option) {
+                                case 1:
+                                    System.out.println("Enter the name of the product you want to delete.");
+                                    removeProduct(inputProduct(), productTree, productHistory);
+                                    break;
+                                case 2:
+                                    System.out.println("Enter the name of the product you want to reduce stock.");
+                                    decreaseStock(inputProduct(), productTree);
+                                    break;
+                                default:
+                                    System.err.println("Invalid");
+                                    break;
+                            }
                         } catch(NumberFormatException e) {
                             System.err.println("\n                "+"\033[41m"+"You must enter a numerical value."+"\033[0m");
                         }
 
-                        switch(option) {
-                            case 1:
-                                System.out.println("Enter the name of the product you want to delete.");
-                                removeProduct(inputProduct(), productTree, productHistory);
-                                break;
-                            case 2:
-                                System.out.println("Enter the name of the product you want to reduce stock.");
-                                decreaseStock(inputProduct(), productTree);
-                                break;
-                            default:
-                                System.err.println("Invalid");
-                                break;
-                        }
                     } while(option != 1 && option != 2);
                     break;
                 case 3:
@@ -250,11 +252,11 @@ public class App {
 
                 try {
                     stock = Integer.parseInt(scanner.nextLine());
-                    if(stock <= 0) {
-                        System.err.println("\n                "+"\033[41m"+"You must enter a value greater than 0."+"\033[0m");
-                    }
                 } catch(NumberFormatException e) {
                     System.err.println("\n                "+"\033[41m"+"You must enter a numerical value."+"\033[0m");
+                }
+                if(stock <= 0) {
+                    System.err.println("\n                "+"\033[41m"+"You must enter a value greater than 0."+"\033[0m");
                 }
             } while(stock <= 0);
 
@@ -288,19 +290,18 @@ public class App {
             }
         } catch(ProductNotFoundException e) {
             System.out.println(e.getMessage());
-        } 
+        }
     }
 
     /**
      * Sorts the historical list alphabetically and displays it by console
-     * @param produList
+     * 
+     * @param productList The historical list of products to be sorted and displayed.
      */
-    private static void showOrderProductList(List produList){
-            
+    private static void showOrderProductList(List produList) {
         AVLTree aux = new AVLTree();
         ListNode temp = produList.getFront();
-        while (temp != null)
-        {
+        while (temp != null) {
             aux.insertProduct(temp.product);
             temp = temp.next;
         }
