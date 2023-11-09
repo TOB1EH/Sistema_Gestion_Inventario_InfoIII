@@ -75,16 +75,16 @@ ___
 
 - `menuIntro()`: Displays the inventory management system logo and menu introduction.
 
-### Inputs
-There are no inputs for this method.
-
-### Flow
-1. The method prints a logotype of the inventory management system.
-2. The method prints an introduction message for the menu.
-3. The method waits for the user to press enter to continue.
-
-### Outputs
-There are no outputs for this method.
+    ### Inputs
+    There are no inputs for this method.
+    
+    ### Flow
+    1. The method prints a logotype of the inventory management system.
+    2. The method prints an introduction message for the menu.
+    3. The method waits for the user to press enter to continue.
+    
+    ### Outputs
+    There are no outputs for this method.
 
 - `menu()`: Displays the menu options and returns the user's choice.
 - `findingProduct(String productToFind, AVLTree productTree, List productList)`: Searches for a product in the AVL tree and the linked list.
