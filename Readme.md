@@ -70,8 +70,22 @@ do {
 - Search for a product in the inventory
 - Display the complete product inventory
 ___
-### Methods
+
+## Methods
+
 - `menuIntro()`: Displays the inventory management system logo and menu introduction.
+
+### Inputs
+There are no inputs for this method.
+
+### Flow
+1. The method prints a logotype of the inventory management system.
+2. The method prints an introduction message for the menu.
+3. The method waits for the user to press enter to continue.
+
+### Outputs
+There are no outputs for this method.
+
 - `menu()`: Displays the menu options and returns the user's choice.
 - `findingProduct(String productToFind, AVLTree productTree, List productList)`: Searches for a product in the AVL tree and the linked list.
 - `inputProduct()`: Reads user input for a product name.
@@ -80,9 +94,6 @@ ___
 - `decreaseStock(String productToDelete, AVLTree productTree)`: Decreases the stock of a product.
 - `showOrderProductList(List productList)`: Sorts and displays the product list in alphabetical order.
 - `removeProduct(String productToDelete, AVLTree productTree, List productList)`: Removes a product from the inventory.
-___
-### Fields
-- `private static Scanner scanner`: Scanner object for user input.
 ___
 
 
