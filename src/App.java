@@ -295,7 +295,7 @@ public class App {
 
     /**
      * Sorts the historical list alphabetically and displays it by console
-     * 
+     *
      * @param productList The historical list of products to be sorted and displayed.
      */
     private static void showOrderProductList(List produList) {
