@@ -60,6 +60,7 @@ do {
     }
 } while(option != 5);
 ```
+___
 ## Requirements
 - Java (version 1.15 or superior)
 - IDE (Eclipse, IntelliJ, VSCode, etc.) or command line tool (Maven, Gradle, etc.)
@@ -73,6 +74,7 @@ do {
 1. After compiling the program, run it using the java App command or using the IDE's run options.
 2. Follow the instructions that appear on the console to interact with the inventory management application.
 
+___
 ## Code Analysis
 ### Main functionalities
 - Add a product to the inventory
