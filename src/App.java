@@ -11,7 +11,7 @@ public class App {
         AVLTree productTree = new AVLTree();
         List productHistory = new List();
         int option;
-
+        String optionStr;
         menuIntro();
 
         do {
@@ -26,37 +26,47 @@ public class App {
                     do {
                         option = 0;
                         System.out.println("\n\nDo you want to ...");
-                        System.out.println("1) Eliminate a product.");
-                        System.out.println("2) Decrease your stock.");
-                        System.out.print("Enter an option: ");
+                        System.out.println("        1) Eliminate a product.");
+                        System.out.println("        2) Decrease your stock.");
+                        System.out.println("        3) Go back to menu.");
+                        System.out.print("\nEnter an option: ");
 
                         try {
                             option = Integer.parseInt(scanner.nextLine());
 
                             switch(option) {
                                 case 1:
-                                    System.out.println("Enter the name of the product you want to delete.");
+                                    System.out.println("\nEnter the name of the product you want to delete:\n");
                                     removeProduct(inputProduct(), productTree, productHistory);
                                     break;
                                 case 2:
-                                    System.out.println("Enter the name of the product you want to reduce stock.");
+                                    System.out.println("\nEnter the name of the product you want to reduce stock:\n");
                                     decreaseStock(inputProduct(), productTree);
                                     break;
+                                case 3:
+                                    break;
                                 default:
-                                    System.err.println("Invalid");
+                                     System.err.println("\n                "+"\033[41m"+"Invalid"+"\033[0m");
                                     break;
                             }
                         } catch(NumberFormatException e) {
                             System.err.println("\n                "+"\033[41m"+"You must enter a numerical value."+"\033[0m");
                         }
 
-                    } while(option != 1 && option != 2);
+                    } while(option != 3);
                     break;
                 case 3:
-                    System.out.println("\n\nEnter the name of the product you want to search for:\n");
-                    findingProduct(inputProduct(), productTree, productHistory);
-                    System.out.println("                  (Press enter to continue)");
-                    scanner.nextLine();
+                    do{
+                        System.out.println("\n\nEnter the name of the product you want to search for:\n");
+                        findingProduct(inputProduct(), productTree, productHistory);
+                        do{
+                            System.out.print("\nDo you want to do another search? (y / n) ");
+                            optionStr = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
+                            if(!optionStr.equals("n") && !optionStr.equals("y"))
+                                System.err.println("\n                "+"\033[41m"+"Invalid"+"\033[0m");   
+                        }while(!optionStr.equals("n") && !optionStr.equals("y"));
+                    
+                    }while(!optionStr.equals("n"));
                     break;
                 case 4:
                     System.out.println("\n\n                "+"\033[45m"+"Complete product inventory:"+"\033[0m");
@@ -147,7 +157,7 @@ public class App {
 
                 return product;
             } catch(ProductNotFoundException d) {
-                System.err.println("\n                "+"\033[41m"+"Product \"" + productToFind + "\" not found in the system."+"\033[0m"+"\n");
+                System.out.println("\n                "+"\033[41m"+"Product \"" + productToFind + "\" not found in the system."+"\033[0m"+"\n");
 
                 return null;
             }
@@ -243,12 +253,12 @@ public class App {
 
         try {
             Product product = productTree.searchProduct(productToDelete);
-            System.out.println("Product: " + productToDelete + " was found registered in the system! Current stock: " + product.stock);
+            System.out.println("\n           "+"\033[42m"+"Product: " + productToDelete + " was found registered in the system!"+"\033[0m"+" Current stock: " + product.stock);
 
             int stock = 0;
 
             do {
-                System.out.println("Enter how many inventory items you want to delete: ");
+                System.out.println("\nEnter how many inventory items you want to delete: ");
 
                 try {
                     stock = Integer.parseInt(scanner.nextLine());
@@ -262,18 +272,19 @@ public class App {
 
             if (product.stock >= stock) {
                 product.stock -= stock;
-                System.out.println("Successfully deleted items!");
+                System.out.println("\n           "+"\033[42m"+"Successfully deleted items!"+"\033[0m");
                 if (product.stock == 0) {
                     productTree.deleteProduct(productToDelete);
                 }
             } else {
+                System.err.println("\n                         "+"\u001B[48;2;255;165;0m"+" WARNING! "+"\033[0m"+"\n");
                 System.err.println("You have entered a greater stock than the current product has.");
                 System.out.println("Current stock: " + product.stock);
 
                 String option = "";
 
                 do {
-                    System.out.println("Do you want to enter another stock? (y / n)");
+                    System.out.print("\nDo you want to enter another stock? (y / n) ");
                     option = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
 
                     switch(option) {
@@ -283,13 +294,14 @@ public class App {
                         case "n":
                             break;
                         default:
-                            System.err.println("Invalid");
+                            System.err.println("\n                "+"\033[41m"+"Invalid"+"\033[0m");
                             break;
                     }
                 } while(!option.equals("n") && !option.equals("y"));
             }
         } catch(ProductNotFoundException e) {
-            System.out.println(e.getMessage());
+            System.out.println("\n                "+"\033[41m"+"Product \"" + productToDelete + "\" not found in the system."+"\033[0m"+"\n");
+
         }
     }
 
@@ -320,27 +332,24 @@ public class App {
      */
     private static void removeProduct(String productToDelete, AVLTree productTree, List productList) {
         Product product = findingProduct(productToDelete, productTree, productList);
-        if (product != null) {
-            System.out.println("Product: " + productToDelete + " was found registered in the system! Current stock: " + product.stock);
-        } else {
-            System.out.println("The product: " + productToDelete + " is not registered in the system.");
+        if (product == null)
             return;
-        }
 
         String option;
         do {
-            System.out.print("Product " + productToDelete + " will be deleted. Do you want to confirm? (y / n)");
+             System.err.println("\n                         "+"\u001B[48;2;255;165;0m"+" WARNING! "+"\033[0m"+"\n");
+            System.out.print("Product " + productToDelete + " will be deleted. Do you want to confirm? (y / n) ");
             option = scanner.nextLine().toLowerCase().replaceAll("\\s+", "");
             switch (option) {
                 case "y":
                     productTree.deleteProduct(productToDelete);
                     productList.removeNode(productToDelete);
-                    System.out.println("Product disposed correctly!");
+                    System.out.println("\n                "+"\033[42m"+"Product disposed correctly!"+"\033[0m");
                     break;
                 case "n":
                     break;
                 default:
-                    System.err.println("Invalid option");
+                    System.err.println("\n                "+"\033[41m"+"Invalid"+"\033[0m");
                     break;
             }
         } while (!option.equals("n") && !option.equals("y"));
