@@ -73,17 +73,17 @@ ___
 
 ## Methods
 
-### - `menuIntro()`: Displays the inventory management system logo and menu introduction.
+### `menuIntro()`: Displays the inventory management system logo and menu introduction.
 
-    ### Inputs
+    Inputs
     There are no inputs for this method.
 
-    ### Flow
+    Flow
     1. The method prints a logotype of the inventory management system.
     2. The method prints an introduction message for the menu.
     3. The method waits for the user to press enter to continue.
 
-    ### Outputs
+    Outputs
     There are no outputs for this method.
 
 
