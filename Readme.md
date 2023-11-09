@@ -73,7 +73,7 @@ ___
 
 ## Methods
 
-- `menuIntro()`: Displays the inventory management system logo and menu introduction.
+### - `menuIntro()`: Displays the inventory management system logo and menu introduction.
 
     ### Inputs
     There are no inputs for this method.
@@ -85,6 +85,7 @@ ___
 
     ### Outputs
     There are no outputs for this method.
+
 
 - `menu()`: Displays the menu options and returns the user's choice.
 
@@ -99,6 +100,7 @@ ___
 
     ### Outputs
     The selected option as an integer.
+
 
 - `findingProduct(String productToFind, AVLTree productTree, List productList)`: Searches for a product in the AVL tree and the linked list.
 
@@ -116,6 +118,7 @@ ___
 
     ### Outputs
     - `product` (Product): The product found in either the AVL tree or the linked list, or null if the product is not found.
+
 
 - `inputProduct()`: Reads user input for a product name.
 
@@ -152,6 +155,7 @@ ___
     ### Outputs
     None
 
+
 - `incrementStock(Product product)`: Increments the stock of a product.
 
     ### Inputs
@@ -165,6 +169,7 @@ ___
 
     ### Outputs
     None. The stock of the given product is updated directly.
+
 
 - `decreaseStock(String productToDelete, AVLTree productTree)`: Decreases the stock of a product.
 
@@ -185,11 +190,11 @@ ___
     10. If the user chooses not to enter another stock, exit the method.
 
     ### Outputs
-    Success message if the stock is successfully reduced.
-    Error message if the input is not a numerical value.
-    Error message if the input is less than or equal to zero.
-    Error message if the stock is less than the input.
-    Error message if the product is not found in the AVL tree.
+    - Success message if the stock is successfully reduced.
+    - Error message if the input is not a numerical value.
+    - Error message if the input is less than or equal to zero.
+    - Error message if the stock is less than the input.
+    - Error message if the product is not found in the AVL tree.
 
 
 - `showOrderProductList(List productList)`: Sorts and displays the product list in alphabetical order.
@@ -215,7 +220,7 @@ ___
     - `productToDelete` (String): The name of the product to be deleted.
     - `productTree` (AVLTree): The AVL tree data structure that stores the products.
     - `productList` (List): The linked list data structure that stores the products.
-    
+
     ### Flow
     1. Find the product in the system by calling the `findingProduct` method with the `productToDelete`, `productTree`, and `productList` as arguments.
     2. If the product is found, print the product name and current stock.
@@ -224,13 +229,13 @@ ___
     5. If the user confirms (by entering 'y'), delete the product from both the AVL tree and the product list.
     6. If the user does not confirm (by entering 'n'), do nothing.
     7. Repeat steps 4-6 until the user confirms or cancels.
-    
+
     ### Outputs
-    If the product is found, print the product name and current stock.
-    If the product is not found, print a message indicating that the product is not registered in the system.
-    If the user confirms the deletion, print a message indicating that the product was deleted.
-    If the user cancels the deletion, do nothing.
-    
+    -If the product is found, print the product name and current stock.
+    - If the product is not found, print a message indicating that the product is not registered in the system.
+    - If the user confirms the deletion, print a message indicating that the product was deleted.
+    - If the user cancels the deletion, do nothing.
+
 ___
 
 
