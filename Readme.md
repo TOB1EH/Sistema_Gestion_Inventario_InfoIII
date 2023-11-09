@@ -5,9 +5,6 @@
 - Funes Tobias
 - Vargas Benjamin
 
-## Description
-...
-
 ## Summary
 The `App` class is the main class of an inventory management system. It provides a menu-driven interface for users to add, remove, search, and display products in the inventory. The class uses an AVL tree data structure to store the products and a linked list to maintain a historical list of products.
 
