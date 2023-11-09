@@ -8,7 +8,6 @@
 ## Summary
 The `App` class is the main class of an inventory management system. It provides a menu-driven interface for users to add, remove, search, and display products in the inventory. The class uses an AVL tree data structure to store the products and a linked list to maintain a historical list of products.
 
-## Example Usage
 ```java
 // Create instances of AVLTree and List
 AVLTree productTree = new AVLTree();
@@ -61,6 +60,18 @@ do {
     }
 } while(option != 5);
 ```
+## Requirements
+- Java (version 1.15 or superior)
+- IDE (Eclipse, IntelliJ, VSCode, etc.) or command line tool (Maven, Gradle, etc.)
+
+## Compilation Instructions
+1. Clone the project repository to your local machine.
+2. Open the project in your preferred IDE or navigate to the project folder on the command line.
+3. Compile the program using the javac App.java command or using the IDE compile options.
+
+## Execution Instructions
+1. After compiling the program, run it using the java App command or using the IDE's run options.
+2. Follow the instructions that appear on the console to interact with the inventory management application.
 
 ## Code Analysis
 ### Main functionalities
